@@ -1,6 +1,7 @@
 ---
 import { AS_OF } from '../data/site.js';
-const { title, description, schema = [], updated = AS_OF } = Astro.props;
+import Newsletter from '../components/Newsletter.astro';
+const { title, description, schema = [], updated = AS_OF, footerNewsletter = true } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const nav = [['/calculator/','Calculator'],['/solar-backup/','Solar'],['/quotes/','Get quotes'],['/portable-power-stations/','Power stations'],['/whole-home-battery-cost/','Whole-home batteries'],['/what-size-battery-generator/','Sizing guide'],['/rebates/','Rebates']];
 ---
@@ -58,6 +59,7 @@ details summary{cursor:pointer;font-weight:600}
 </div></header>
 <main class="wrap"><slot /></main>
 <footer class="site"><div class="wrap">
+{footerNewsletter && <Newsletter compact />}
 <p><strong>HomeBackupCost</strong> — independent backup power sizing and cost data. Page data as of {updated}. Every figure links to its source; estimates are labeled <span class="badge est">Estimate</span>.</p>
 <p><a href="/about/">About &amp; methodology</a> · <a href="/affiliate-disclosure/">Affiliate disclosure</a> · <a href="/privacy/">Privacy</a> · <a href="/federal-tax-credits-ended/">Federal tax credits ended</a> · <a href="/llms.txt">llms.txt</a></p>
 <p>Not electrical, legal, or tax advice. Have a licensed electrician connect anything to your home's wiring.</p>

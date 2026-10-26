@@ -1,7 +1,8 @@
 ---
-import { appliances, batteries, programs, national, expansions, STATE_NAMES, DEFAULT_HOURS, USABLE } from '../data/site.js';
+import EmailReport from './EmailReport.astro';
+import { AS_OF, appliances, batteries, programs, national, expansions, STATE_NAMES, DEFAULT_HOURS, USABLE } from '../data/site.js';
 import solar from '../data/solar.json';
-const payload = { appliances: appliances.filter(a => a.running_w_max), batteries, programs, national, expansions, states: STATE_NAMES, hours: DEFAULT_HOURS, usable: USABLE, solar };
+const payload = { asOf: AS_OF, appliances: appliances.filter(a => a.running_w_max), batteries, programs, national, expansions, states: STATE_NAMES, hours: DEFAULT_HOURS, usable: USABLE, solar };
 ---
 <div id="qc" class="qc card">
   <form id="qcStart" class="qc-start" novalidate>
@@ -30,6 +31,7 @@ const payload = { appliances: appliances.filter(a => a.running_w_max), batteries
     <button class="btn" type="button" id="qcGo">See my results</button></div>
   </div>
   <div id="qcOut" hidden aria-live="polite"></div>
+  <EmailReport id="qcEmail" />
   <script type="application/json" id="qcData" set:html={JSON.stringify(payload)}></script>
 </div>
 <style>
@@ -84,7 +86,13 @@ $('#qcGo').addEventListener('click', () => {
   html += `<div><h3>Rebates in ${esc(D.states[st])}</h3>${nat ? `HEAR: ${esc(nat.hear)} · HOMES: ${esc(nat.homes)}<br>` : ''}${progs.filter(p => /^live/i.test(p.status)).slice(0, 3).map(p => `• ${esc(p.program)}: ${esc(p.amounts)}`).join('<br>') || '<span class="mute">We haven\'t found verified state or utility programs for this state yet.</span>'}<p class="src">Federal battery and heat pump credits ended 12/31/2025. ${progs.length ? `<a href="/rebates/${st.toLowerCase()}/">State details</a>` : '<a href="/rebates/">All states</a>'}</p></div></div>`;
   html += `<div class="qc-row">${showInstalled ? `<a class="btn" href="/quotes/?zip=${encodeURIComponent($('#qcZip').value)}">Get quotes</a>` : ''}<a class="btn ghost" href="/calculator/?preset=${load === 'climate' ? 'essentials' : load}&h=${h}&state=${st}">Open the full calculator</a><button type="button" class="btn ghost" id="qcAgain">Change answers</button></div>`;
   $('#qcOut').innerHTML = html; $('#qcOut').hidden = false; $('#qcSteps').hidden = true;
-  $('#qcAgain').addEventListener('click', () => { $('#qcSteps').hidden = false; $('#qcOut').hidden = true; });
+  const report = { source: 'quickcheck', state: st, stateName: D.states[st], hours: h, kwh: r.kwh, dailyKwh: r.dailyKwh, peakW: r.peakW, runningW: r.runningW,
+    items: items.map(i => ({ name: i.name, qty: i.qty || 1, hours: i.hours })), best,
+    installed: showInstalled ? m.installed.map(b => ({ label: `${b.units} × ${b.product}`, low: b.costLow, high: b.costHigh })) : [],
+    generator: m.generator, solarW: s.wattsToCoverDaily, asOf: D.asOf,
+    rebates: progs.filter(p => /^live/i.test(p.status)).slice(0, 5).map(p => ({ program: p.program, amounts: p.amounts, status: p.status, url: p.source_url })) };
+  document.dispatchEvent(new CustomEvent('hbc:report', { detail: { target: 'qcEmail', report } }));
+  $('#qcAgain').addEventListener('click', () => { $('#qcSteps').hidden = false; $('#qcOut').hidden = true; document.dispatchEvent(new CustomEvent('hbc:report', { detail: { target: 'qcEmail', report: null } })); });
   $('#qcOut').scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 </script>

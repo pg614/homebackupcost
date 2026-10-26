@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import Calculator from '../components/Calculator.astro';
 import Newsletter from '../components/Newsletter.astro';
 ---
-<Base title="Backup Power Calculator: kWh, Surge Watts & Battery Matches | HomeBackupCost" description="Free backup power calculator. Add appliances and outage length to get kWh needed, peak and surge watts, matching batteries, cost estimates, and state rebates." schema={[{ '@context':'https://schema.org','@type':'WebApplication', name:'Backup Power Calculator', applicationCategory:'UtilitiesApplication', operatingSystem:'Any', offers:{ '@type':'Offer', price:'0', priceCurrency:'USD' } }]}>
+<Base footerNewsletter={false} title="Backup Power Calculator: kWh, Surge Watts & Battery Matches | HomeBackupCost" description="Free backup power calculator. Add appliances and outage length to get kWh needed, peak and surge watts, matching batteries, cost estimates, and state rebates." schema={[{ '@context':'https://schema.org','@type':'WebApplication', name:'Backup Power Calculator', applicationCategory:'UtilitiesApplication', operatingSystem:'Any', offers:{ '@type':'Offer', price:'0', priceCurrency:'USD' } }]}>
 <h1>Backup power calculator</h1>
 <p class="lede">Your battery size, peak watts, and matching options in about 30 seconds.</p>
 <Calculator />

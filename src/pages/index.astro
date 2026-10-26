@@ -14,7 +14,7 @@ const schema = [
  { '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) },
 ];
 ---
-<Base title="Home Backup Power Calculator: Battery Size, Cost & Rebates | HomeBackupCost" description="Pick what you need to keep running in an outage and see the battery size (kWh), peak watts, matching power stations, whole-home battery cost, and rebates in your state." schema={schema}>
+<Base footerNewsletter={false} title="Home Backup Power Calculator: Battery Size, Cost & Rebates | HomeBackupCost" description="Pick what you need to keep running in an outage and see the battery size (kWh), peak watts, matching power stations, whole-home battery cost, and rebates in your state." schema={schema}>
 <section class="hero">
 <p class="eyebrow"><span class="dot"></span> Free calculator · Sourced data, as of 2026-10-25</p>
 <h1>How much backup power does <span class="hl">your home</span> really need?</h1>

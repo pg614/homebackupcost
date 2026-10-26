@@ -1,8 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
 const faq = [["How much does it cost to install a standby generator?", "Generac puts the average installed cost at $8,000\u2013$16,000, including the generator, equipment and installation (checked 2026-10-26). Long gas runs, larger liquid-cooled units, and panel upgrades push it higher."], ["Does the price include the transfer switch?", "Most published installed ranges include an automatic transfer switch. Confirm it is itemized on your quote."], ["Is there a federal tax credit for a standby generator?", "We have not found a federal tax credit for home standby generators. The battery credit (25D) ended for installs completed after 12/31/2025."]];
 ---
-<Base title={"Standby Generator Installation Cost 2026: Fair Price Ranges | HomeBackupCost"} description={"What a whole-home standby generator costs installed in 2026: Generac says $8,000\u2013$16,000 including the unit. What is included, what adds cost, and how to check a quote."} schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<Base footerNewsletter={false} title={"Standby Generator Installation Cost 2026: Fair Price Ranges | HomeBackupCost"} description={"What a whole-home standby generator costs installed in 2026: Generac says $8,000\u2013$16,000 including the unit. What is included, what adds cost, and how to check a quote."} schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
 <h1>Standby generator installation cost (2026)</h1>
 <p class="lede">Most published 2026 ranges for an installed whole-home standby generator, including the unit and transfer switch, land around $8,000–$16,000.</p>
 <div class="grid">
@@ -19,4 +20,5 @@ const faq = [["How much does it cost to install a standby generator?", "Generac 
 <p class="note"><a href="/quotes/"><strong>Get installer quotes →</strong></a> · <a href="/calculator/">Size your backup first with the calculator →</a></p>
 <h2>FAQ</h2>
 {faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
 </Base>

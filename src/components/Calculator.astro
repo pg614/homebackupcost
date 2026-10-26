@@ -1,9 +1,10 @@
 ---
 import solar from '../data/solar.json';
+import EmailReport from './EmailReport.astro';
 import { expansions, appliances, batteries, programs, national, STATE_NAMES, DEFAULT_HOURS, USABLE, AS_OF } from '../data/site.js';
 const usable = appliances.filter(a => a.running_w_max);
 const unsourced = appliances.filter(a => !a.running_w_max);
-const payload = { expansions, appliances: usable.map(a => ({ name: a.appliance, runMin: a.running_w_min, runMax: a.running_w_max, startMax: a.starting_w_max || null, hours: DEFAULT_HOURS[a.appliance] ?? 4, src: a.source_url })), batteries, programs, national, states: STATE_NAMES, usable: USABLE, solar };
+const payload = { asOf: AS_OF, expansions, appliances: usable.map(a => ({ name: a.appliance, runMin: a.running_w_min, runMax: a.running_w_max, startMax: a.starting_w_max || null, hours: DEFAULT_HOURS[a.appliance] ?? 4, src: a.source_url })), batteries, programs, national, states: STATE_NAMES, usable: USABLE, solar };
 const presets = { essentials: ['Refrigerator','Furnace fan 1/2 HP','Router/modem (Wi-Fi)','LED bulb (each)','Phone/laptop charger'], medical: ['Refrigerator','CPAP heated humidifier','Router/modem (Wi-Fi)','LED bulb (each)','Phone/laptop charger'], flood: ['Refrigerator','Sump pump 1/3 HP','Router/modem (Wi-Fi)','LED bulb (each)'], whole: ['Refrigerator','Freezer','Furnace fan 1/2 HP','Well pump 1/2 HP','Microwave','Washing machine','TV 32-55in','LED bulb (each)','Router/modem (Wi-Fi)','Phone/laptop charger','Window AC 10,000 BTU'] };
 const states = Object.entries(STATE_NAMES);
 ---
@@ -37,6 +38,7 @@ const states = Object.entries(STATE_NAMES);
 </div>
 <p class="note" style="margin-top:12px"><span class="badge est">Assumption</span> We divide by <strong>{USABLE}</strong> to cover inverter losses and capacity you can't fully use. Running watts use the midpoint of each sourced range; peak uses the top of the range plus the single biggest motor start-up surge. Real-world use varies with weather, appliance age, and settings.</p>
 <div id="results"></div>
+<EmailReport id="calcEmail" />
 </div>
 </div>
 <script type="application/json" id="calcData" set:html={JSON.stringify(payload)}></script>
@@ -87,7 +89,7 @@ function run() {
     items.push({ ...a, qty: Math.max(1, +r.querySelector('.qty').value || 1), hours: Math.max(0, +r.querySelector('.hrs').value || 0) });
   }
   const h = +$('#dur').value; $('#durOut').textContent = h < 48 ? `${h} hours` : `${(h/24).toFixed(h%24?1:0)} days`;
-  if (!items.length) { $('#kwh').textContent='—'; $('#peak').textContent='—'; $('#kwhSub').textContent=''; $('#peakSub').textContent=''; $('#results').innerHTML='<p class="mute">Pick at least one appliance to see results.</p>'; return; }
+  if (!items.length) { $('#kwh').textContent='—'; $('#peak').textContent='—'; $('#kwhSub').textContent=''; $('#peakSub').textContent=''; $('#results').innerHTML='<p class="mute">Pick at least one appliance to see results.</p>'; document.dispatchEvent(new CustomEvent('hbc:report', { detail: { target: 'calcEmail', report: null } })); return; }
   const r = calculate(items, h, D.usable);
   $('#kwh').textContent = r.kwh.toFixed(1) + ' kWh';
   $('#kwhSub').textContent = `${r.rawKwh.toFixed(2)} kWh of use ÷ ${D.usable} · ${r.dailyKwh.toFixed(2)} kWh/day`;
@@ -130,6 +132,17 @@ function run() {
     if (st === 'CA') html += '<p class="src">Note: PG&amp;E\'s portable battery rebate only covers 290–1,000 Wh units, so large stations do not qualify.</p>';
   }
   $('#results').innerHTML = html;
+  {
+    const single = m.portable.filter(b => b.powerOk && b.fullCover && b.price != null).sort((a, b) => a.price - b.price)[0], sys = m.systems[0];
+    const best = single && (!sys || single.price <= sys.totalPrice) ? { label: single.product, cap: single.capacity_kwh, price: single.price, url: single.source_url } : sys ? { label: `${sys.base.product} + ${sys.n} × ${sys.exp.battery}`, cap: sys.capacityKwh, price: sys.totalPrice, url: sys.exp.source_url } : null;
+    const A = D.solar.assumptions;
+    const report = { source: 'calculator', state: st, stateName: D.states[st] || '', hours: h, kwh: r.kwh, dailyKwh: r.dailyKwh, peakW: r.peakW, runningW: r.runningW,
+      items: items.map(i => ({ name: i.name, qty: i.qty, hours: i.hours })), best,
+      installed: m.installed.map(b => ({ label: `${b.units} × ${b.product}`, low: b.costLow, high: b.costHigh })), generator: m.generator,
+      solarW: $('#solarOn')?.checked ? solarNeeds(r.dailyKwh, r.kwh, A.peak_sun_hours, A.derate).wattsToCoverDaily : null, asOf: D.asOf,
+      rebates: st ? D.programs.filter(p => p.state === st).slice(0, 6).map(p => ({ program: p.program, amounts: p.amounts, status: p.status, url: p.source_url })) : [] };
+    document.dispatchEvent(new CustomEvent('hbc:report', { detail: { target: 'calcEmail', report } }));
+  }
 }
 document.getElementById('calc').addEventListener('input', run);
 document.getElementById('calc').addEventListener('change', run);

@@ -1,8 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
 const faq = [["Is it legal to backfeed a generator through a dryer outlet?", "No. NEC 702.5 requires listed transfer or interconnection equipment, and CPSC calls backfeeding through an outlet extremely dangerous to utility workers and neighbors."], ["Is an interlock kit legal?", "A listed interlock kit for your specific panel is a form of transfer equipment under NEC 702.5. Some towns have extra rules, so check with your building department and use a licensed electrician."], ["Transfer switch or interlock kit: which is better?", "An interlock usually costs less and can feed any circuit in the panel, one breaker at a time. A transfer switch is limited to pre-selected circuits but is simpler to use. An automatic transfer switch is standard with standby generators."], ["Do I need an electrician to install a generator inlet box?", "Yes. An inlet connects to your panel through transfer equipment, which is panel work. Use a licensed electrician and get a permit where required."]];
 ---
-<Base title={"Transfer Switch vs Interlock Kit vs Inlet Box: Connecting a Generator Legally | HomeBackupCost"} description={"Transfer switch vs interlock kit, what a generator inlet box does, whether backfeeding is legal (no, per NEC 702.5 and CPSC), and when you need an electrician."} schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<Base footerNewsletter={false} title={"Transfer Switch vs Interlock Kit vs Inlet Box: Connecting a Generator Legally | HomeBackupCost"} description={"Transfer switch vs interlock kit, what a generator inlet box does, whether backfeeding is legal (no, per NEC 702.5 and CPSC), and when you need an electrician."} schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
 <h1>Transfer switch vs interlock kit: how to connect backup power to your house</h1>
 <p class="lede">There are a few legal ways to run house circuits from a generator or power station. Each one keeps your backup power from flowing back onto utility lines.</p>
 <p class="note"><strong>Safety:</strong> This page explains your options. It is not wiring instructions. Any work in your electrical panel, including transfer switches, interlocks, and inlets, should be done by a licensed electrician with a permit where your town requires one.</p>
@@ -23,4 +24,5 @@ const faq = [["Is it legal to backfeed a generator through a dryer outlet?", "No
 <p class="note"><a href="/quotes/"><strong>Get installer quotes →</strong></a> · <a href="/calculator/">Size your backup first with the calculator →</a></p>
 <h2>FAQ</h2>
 {faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
 </Base>

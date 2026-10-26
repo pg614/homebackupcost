@@ -1,0 +1,14 @@
+name = "homebackupcost-email"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+
+[vars]
+EMAIL_ENABLED = "false"                 # flip to "true" on Friday
+NEWSLETTER_PROVIDER = "buttondown"      # or "beehiiv"
+ALLOWED_ORIGINS = "https://homebackupcost.com,https://www.homebackupcost.com"
+FROM_EMAIL = ""                         # e.g. "HomeBackupCost <report@mail.homebackupcost.com>"
+REPLY_TO = ""
+UNSUBSCRIBE_URL = ""                    # list provider's public unsubscribe/manage page
+# Secrets (set with `wrangler secret put`, never commit): RESEND_API_KEY, BUTTONDOWN_API_KEY | BEEHIIV_API_KEY + BEEHIIV_PUBLICATION_ID
+
+# routes = [{ pattern = "api.homebackupcost.com", custom_domain = true }]

@@ -1,0 +1,56 @@
+---
+import { EMAIL_LIVE, EMAIL_ENDPOINT, CONSENT_TEXT } from '../data/email-config.js';
+const { id = 'er' } = Astro.props;
+---
+<div class="er card" id={id} data-email-report data-live={EMAIL_LIVE ? '1' : '0'} data-endpoint={EMAIL_ENDPOINT} hidden>
+  <h3 style="margin:0 0 4px">Email me my report</h3>
+  <p class="mute" style="margin:0 0 10px;font-size:.92rem">Get these exact results (your appliances, battery size, options, and rebates) in your inbox to come back to later.</p>
+  <form novalidate>
+    <div class="er-row">
+      <label class="er-email"><span class="sr">Email</span><input type="email" name="email" autocomplete="email" placeholder="you@example.com" required maxlength="254" /></label>
+      <button class="btn" type="submit" disabled={!EMAIL_LIVE}>{EMAIL_LIVE ? 'Email my report' : 'Coming soon'}</button>
+    </div>
+    <label class="er-consent"><input type="checkbox" name="consent" required /> <span>{CONSENT_TEXT}</span></label>
+    <label class="hp" aria-hidden="true">Company <input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+    <p class="src er-msg" role="status">{EMAIL_LIVE ? <>We'll only use your email as described in our <a href="/privacy/">privacy policy</a>.</> : <><strong>Coming soon:</strong> emailing isn't switched on yet, so nothing is sent or stored. You can <button type="button" class="linkbtn" data-preview>view or print your report</button> now.</>}</p>
+  </form>
+</div>
+<style>
+.er{margin-top:16px}
+.er-row{display:flex;gap:10px;flex-wrap:wrap}
+.er-email{flex:1;min-width:200px}.er-email input{width:100%;padding:11px 12px}
+.er-consent{display:flex;gap:8px;align-items:flex-start;margin-top:10px;font-size:.9rem;cursor:pointer}
+.er-consent input{margin-top:3px;flex:none;width:18px;height:18px;accent-color:var(--volt)}
+.er .btn[disabled]{opacity:.55;cursor:not-allowed}.er .btn[disabled]:hover{background:var(--volt);color:var(--on-volt)}
+.hp{position:absolute!important;left:-9999px;width:1px;height:1px;overflow:hidden}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.linkbtn{background:none;border:0;padding:0;color:var(--link);text-decoration:underline;cursor:pointer;font:inherit}
+</style>
+<script>
+import { buildReport } from '../data/report.js';
+for (const box of document.querySelectorAll('[data-email-report]')) {
+  let data = null;
+  const form = box.querySelector('form'), msg = box.querySelector('.er-msg'), btn = form.querySelector('[type=submit]');
+  const live = box.dataset.live === '1', endpoint = box.dataset.endpoint;
+  document.addEventListener('hbc:report', (e) => { if (e.detail.target !== box.id) return; data = e.detail.report; box.hidden = !data; });
+  box.querySelector('[data-preview]')?.addEventListener('click', () => {
+    if (!data) return; const { html } = buildReport(data);
+    const w = window.open('', '_blank'); if (w) { w.document.open(); w.document.write(html); w.document.close(); }
+  });
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!live || !data) return; // flag off: nothing is sent or stored
+    const email = form.email.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { msg.innerHTML = '<span class="bad">Please enter a valid email address.</span>'; return; }
+    if (!form.consent.checked) { msg.innerHTML = '<span class="bad">Please tick the box so we can email you.</span>'; return; }
+    btn.disabled = true; msg.textContent = 'Sending…';
+    try {
+      const r = await fetch(endpoint + '/report', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email, consent: true, company: form.company.value, report: data, page: location.pathname }) });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(j.error || 'Something went wrong');
+      msg.innerHTML = '<span class="ok">Sent! Check your inbox (and spam folder) in a minute.</span>'; form.reset();
+    } catch (err) { msg.innerHTML = `<span class="bad">${String(err.message).replace(/[<>&]/g, '')}. Please try again.</span>`; }
+    finally { btn.disabled = false; }
+  });
+}
+</script>
