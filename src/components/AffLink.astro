@@ -1,0 +1,7 @@
+---
+import { BRAND_URL, brandOf } from '../data/site.js';
+const { product, label = 'Check current price' } = Astro.props;
+const brand = brandOf(product);
+const href = BRAND_URL[brand];
+---
+{href ? <a class="btn ghost" href={href} rel="nofollow sponsored noopener" target="_blank" data-affiliate="placeholder" data-affiliate-brand={brand} data-product={product}>{label} ↗</a> : null}

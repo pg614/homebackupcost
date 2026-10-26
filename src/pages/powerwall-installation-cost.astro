@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+const faq = [["How much does a Powerwall cost installed?", "EnergySage reports a typical installed cost of about $15,647 for a battery of about 13.5 kWh, or $1,130\u2013$1,159 per kWh (checked 2026-10-25). Your price depends on your home and installer."], ["Can I still get the 30% tax credit on a Powerwall?", "No. The IRS says the Section 25D credit does not apply to installations completed after 12/31/2025."]];
+---
+<Base title={"Powerwall 3 Installation Cost 2026: Is Your Quote Fair? | HomeBackupCost"} description={"What a Tesla Powerwall 3 costs installed in 2026: EnergySage reports about $15,647 typical for ~13.5 kWh. How to judge a quote and what is not included."} schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>Is your Powerwall quote fair?</h1>
+<p class="lede">Use the installed cost per kWh to judge a home battery quote. That number lets you compare a Powerwall with other brands.</p>
+<div class="grid">
+<div class="card"><div class="mute">Typical installed (~13.5 kWh)</div><div style="font-size:2rem;font-weight:800;color:var(--volt)">~$15,647</div><div class="src"><a href="https://www.energysage.com/energy-storage/how-much-do-batteries-cost/">EnergySage</a> · as of 2026-10-25</div></div>
+<div class="card"><div class="mute">Per kWh installed</div><div style="font-size:2rem;font-weight:800;color:var(--volt)">$1,130–$1,159</div><div class="src"><a href="https://www.energysage.com/energy-storage/how-much-do-batteries-cost/">EnergySage</a> · as of 2026-10-25</div></div>
+</div>
+<h2>How to check your quote</h2>
+<ol><li>Divide the total price by usable kWh. Our math: a $15,647 quote ÷ 13.5 kWh ≈ $1,159/kWh, at the top of EnergySage's range.</li><li>Ask whether a panel upgrade, gateway, or trenching is included or extra.</li><li>Ask whether it backs up the whole home or only essential loads.</li><li>Don't count the 30% federal credit. The IRS says installs completed after 12/31/2025 don't qualify. <a href="/federal-tax-credits-ended/">Details →</a></li></ol>
+<p>Check for state or utility programs: <a href="/rebates/">rebates by state →</a></p>
+<p>Next: <a href="/how-to-compare-backup-power-quotes/">how to compare quotes</a> · <a href="/backup-power-installer-red-flags/">installer red flags</a></p>
+<p class="note"><a href="/quotes/"><strong>Get installer quotes →</strong></a> · <a href="/calculator/">Size your backup first with the calculator →</a></p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+</Base>

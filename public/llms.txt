@@ -1,0 +1,26 @@
+# HomeBackupCost
+
+> Independent, source-linked guide to sizing and pricing home backup power (portable power stations, whole-home batteries, generators) in the US, plus rebate status by state. All data as of 2026-10-25; estimates are labeled.
+
+Key facts:
+- Home page Quick Check: ZIP + 3 questions gives a ballpark kWh, the cheapest portable setup, installed and generator options, and state rebates.
+- Federal 25D (battery) and 25C (heat pump) tax credits do not apply to work completed/placed in service after 12/31/2025 (IRS OBBB FAQ).
+- Typical installed whole-home battery (~13.5 kWh): ~$15,647; ~$1,130–$1,159/kWh (EnergySage).
+- Calculator method: kWh needed = Σ(typical running W × qty × hours/day) × days / 1000 / 0.85 (0.85 usable-capacity factor is an assumption). Peak W = Σ max running W + largest single starting surge.
+
+## Pages
+- [Backup power calculator](https://homebackupcost.com/calculator/): kWh, peak watts, matching batteries, cost, rebates by state
+- [Portable power stations compared](https://homebackupcost.com/portable-power-stations/): specs and dated prices
+- [Whole-home battery cost](https://homebackupcost.com/whole-home-battery-cost/)
+- [What size battery or generator do I need](https://homebackupcost.com/what-size-battery-generator/)
+- [Rebates by state (HOMES/HEAR status)](https://homebackupcost.com/rebates/) — CSV: https://homebackupcost.com/rebates/homes-hear-status.csv
+- [Solar backup](https://homebackupcost.com/solar-backup/): official portable panels per station, recharge times (assumption: 4 peak sun hours, 0.75 derate), rooftop solar + battery cost (EnergySage H1 2026: $2.57/W, $1,130/kWh)
+- [Get quotes](https://homebackupcost.com/quotes/): installer quote request (preview, not live)
+- [Federal tax credits ended 12/31/2025](https://homebackupcost.com/federal-tax-credits-ended/)
+- [Standby generator installation cost](https://homebackupcost.com/standby-generator-installation-cost/): $8,000–$16,000 installed (Generac, as of 2026-10-26)
+- [Powerwall installation cost / is my quote fair](https://homebackupcost.com/powerwall-installation-cost/)
+- [Questions to ask a battery or generator installer](https://homebackupcost.com/questions-to-ask-backup-power-installer/)
+- [Installer red flags](https://homebackupcost.com/backup-power-installer-red-flags/)
+- [How to compare backup power quotes](https://homebackupcost.com/how-to-compare-backup-power-quotes/)
+- [Transfer switch vs interlock kit vs inlet box; backfeeding is not permitted (NEC 702.5, CPSC)](https://homebackupcost.com/transfer-switch-vs-interlock-kit/)
+- [Methodology and sources](https://homebackupcost.com/about/)

@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import Calculator from '../components/Calculator.astro';
+import Newsletter from '../components/Newsletter.astro';
+---
+<Base title="Backup Power Calculator: kWh, Surge Watts & Battery Matches | HomeBackupCost" description="Free backup power calculator. Add appliances and outage length to get kWh needed, peak and surge watts, matching batteries, cost estimates, and state rebates." schema={[{ '@context':'https://schema.org','@type':'WebApplication', name:'Backup Power Calculator', applicationCategory:'UtilitiesApplication', operatingSystem:'Any', offers:{ '@type':'Offer', price:'0', priceCurrency:'USD' } }]}>
+<h1>Backup power calculator</h1>
+<p class="lede">Your battery size, peak watts, and matching options in about 30 seconds.</p>
+<Calculator />
+<h2>How the math works</h2>
+<ol>
+<li><strong>Energy per day</strong> = for each appliance, typical running watts × quantity × hours per day. Typical running watts are the midpoint of the sourced range. <span class="badge est">Estimate</span></li>
+<li><strong>Battery energy needed</strong> = energy per day × days ÷ 0.85. <span class="badge est">Assumption</span> The 0.85 factor covers inverter losses and reserve capacity.</li>
+<li><strong>Peak watts</strong> = the sum of each appliance's maximum running watts + the largest single start-up surge (starting watts − running watts). Motors rarely all start at the same moment, so we count only the biggest surge.</li>
+<li><strong>Power station match</strong>: continuous output ≥ total running watts and surge rating ≥ peak watts. "Covers" compares battery capacity with your need.</li>
+<li><strong>Installed battery cost</strong> = capacity × $1,130–$1,159 per kWh (<a href="https://www.energysage.com/energy-storage/how-much-do-batteries-cost/">EnergySage</a>). <span class="badge est">Estimate</span></li>
+<li><strong>Generator size</strong> = running and peak watts, each rounded up to the next 500 W.</li>
+</ol>
+<p><a href="/about/">Full methodology and sources →</a></p>
+<Newsletter />
+</Base>

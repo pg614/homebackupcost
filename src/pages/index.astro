@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import Calculator from '../components/Calculator.astro';
+import QuickCheck from '../components/QuickCheck.astro';
+import Newsletter from '../components/Newsletter.astro';
+const faq = [
+ ['How big a battery do I need to run a fridge during an outage?', 'A refrigerator draws about 150–400 running watts and 800–1,200 watts to start (Champion Power Equipment chart). If the compressor runs about a third of the time (our assumption), that is roughly 1–3 kWh per day. Use the calculator to add your other essentials.'],
+ ['Is there still a federal tax credit for home batteries?', 'No. Under the 2025 law known as the One Big Beautiful Bill, the Section 25D credit does not apply to installations completed after 12/31/2025, per the IRS FAQ.'],
+ ['How much does a whole-home battery cost installed?', 'EnergySage reports about $15,647 typical for roughly 13.5 kWh, or about $1,130–$1,159 per kWh, as of 2026-10-25.'],
+];
+const schema = [
+ { '@context':'https://schema.org','@type':'WebSite', name:'HomeBackupCost', url:'https://homebackupcost.com/' },
+ { '@context':'https://schema.org','@type':'WebApplication', name:'Backup Power Calculator', applicationCategory:'UtilitiesApplication', operatingSystem:'Any', url:'https://homebackupcost.com/calculator/', offers:{ '@type':'Offer', price:'0', priceCurrency:'USD' } },
+ { '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) },
+];
+---
+<Base title="Home Backup Power Calculator: Battery Size, Cost & Rebates | HomeBackupCost" description="Pick what you need to keep running in an outage and see the battery size (kWh), peak watts, matching power stations, whole-home battery cost, and rebates in your state." schema={schema}>
+<section class="hero">
+<p class="eyebrow"><span class="dot"></span> Free calculator · Sourced data, as of 2026-10-25</p>
+<h1>How much backup power does <span class="hl">your home</span> really need?</h1>
+<p class="lede">Enter your ZIP and answer 3 quick questions. You'll get a ballpark battery size, the cheapest setup that covers it, installed and generator options, and your state's rebates, with a source for every number.</p>
+<QuickCheck />
+</section>
+<h2 id="full">Full calculator: pick every appliance</h2>
+<Calculator />
+<section class="grid" style="margin-top:36px">
+<a class="card tile" href="/portable-power-stations/"><h3>Portable power stations compared</h3><p class="mute">Capacity, output, surge, and price for 11 models, with price dates.</p></a>
+<a class="card tile" href="/whole-home-battery-cost/"><h3>Whole-home battery cost</h3><p class="mute">Powerwall 3, FranklinWH, and EnergySage's installed price data.</p></a>
+<a class="card tile" href="/what-size-battery-generator/"><h3>What size do I need?</h3><p class="mute">Running vs. starting watts, kWh, and worked examples.</p></a>
+<a class="card tile" href="/rebates/"><h3>Rebates by state</h3><p class="mute">HOMES/HEAR status for every state plus utility programs.</p></a>
+</section>
+<h2>Quick answers</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+<style>
+.hero{padding:28px 0 18px}.eyebrow{color:var(--mute);font-size:.85rem;display:flex;gap:8px;align-items:center}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--volt);box-shadow:0 0 12px var(--volt)}
+.hl{background:linear-gradient(90deg,var(--hl1),var(--hl2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.tile{text-decoration:none;color:var(--ink)}.tile:hover{border-color:var(--volt)}.tile h3{margin-top:0}
+@media(max-width:600px){.hero{padding:14px 0 8px}.hero .lede{font-size:1rem}}
+</style>
+</Base>

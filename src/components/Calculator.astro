@@ -1,0 +1,144 @@
+---
+import solar from '../data/solar.json';
+import { expansions, appliances, batteries, programs, national, STATE_NAMES, DEFAULT_HOURS, USABLE, AS_OF } from '../data/site.js';
+const usable = appliances.filter(a => a.running_w_max);
+const unsourced = appliances.filter(a => !a.running_w_max);
+const payload = { expansions, appliances: usable.map(a => ({ name: a.appliance, runMin: a.running_w_min, runMax: a.running_w_max, startMax: a.starting_w_max || null, hours: DEFAULT_HOURS[a.appliance] ?? 4, src: a.source_url })), batteries, programs, national, states: STATE_NAMES, usable: USABLE, solar };
+const presets = { essentials: ['Refrigerator','Furnace fan 1/2 HP','Router/modem (Wi-Fi)','LED bulb (each)','Phone/laptop charger'], medical: ['Refrigerator','CPAP heated humidifier','Router/modem (Wi-Fi)','LED bulb (each)','Phone/laptop charger'], flood: ['Refrigerator','Sump pump 1/3 HP','Router/modem (Wi-Fi)','LED bulb (each)'], whole: ['Refrigerator','Freezer','Furnace fan 1/2 HP','Well pump 1/2 HP','Microwave','Washing machine','TV 32-55in','LED bulb (each)','Router/modem (Wi-Fi)','Phone/laptop charger','Window AC 10,000 BTU'] };
+const states = Object.entries(STATE_NAMES);
+---
+<section id="calc" class="calc card">
+<div class="calc-grid">
+<div>
+<h2 style="margin-top:0">1. What do you need to keep running?</h2>
+<div class="presets"><span class="mute" style="font-size:.85rem">Quick start:</span>
+<button type="button" data-preset="essentials">Essentials</button><button type="button" data-preset="medical">CPAP / medical</button><button type="button" data-preset="flood">Sump pump</button><button type="button" data-preset="whole">Most of the house</button><button type="button" data-preset="none">Clear</button></div>
+<div class="apps" id="apps">
+{usable.map((a) => (
+<div class="app" data-name={a.appliance}>
+<label class="chk"><input type="checkbox" class="on" /> <span>{a.appliance}</span></label>
+<span class="w mute">{a.running_w_min}–{a.running_w_max} W</span>
+<label class="mini">qty <input type="number" class="qty" min="1" max="50" value={a.appliance === 'LED bulb (each)' ? 6 : 1} /></label>
+<label class="mini">h/day <input type="number" class="hrs" min="0" max="24" step="0.5" value={DEFAULT_HOURS[a.appliance] ?? 4} /></label>
+</div>))}
+</div>
+<p class="src">Wattage ranges: <a href="https://www.championpowerequipment.com/generator-wattage-chart/" target="_blank" rel="noopener">Champion Power Equipment wattage chart</a> (as of {AS_OF}). <span class="badge est">Assumption</span> Default "h/day" values are our estimates of how long each appliance actually draws power (e.g. a fridge compressor runs about 1/3 of the time = 8 h/day). Edit them to match your home. Not listed yet (no verified figures): {unsourced.map(u => u.appliance).join('; ')}. For medical devices, use the watts on your device's label.</p>
+<h2>2. For how long?</h2>
+<div class="dur"><input type="range" id="dur" min="1" max="168" value="24" /><output id="durOut">24 hours</output></div>
+<div class="presets" id="durBtns"><button type="button" data-h="8">8 h</button><button type="button" data-h="24">1 day</button><button type="button" data-h="72">3 days</button><button type="button" data-h="168">1 week</button></div>
+<h2>3. Your state <span class="mute" style="font-size:.9rem;font-weight:400">(for rebates)</span></h2>
+<label style="display:flex;gap:8px;align-items:center;margin:8px 0"><input type="checkbox" id="solarOn" /> Recharge with solar</label>
+<select id="state"><option value="">Choose a state…</option>{states.map(([k,v]) => <option value={k}>{v}</option>)}</select>
+</div>
+<div class="out" aria-live="polite">
+<div class="kpis">
+<div class="kpi"><div class="k-l">Battery energy needed</div><div class="k-v" id="kwh">—</div><div class="k-s" id="kwhSub"></div></div>
+<div class="kpi"><div class="k-l">Peak power (with surge)</div><div class="k-v" id="peak">—</div><div class="k-s" id="peakSub"></div></div>
+</div>
+<p class="note" style="margin-top:12px"><span class="badge est">Assumption</span> We divide by <strong>{USABLE}</strong> to cover inverter losses and capacity you can't fully use. Running watts use the midpoint of each sourced range; peak uses the top of the range plus the single biggest motor start-up surge. Real-world use varies with weather, appliance age, and settings.</p>
+<div id="results"></div>
+</div>
+</div>
+<script type="application/json" id="calcData" set:html={JSON.stringify(payload)}></script>
+<script type="application/json" id="presetData" set:html={JSON.stringify(presets)}></script>
+</section>
+<style>
+.calc-grid{display:grid;gap:24px;grid-template-columns:1.1fr 1fr}
+@media(max-width:900px){.calc-grid{grid-template-columns:1fr}}
+.apps{display:grid;gap:6px;max-height:440px;overflow-y:auto;padding-right:4px}
+.app{display:grid;grid-template-columns:1fr auto auto auto;gap:8px;align-items:center;background:var(--field);border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:.92rem}
+.app.sel{border-color:var(--volt);box-shadow:0 0 0 1px var(--volt) inset}
+.app .w{font-size:.78rem}.mini{font-size:.75rem;color:var(--mute)}.mini input{width:56px;padding:4px 6px}
+@media(max-width:520px){.app{grid-template-columns:1fr 1fr}.app .w{text-align:right}}
+.chk{display:flex;gap:8px;align-items:center;cursor:pointer}.chk input{width:18px;height:18px;accent-color:var(--volt)}
+.presets{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;align-items:center}
+.presets button{background:var(--field);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer;font-size:.85rem}.presets button:hover{border-color:var(--volt)}
+.dur{display:flex;gap:12px;align-items:center}.dur input{flex:1;accent-color:var(--volt)}#durOut{font-weight:700;min-width:110px}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.kpi{background:var(--deep);border:1px solid var(--line);border-radius:14px;padding:14px}
+.k-l{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mute)}
+.k-v{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;color:var(--volt);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.k-s{font-size:.78rem;color:var(--mute)}
+</style>
+<script>
+import { solarNeeds, calculate, matchBatteries } from '../data/calc.js';
+import { priceLow } from '../data/site.js';
+const D = JSON.parse(document.getElementById('calcData').textContent);
+function solarBlock(r) {
+  const A = D.solar.assumptions, s = solarNeeds(r.dailyKwh, r.kwh, A.peak_sun_hours, A.derate);
+  const rows = D.solar.panels.map(p => { const n = Math.ceil(s.wattsToCoverDaily / p.watts); return `<tr><td><a href="${p.product_url}" target="_blank" rel="nofollow sponsored noopener">${p.panel}</a></td><td>${n} × ${p.watts} W</td><td>${s.daysToRefill(p.watts).toFixed(1)} days</td><td>${p.fits.join(', ')}</td></tr>`; }).join('');
+  const lim = Object.entries(D.solar.max_solar_input_w).map(([k, v]) => `${k} ${v.w.toLocaleString()} W`).join(' · ');
+  return `<h3>Recharge with solar</h3><p>To refill a day of use (${r.dailyKwh.toFixed(2)} kWh), you need about <strong>${s.wattsToCoverDaily.toLocaleString()} W of panels</strong> <span class="badge est">Assumption: ${A.peak_sun_hours} peak sun hours, ${Math.round(A.derate*100)}% output</span>. With enough sun, that keeps a multi-day outage going indefinitely.</p><div class="tbl"><table><thead><tr><th>Official panel</th><th>Panels to cover daily use</th><th>One panel refills ${r.kwh.toFixed(1)} kWh in</th><th>Fits</th></tr></thead><tbody>${rows}</tbody></table></div><p class="src">A station can't take more solar than its input limit: ${lim}. We don't have the limits for smaller stations yet. Your local sun varies, so check <a href="https://pvwatts.nlr.gov/" target="_blank" rel="noopener">PVWatts</a>. <a href="/solar-backup/">Solar backup guide</a></p>`;
+}
+const P = JSON.parse(document.getElementById('presetData').textContent);
+const $ = (s) => document.querySelector(s);
+const fmt = (n) => n.toLocaleString('en-US');
+const money = (n) => '$' + n.toLocaleString('en-US', { maximumFractionDigits: 2 });
+const esc = (s) => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const BRAND = { EcoFlow:'https://us.ecoflow.com/collections/home-backup-battery', Anker:'https://www.ankersolix.com/', Jackery:'https://www.jackery.com/', Bluetti:'https://www.bluettipower.com/', BLUETTI:'https://www.bluettipower.com/', 'Goal Zero':'https://goalzero.com/' };
+const brandOf = (n) => Object.keys(BRAND).find(b => n.startsWith(b));
+function rows() { return [...document.querySelectorAll('.app')]; }
+function run() {
+  const items = [];
+  for (const r of rows()) {
+    const on = r.querySelector('.on').checked; r.classList.toggle('sel', on);
+    if (!on) continue;
+    const a = D.appliances.find(x => x.name === r.dataset.name);
+    items.push({ ...a, qty: Math.max(1, +r.querySelector('.qty').value || 1), hours: Math.max(0, +r.querySelector('.hrs').value || 0) });
+  }
+  const h = +$('#dur').value; $('#durOut').textContent = h < 48 ? `${h} hours` : `${(h/24).toFixed(h%24?1:0)} days`;
+  if (!items.length) { $('#kwh').textContent='—'; $('#peak').textContent='—'; $('#kwhSub').textContent=''; $('#peakSub').textContent=''; $('#results').innerHTML='<p class="mute">Pick at least one appliance to see results.</p>'; return; }
+  const r = calculate(items, h, D.usable);
+  $('#kwh').textContent = r.kwh.toFixed(1) + ' kWh';
+  $('#kwhSub').textContent = `${r.rawKwh.toFixed(2)} kWh of use ÷ ${D.usable} · ${r.dailyKwh.toFixed(2)} kWh/day`;
+  $('#peak').textContent = fmt(r.peakW) + ' W';
+  $('#peakSub').textContent = `${fmt(r.runningW)} W running + ${fmt(r.surgeExtraW)} W start-up surge`;
+  const m = matchBatteries(r, D.batteries, priceLow, D.expansions);
+  const solarHtml = $('#solarOn')?.checked ? solarBlock(r) : '';
+  const fit = m.portable.filter(b => b.powerOk);
+  const full = fit.filter(b => b.fullCover);
+  let html = solarHtml + '<h3>Portable power stations</h3>';
+  if (!fit.length) html += '<p class="bad">None of the power stations in our data can supply this much power at once. Remove a big load (AC, well pump, water heater) or look at a whole-home battery or generator.</p>';
+  else {
+    html += `<p class="mute" style="font-size:.88rem">${full.length ? `${full.length} can cover the whole ${h} hours on one charge.` : `No single unit covers all ${h} hours on one charge${m.systems.length ? ', but an expandable unit plus add-on batteries does (see below).' : '. Recharge from solar or a generator, or consider a whole-home battery.'}`}</p><div class="tbl"><table><thead><tr><th>Model</th><th>Covers</th><th>Price*</th><th></th></tr></thead><tbody>`;
+    for (const b of fit.slice(0, 6)) {
+      const br = brandOf(b.product);
+      html += `<tr><td><strong>${esc(b.product)}</strong><br><span class="src">${b.capacity_kwh} kWh · ${fmt(b.output_w)} W out · ${b.surge_w ? fmt(b.surge_w)+' W surge' : 'surge not captured'}</span></td><td class="${b.fullCover?'ok':'est'}">${b.coverPct}%${b.fullCover?'':`<br><span class="src">≈${Math.round(b.capacity_kwh*D.usable/ (r.rawKwh/h))} h</span>`}</td><td>${b.price?money(b.price):'—'}<br><a class="src" href="${b.source_url}" target="_blank" rel="noopener">source</a></td><td>${br?`<a href="${BRAND[br]}" target="_blank" rel="nofollow sponsored noopener" data-affiliate="placeholder" data-affiliate-brand="${br}" data-product="${esc(b.product)}">View ↗</a>`:''}</td></tr>`;
+    }
+    html += `</tbody></table></div><p class="src">*Lowest listed price in our data (${esc(fit[0].as_of)}). Prices change often; check the store. "Covers" = battery size vs. your need.</p>`;
+  }
+  if (m.systems.length) {
+    html += `<h3>Expandable systems that cover all ${h} hours</h3><p class="mute" style="font-size:.88rem">The base unit plus the fewest official add-on batteries needed, cheapest first.</p><div class="tbl"><table><thead><tr><th>System</th><th>Total capacity</th><th>Total price*</th></tr></thead><tbody>`;
+    m.systems.forEach((s, i) => {
+      html += `<tr><td>${i===0?'<span class="badge ok">Lowest cost</span><br>':''}<strong>${esc(s.base.product)}</strong> + ${s.n} × ${esc(s.exp.battery)}<br><span class="src">${fmt(s.base.output_w)} W out · max ${s.exp.max_per_base} add-ons · <a href="${s.exp.product_url}" target="_blank" rel="nofollow sponsored noopener" data-affiliate="placeholder" data-product="${esc(s.exp.battery)}">battery page ↗</a></span></td><td class="ok">${s.capacityKwh.toFixed(2)} kWh<br><span class="src">need ${r.kwh.toFixed(2)}</span></td><td><strong>${money(s.totalPrice)}</strong><br><span class="src">${money(s.base.price)} + ${s.n} × ${money(s.exp.price)} · <a href="${s.base.source_url}" target="_blank" rel="noopener">base</a> / <a href="${s.exp.source_url}" target="_blank" rel="noopener">battery</a> price as of ${esc(s.exp.as_of)}</span></td></tr>`;
+    });
+    html += '</tbody></table></div><p class="src">*Sum of the listed prices, before tax, shipping, bundle discounts, and transfer hardware. Bundles are sometimes cheaper. Base prices come from our October 2026 data; add-on battery prices come from brand pages on 2026-10-25.</p>';
+  }
+  html += '<h3>Whole-home battery (installed)</h3>';
+  for (const b of m.installed) html += `<p><strong>${b.units} × ${esc(b.product)}</strong> (${(b.units*b.capacity_kwh).toFixed(1)} kWh) <span class="badge est">Estimate</span> ≈ ${money(b.costLow)}–${money(b.costHigh)} installed${b.powerOk?'':' <span class="bad">(power may be short)</span>'}</p>`;
+  html += `<p class="src">Installed cost = capacity × $1,130–$1,159 per kWh, the EnergySage average (<a href="https://www.energysage.com/energy-storage/how-much-do-batteries-cost/" target="_blank" rel="noopener">source</a>, as of 2026-10-25). Actual quotes vary by installer and home. <a href="/whole-home-battery-cost/">Cost guide →</a></p>`;
+  html += `<h3>Generator alternative</h3><p>Look for at least <strong>${fmt(m.generator.runningW)} running W</strong> and <strong>${fmt(m.generator.startingW)} starting W</strong> (rounded up to the next 500 W). <span class="src">We don't have verified generator prices yet, so none are shown.</span></p>`;
+  const st = $('#state').value;
+  if (st) {
+    const nat = D.national.find(n => n.state === st);
+    const progs = D.programs.filter(p => p.state === st);
+    html += `<h3>Rebates in ${esc(D.states[st]||st)}</h3>`;
+    html += `<p class="note">Federal tax credits for home batteries (25D) and heat pumps (25C) <strong>ended 12/31/2025</strong>. <a href="/federal-tax-credits-ended/">What changed →</a></p>`;
+    if (nat) html += `<p>State HOMES/HEAR rebates: HEAR <strong>${esc(nat.hear)}</strong>, HOMES <strong>${esc(nat.homes)}</strong>. <span class="src"><a href="${nat.source_url}" target="_blank" rel="noopener">${esc(nat.as_of)}</a></span></p>`;
+    if (progs.length) { html += '<ul>'; for (const p of progs) html += `<li><strong>${esc(p.program)}</strong>: ${esc(p.amounts)} — <em>${esc(p.status)}</em> <a class="src" href="${p.source_url}" target="_blank" rel="noopener">source</a></li>`; html += `</ul><p><a href="/rebates/${st.toLowerCase()}/">Full ${esc(D.states[st])} rebate page →</a></p>`; }
+    else html += '<p class="mute">We haven\'t verified utility or state programs for this state yet. <a href="/rebates/">See the national table</a>.</p>';
+    if (st === 'CA') html += '<p class="src">Note: PG&amp;E\'s portable battery rebate only covers 290–1,000 Wh units, so large stations do not qualify.</p>';
+  }
+  $('#results').innerHTML = html;
+}
+document.getElementById('calc').addEventListener('input', run);
+document.getElementById('calc').addEventListener('change', run);
+document.querySelectorAll('[data-preset]').forEach(b => b.addEventListener('click', () => { const l = P[b.dataset.preset] || []; rows().forEach(r => r.querySelector('.on').checked = l.includes(r.dataset.name)); run(); }));
+document.querySelectorAll('#durBtns [data-h]').forEach(b => b.addEventListener('click', () => { $('#dur').value = b.dataset.h; run(); }));
+const q = new URLSearchParams(location.search);
+const pre = P[q.get('preset')||'essentials'] || P.essentials;
+rows().forEach(r => r.querySelector('.on').checked = pre.includes(r.dataset.name));
+if (q.get('h')) $('#dur').value = q.get('h');
+if (q.get('state')) $('#state').value = q.get('state').toUpperCase();
+run();
+</script>

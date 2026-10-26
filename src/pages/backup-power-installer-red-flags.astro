@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+const faq = [["Is it a red flag if an installer mentions the federal battery tax credit?", "In 2026, yes, if they say it applies to a new install. The IRS says 25D does not apply to installations completed after 12/31/2025."], ["Can an installer skip the permit?", "Panel and gas work generally require permits. Check with your local building department."]];
+---
+<Base title={"Backup Power Installer Red Flags: Batteries & Generators | HomeBackupCost"} description={"Warning signs in a home battery or standby generator quote: pitches that still promise the 30% tax credit, no permit, pressure tactics, and vague scope."} schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>Red flags in a battery or generator quote</h1>
+<p class="lede">You can spot most bad quotes before you sign.</p>
+<ul>
+<li><strong>Still promising the 30% federal tax credit.</strong> The IRS says the 25D battery credit does not apply to installs completed after 12/31/2025. <a href="/federal-tax-credits-ended/">Details →</a></li>
+<li><strong>"No permit needed"</strong> for panel or gas work. Unpermitted work can create problems with insurance, inspections, and resale.</li>
+<li><strong>No license number</strong>, or one that doesn't match your state licensing board's records.</li>
+<li><strong>Offers to connect a generator without transfer equipment.</strong> NEC 702.5 requires listed transfer or interconnection equipment (<a href="https://up.codes/s/interconnection-or-transfer-equipment">UpCodes</a>). CPSC calls backfeeding "extremely dangerous" (<a href="https://www.cpsc.gov/s3fs-public/Portable-Generator-Safety-Alert-2017_5123.pdf">CPSC</a>).</li>
+<li><strong>A one-line price</strong> with no itemization, or big deposits due up front.</li>
+<li><strong>Same-day pressure</strong> ("price expires tonight").</li>
+<li><strong>A price far outside published ranges.</strong> Batteries run about $1,130–$1,159/kWh installed (<a href="https://www.energysage.com/energy-storage/how-much-do-batteries-cost/">EnergySage</a>, as of 2026-10-25). Standby generators run $8,000–$16,000 (<a href="https://www.generac.com/resources/home-management/backup-generator-installation/">Generac</a>, as of 2026-10-26). Ask what's driving the difference.</li>
+</ul>
+<p>Next: <a href="/questions-to-ask-backup-power-installer/">questions to ask</a> · <a href="/how-to-compare-backup-power-quotes/">compare quotes</a></p>
+<p class="note"><a href="/quotes/"><strong>Get installer quotes →</strong></a> · <a href="/calculator/">Size your backup first with the calculator →</a></p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+</Base>

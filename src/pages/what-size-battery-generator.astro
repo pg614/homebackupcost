@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import { appliances } from '../data/site.js';
+import { calculate } from '../data/calc.js';
+const pick = (n) => { const a = appliances.find(x => x.appliance === n); return { name:n, runMin:a.running_w_min, runMax:a.running_w_max, startMax:a.starting_w_max }; };
+const ex1 = calculate([{...pick('Refrigerator'),qty:1,hours:8},{...pick('Furnace fan 1/2 HP'),qty:1,hours:8},{...pick('Router/modem (Wi-Fi)'),qty:1,hours:24}], 24);
+const ex2 = calculate([{...pick('CPAP heated humidifier'),qty:1,hours:8},{...pick('Router/modem (Wi-Fi)'),qty:1,hours:24},{...pick('Phone/laptop charger'),qty:1,hours:3}], 24);
+const faq = [['What size generator do I need to run a refrigerator and furnace?', `Using the Champion wattage chart, a fridge (400 W max running, 1,200 W start) plus a 1/2 HP furnace fan (800 W max running, 1,600 W start) and Wi-Fi need about ${ex1.runningW.toLocaleString()} running watts and ${ex1.peakW.toLocaleString()} peak watts, so a 2,500 W-class generator or power station covers it.`],['How many kWh do I need for a 24-hour outage?', `For a fridge, a furnace fan running 8 hours, and Wi-Fi, our estimate is about ${ex1.kwh.toFixed(1)} kWh, including the 0.85 usable-capacity assumption.`]];
+const schema = [{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }];
+---
+<Base title="What Size Battery or Generator Do I Need? Watts & kWh Explained | HomeBackupCost" description="How to size a backup battery or generator: running vs. starting watts, kWh for an outage, a sourced appliance wattage table, and worked examples." schema={schema}>
+<h1>What size battery or generator do I need?</h1>
+<p class="lede">You need two numbers: <strong>watts</strong>, meaning how much power runs at once, and <strong>kWh</strong>, meaning how much energy you use over the outage.</p>
+<div class="grid">
+<div class="card"><h3>Watts = size</h3><p>Add up the running watts of everything on at once, then add the biggest start-up surge. Fridges, pumps, and AC compressors briefly pull 2–3× their running watts when they start.</p></div>
+<div class="card"><h3>kWh = how long</h3><p>Watts × hours ÷ 1,000. A 400 W load for 5 hours uses 2 kWh. Batteries are rated in kWh. Generators run as long as they have fuel.</p></div>
+</div>
+<h2>Worked example 1: fridge + furnace fan + Wi-Fi, 24 hours</h2>
+<ul>
+<li>Fridge: 275 W typical × 8 h <span class="badge est">Assumption: compressor on 1/3 of the time</span> = 2.2 kWh</li>
+<li>Furnace fan: 550 W typical × 8 h <span class="badge est">Assumption</span> = 4.4 kWh</li>
+<li>Wi-Fi: 15 W × 24 h = 0.36 kWh</li>
+<li>Total {ex1.rawKwh.toFixed(2)} kWh ÷ 0.85 = <strong>{ex1.kwh.toFixed(1)} kWh</strong> of battery</li>
+<li>Peak: 400 + 800 + 20 = {ex1.runningW.toLocaleString()} W running, + 800 W largest surge = <strong>{ex1.peakW.toLocaleString()} W</strong></li>
+</ul>
+<h2>Worked example 2: CPAP with heated humidifier + Wi-Fi + phone charging, 1 night and day</h2>
+<p>About <strong>{ex2.kwh.toFixed(2)} kWh</strong> and <strong>{ex2.peakW} W</strong> peak. Look for a portable station with at least that much capacity; a 1 kWh unit would fall short of a full 24 hours. Check your CPAP's label for its exact watts.</p>
+<h2>Appliance wattage table</h2>
+<div class="tbl"><table><thead><tr><th>Appliance</th><th>Running W</th><th>Starting W</th><th>Daily kWh note</th></tr></thead><tbody>
+{appliances.map(a => <tr><td>{a.appliance}</td><td>{a.running_w_max ? `${a.running_w_min}–${a.running_w_max}` : <span class="est">no verified figure</span>}</td><td>{a.starting_w_max ? `${a.starting_w_min}–${a.starting_w_max}` : '—'}</td><td class="src">{a.daily_kwh} <span class="badge est">Estimate</span></td></tr>)}
+</tbody></table></div>
+<p class="src">Running and starting watts: <a href="https://www.championpowerequipment.com/generator-wattage-chart/">Champion Power Equipment generator wattage chart</a>, as of 2026-10-25. Daily kWh notes are our computed estimates. Some sump and well pump figures cite outagemath.com. A 240 V well pump can surge to 5,300 W, so check its nameplate.</p>
+<h2>Generator vs. battery</h2>
+<p>For a generator, match its running watts to your running total and its starting watts to your peak. Fuel takes care of the kWh. For a battery, you need both the watts and the kWh. We haven't verified generator prices yet, so we don't list any.</p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<p><a class="btn" href="/calculator/">Run your own numbers</a></p>
+</Base>

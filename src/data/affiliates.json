@@ -1,0 +1,66 @@
+[
+ {
+  "program": "EnergySage (CJ)",
+  "type": "solar/battery/heat pump lead",
+  "payout": "$10 per approved lead (third-party listings; CJ page confirms per-lead, rate not public)",
+  "cookie": "45 days (third-party)",
+  "requirements": "CJ publisher account + approval",
+  "source": "https://public.cj.com/signup/publisher?advertiserId=5835771"
+ },
+ {
+  "program": "EcoFlow",
+  "type": "direct affiliate (also Awin)",
+  "payout": "5% (Awin: 5-8% by market)",
+  "cookie": "7 days",
+  "requirements": "apply online",
+  "source": "https://us.ecoflow.com/pages/affiliate-program"
+ },
+ {
+  "program": "Anker SOLIX",
+  "type": "direct affiliate",
+  "payout": "5%",
+  "cookie": "30 days",
+  "requirements": "apply online",
+  "source": "https://www.ankersolix.com/become-an-affiliate"
+ },
+ {
+  "program": "BLUETTI US (Awin)",
+  "type": "affiliate",
+  "payout": "5-10% tiered; AOV $1,000+",
+  "cookie": "30 days",
+  "requirements": "free; no TM bidding; $100 min withdrawal",
+  "source": "https://ui.awin.com/merchant-profile/59271"
+ },
+ {
+  "program": "Goal Zero (Partnerize)",
+  "type": "affiliate",
+  "payout": "up to 10%; AOV $600+",
+  "cookie": "30 days",
+  "requirements": "free application",
+  "source": "https://goalzero.com/pages/affiliate-marketing-program"
+ },
+ {
+  "program": "Jackery",
+  "type": "affiliate",
+  "payout": "US rate NOT verified (UK 6%, DE 8% on Awin)",
+  "cookie": "~30 days",
+  "requirements": "apply",
+  "source": "https://ui.awin.com/merchant-profile/30413"
+ },
+ {
+  "program": "A1 SolarStore",
+  "type": "affiliate",
+  "payout": "6% up to $250/order",
+  "cookie": "n/a",
+  "requirements": "apply",
+  "source": "https://a1solarstore.com/affiliate-program/"
+ },
+ {
+  "program": "Amazon Associates",
+  "type": "affiliate",
+  "payout": "3% Home Improvement/Outdoors/Tools; 4% 'all other'",
+  "cookie": "24h (standard; not re-verified)",
+  "requirements": "3 qualifying sales in 180 days (standard rule; verify)",
+  "source": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+ }
+]

@@ -1,0 +1,27 @@
+[
+ {
+  "item": "Installed home battery (~13.5 kWh)",
+  "range": "~$15,647 typical; ~$1,130-$1,159/kWh",
+  "source": "https://www.energysage.com/energy-storage/how-much-do-batteries-cost/"
+ },
+ {
+  "item": "Tesla Powerwall 3 (13.5 kWh)",
+  "range": "$9,300 (equipment price as listed by comparison site; install extra)",
+  "source": "https://homegridhq.com/compare/"
+ },
+ {
+  "item": "Heat pump installed",
+  "range": "avg $15,393 upfront; ducted avg $14,529; mini-split avg $25,957 (EnergySage marketplace)",
+  "source": "https://www.energysage.com/heat-pumps/heat-pump-installation/"
+ },
+ {
+  "item": "200A panel upgrade",
+  "range": "$1,800-$4,500; avg ~$2,500-$3,000 (secondary sources - mark estimate)",
+  "source": "https://housemathguide.com/electrical/electrical-panel-upgrade-cost/"
+ },
+ {
+  "item": "Plug-in transfer hardware",
+  "range": "EcoFlow Smart Home Panel 2 $1,599; Anker Smart Home Power Kit $1,499 list; Jackery Smart Transfer Switch $1,299 list",
+  "source": "https://homebatteryreport.com/guides/plug-in-vs-installed-battery-cost"
+ }
+]

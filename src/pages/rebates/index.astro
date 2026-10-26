@@ -1,0 +1,19 @@
+---
+import Base from '../../layouts/Base.astro';
+import { national, STATE_NAMES, LAUNCH_STATES } from '../../data/site.js';
+const schema = [{ '@context':'https://schema.org','@type':'Dataset', name:'State HOMES and HEAR home energy rebate launch status', description:'Launch status of the federally funded HOMES and HEAR home energy rebate programs in each US state, compiled from the NASEO tracker.', url:'https://homebackupcost.com/rebates/', creator:{ '@type':'Organization', name:'HomeBackupCost' }, isBasedOn:'https://www.naseo.org/topics/home-energy-rebates', temporalCoverage:'2026', dateModified:'2026-10-25', spatialCoverage:'United States', variableMeasured:['HEAR status','HOMES status'] }];
+const launched = national.filter(n => /^launched/i.test(n.hear) || /^launched/i.test(n.homes)).length;
+---
+<Base title="Home Energy Rebates by State: HOMES & HEAR Status Tracker | HomeBackupCost" description={`Which states have launched HOMES and HEAR home energy rebates? A status table for all ${national.length} states and territories from NASEO's tracker (updated 2026-09-30), plus utility programs.`} schema={schema}>
+<h1>Home energy rebates by state</h1>
+<p class="lede">The federal tax credits ended on 12/31/2025. What's left is a patchwork of state HOMES/HEAR rebates and utility programs. According to NASEO, {launched} of {national.length} states and territories have launched at least one of the two programs.</p>
+<p class="note">Rebates mostly cover heat pumps, panels, wiring, and efficiency work, not portable power stations. The main exceptions are a few California utility programs. <a href="/federal-tax-credits-ended/">Why the federal credits ended →</a></p>
+<h2>Launch-state guides</h2>
+<div class="grid">{LAUNCH_STATES.map(s => <a class="card" style="text-decoration:none;color:var(--ink)" href={`/rebates/${s.toLowerCase()}/`}><strong>{STATE_NAMES[s]}</strong><br/><span class="mute">Verified programs →</span></a>)}</div>
+<h2>National HOMES / HEAR status</h2>
+<div class="tbl"><table><thead><tr><th>State</th><th>HEAR</th><th>HOMES</th><th>Note</th></tr></thead><tbody>
+{national.map(n => <tr><td>{LAUNCH_STATES.includes(n.state) ? <a href={`/rebates/${n.state.toLowerCase()}/`}>{STATE_NAMES[n.state] || n.state}</a> : (STATE_NAMES[n.state] || n.state)}</td><td class={/^launched/i.test(n.hear)?'ok':'mute'}>{n.hear}</td><td class={/^launched/i.test(n.homes)?'ok':'mute'}>{n.homes}</td><td class="src">{n.note}</td></tr>)}
+</tbody></table></div>
+<p class="src">Source: <a href="https://www.naseo.org/topics/home-energy-rebates">NASEO Home Energy Rebates tracker</a> ({national[0].as_of}). Compiled 2026-10-25. "Not listed as launched" means NASEO does not list it, not that it definitely hasn't launched; some third-party trackers list more launches. Check with your state energy office.</p>
+<p><a href="/rebates/homes-hear-status.csv" download>Download this table as CSV</a></p>
+</Base>

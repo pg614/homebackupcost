@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+const faq = [["Is it legal to backfeed a generator through a dryer outlet?", "No. NEC 702.5 requires listed transfer or interconnection equipment, and CPSC calls backfeeding through an outlet extremely dangerous to utility workers and neighbors."], ["Is an interlock kit legal?", "A listed interlock kit for your specific panel is a form of transfer equipment under NEC 702.5. Some towns have extra rules, so check with your building department and use a licensed electrician."], ["Transfer switch or interlock kit: which is better?", "An interlock usually costs less and can feed any circuit in the panel, one breaker at a time. A transfer switch is limited to pre-selected circuits but is simpler to use. An automatic transfer switch is standard with standby generators."], ["Do I need an electrician to install a generator inlet box?", "Yes. An inlet connects to your panel through transfer equipment, which is panel work. Use a licensed electrician and get a permit where required."]];
+---
+<Base title={"Transfer Switch vs Interlock Kit vs Inlet Box: Connecting a Generator Legally | HomeBackupCost"} description={"Transfer switch vs interlock kit, what a generator inlet box does, whether backfeeding is legal (no, per NEC 702.5 and CPSC), and when you need an electrician."} schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>Transfer switch vs interlock kit: how to connect backup power to your house</h1>
+<p class="lede">There are a few legal ways to run house circuits from a generator or power station. Each one keeps your backup power from flowing back onto utility lines.</p>
+<p class="note"><strong>Safety:</strong> This page explains your options. It is not wiring instructions. Any work in your electrical panel, including transfer switches, interlocks, and inlets, should be done by a licensed electrician with a permit where your town requires one.</p>
+<h2>What the rules say</h2>
+<p><strong>NEC 702.5</strong> requires listed interconnection or transfer equipment for optional standby systems. It must prevent the backup source and the utility supply from being connected at the same time (<a href="https://up.codes/s/interconnection-or-transfer-equipment">UpCodes, NEC 702.5</a>, as of 2026-10-26). Your town may use an older code edition, so ask your building department.</p>
+<p><strong>Backfeeding</strong> means plugging a generator into a wall outlet, often with a "suicide cord." CPSC calls it "extremely dangerous," because it can electrocute utility workers and neighbors (<a href="https://www.cpsc.gov/s3fs-public/Portable-Generator-Safety-Alert-2017_5123.pdf">CPSC</a>). OSHA says never attach a generator to a building's wiring unless a qualified electrician has installed a transfer switch (<a href="https://www.osha.gov/sites/default/files/publications/OSHA3286.pdf">OSHA</a>).</p>
+<h2>Your options</h2>
+<div class="grid">
+<div class="card"><h3>Manual transfer switch</h3><p>A separate switch that feeds selected circuits from the generator. It's simple to use and limited to the circuits it's wired to.</p></div>
+<div class="card"><h3>Interlock kit</h3><p>A listed plate on your main panel that physically stops the main breaker and the generator breaker from being on at the same time. It's usually the lower-cost option. It has to be listed for your specific panel.</p></div>
+<div class="card"><h3>Automatic transfer switch (ATS)</h3><p>Standard with standby generators and many home batteries. It switches over without you doing anything. <a href="/standby-generator-installation-cost/">Standby costs →</a></p></div>
+<div class="card"><h3>Generator inlet box</h3><p>An outdoor, weatherproof socket for plugging in the generator's cord. It's used with a transfer switch or interlock, never alone. The NEC requires a warning sign at the inlet (702.7).</p></div>
+</div>
+<h2>Portable power stations</h2>
+<p>Some large power stations sell their own transfer or home panel kits. Otherwise, plug appliances straight into the unit; no house connection is needed. <a href="/portable-power-stations/">Compare stations →</a></p>
+<h2>When you need an electrician</h2>
+<p>Hire one for anything that touches your panel: transfer switches, interlocks, and inlets. Many towns also require a permit and inspection. Plugging appliances directly into a generator (outdoors, 20+ ft from doors and windows, per CPSC) or into a power station needs no electrician.</p>
+<p class="note"><a href="/quotes/"><strong>Get installer quotes →</strong></a> · <a href="/calculator/">Size your backup first with the calculator →</a></p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+</Base>

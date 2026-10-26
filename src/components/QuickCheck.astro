@@ -1,0 +1,90 @@
+---
+import { appliances, batteries, programs, national, expansions, STATE_NAMES, DEFAULT_HOURS, USABLE } from '../data/site.js';
+import solar from '../data/solar.json';
+const payload = { appliances: appliances.filter(a => a.running_w_max), batteries, programs, national, expansions, states: STATE_NAMES, hours: DEFAULT_HOURS, usable: USABLE, solar };
+---
+<div id="qc" class="qc card">
+  <form id="qcStart" class="qc-start" novalidate>
+    <label for="qcZip" class="qc-lbl">Start with your ZIP code</label>
+    <div class="qc-row">
+      <input id="qcZip" name="zip" inputmode="numeric" autocomplete="postal-code" pattern="[0-9]{5}" maxlength="5" placeholder="e.g. 43215" required />
+      <button class="btn" type="submit">Get started</button>
+    </div>
+    <p class="src" id="qcZipMsg">3 quick questions, about 20 seconds. Your ZIP is only used in your browser to look up your state's rebates.</p>
+  </form>
+  <div id="qcSteps" hidden>
+    <fieldset class="qc-q"><legend>1. What must stay on?</legend>
+      <label><input type="radio" name="load" value="essentials" checked /> Essentials (fridge, Wi-Fi, lights, phones)</label>
+      <label><input type="radio" name="load" value="climate" /> Essentials + heating or cooling</label>
+      <label><input type="radio" name="load" value="whole" /> Most of the house</label>
+      <label><input type="radio" name="load" value="medical" /> A medical device like a CPAP</label>
+    </fieldset>
+    <fieldset class="qc-q"><legend>2. How long an outage?</legend>
+      <div class="qc-pills"><label><input type="radio" name="dur" value="24" checked /> 1 day</label><label><input type="radio" name="dur" value="72" /> 3 days</label><label><input type="radio" name="dur" value="168" /> 1 week</label></div>
+    </fieldset>
+    <fieldset class="qc-q"><legend>3. Your home</legend>
+      <div class="qc-pills"><label><input type="radio" name="own" value="own" checked /> I own</label><label><input type="radio" name="own" value="rent" /> I rent</label></div>
+      <label style="margin-top:6px"><input type="checkbox" name="installed" checked /> Open to an installed system (wired in by an electrician)</label>
+    </fieldset>
+    <div class="qc-row"><label class="src" for="qcState">State</label><select id="qcState">{Object.entries(STATE_NAMES).map(([k,v]) => <option value={k}>{v}</option>)}</select>
+    <button class="btn" type="button" id="qcGo">See my results</button></div>
+  </div>
+  <div id="qcOut" hidden aria-live="polite"></div>
+  <script type="application/json" id="qcData" set:html={JSON.stringify(payload)}></script>
+</div>
+<style>
+.qc{margin-top:8px;max-width:760px}
+.qc-lbl{font-weight:700;display:block;margin-bottom:6px}
+.qc-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.qc-row input{flex:1;min-width:150px;font-size:1.15rem;padding:12px 14px}
+.qc-q{border:1px solid var(--line);border-radius:12px;margin:0 0 12px;padding:10px 14px;display:grid;gap:6px}
+.qc-q legend{font-weight:700;padding:0 6px}
+.qc-q label{display:flex;gap:8px;align-items:center;cursor:pointer;min-height:32px}
+.qc-pills{display:flex;gap:8px;flex-wrap:wrap}
+.qc-pills label{border:1px solid var(--line);border-radius:999px;padding:4px 12px;background:var(--field)}
+input[type=radio],input[type=checkbox]{accent-color:var(--volt);width:18px;height:18px}
+.qc-big{font-size:clamp(1.8rem,6vw,2.6rem);font-weight:800;color:var(--volt);letter-spacing:-.03em}
+.qc-res{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin:12px 0}
+.qc-res>div{background:var(--deep);border:1px solid var(--line);border-radius:12px;padding:12px}
+.qc-res h3{margin:0 0 4px;font-size:1rem}
+</style>
+<script>
+import { calculate, matchBatteries, quickItems, solarNeeds } from '../data/calc.js';
+import { priceLow } from '../data/site.js';
+import { zipToState } from '../data/zip.js';
+const D = JSON.parse(document.getElementById('qcData').textContent);
+const $ = (s) => document.querySelector(s);
+const money = (n) => '$' + Math.round(n).toLocaleString('en-US');
+const esc = (s) => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const val = (n) => document.querySelector(`#qcSteps [name="${n}"]:checked`)?.value;
+$('#qcStart').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const zip = $('#qcZip').value.trim(); const st = zipToState(zip);
+  if (!st) { $('#qcZipMsg').innerHTML = '<span class="bad">Please enter a valid 5-digit US ZIP code.</span>'; return; }
+  $('#qcState').value = st; $('#qcSteps').hidden = false; $('#qcOut').hidden = true;
+  $('#qcZipMsg').textContent = `ZIP ${zip} looks like ${D.states[st]}. You can change the state below if that's wrong.`;
+  $('#qcSteps').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
+$('#qcGo').addEventListener('click', () => {
+  const load = val('load'), h = +val('dur'), own = val('own'), inst = $('#qcSteps [name=installed]').checked, st = $('#qcState').value;
+  const items = quickItems(load, D.appliances, D.hours);
+  const r = calculate(items, h, D.usable);
+  const m = matchBatteries(r, D.batteries, priceLow, D.expansions);
+  const single = m.portable.filter(b => b.powerOk && b.fullCover && b.price != null).sort((a, b) => a.price - b.price)[0];
+  const sys = m.systems[0];
+  const best = single && (!sys || single.price <= sys.totalPrice) ? { label: single.product, cap: single.capacity_kwh, price: single.price, url: single.source_url } : sys ? { label: `${sys.base.product} + ${sys.n} × ${sys.exp.battery}`, cap: sys.capacityKwh, price: sys.totalPrice, url: sys.exp.source_url } : null;
+  const s = solarNeeds(r.dailyKwh, r.kwh, D.solar.assumptions.peak_sun_hours, D.solar.assumptions.derate);
+  const nat = D.national.find(n => n.state === st); const progs = D.programs.filter(p => p.state === st);
+  const showInstalled = own === 'own' && inst;
+  let html = `<h2 style="margin-top:8px">Your ballpark</h2><div class="qc-big">${r.kwh.toFixed(1)} kWh</div><p class="mute">of battery for ${h/24 === 1 ? '1 day' : (h/24) + ' days'}, with peaks around ${r.peakW.toLocaleString()} W. <span class="badge est">Estimate</span> This uses typical wattages and our 0.85 usable-capacity assumption.</p><div class="qc-res">`;
+  html += `<div><h3>Cheapest portable setup</h3>${best ? `<strong>${esc(best.label)}</strong><br>${best.cap.toFixed(2)} kWh · <strong>${money(best.price)}</strong><br><a class="src" href="${best.url}" target="_blank" rel="noopener">price source</a> <span class="src">(Oct 2026)</span>` : `<span class="mute">No single portable setup in our data covers this. Consider solar recharging, a generator, or an installed battery.</span>`}<p class="src">Or recharge with solar: about ${s.wattsToCoverDaily.toLocaleString()} W of panels refills one day of use <span class="badge est">Assumption: ${D.solar.assumptions.peak_sun_hours} sun-hours</span></p></div>`;
+  if (showInstalled) html += `<div><h3>Whole-home battery</h3>${m.installed.map(b => `${b.units} × ${esc(b.product)}: <strong>${money(b.costLow)}–${money(b.costHigh)}</strong> installed`).join('<br>')}<p class="src"><span class="badge est">Estimate</span> At EnergySage's $1,130–$1,159/kWh.</p></div>`;
+  else html += `<div><h3>Renting or no install?</h3><p class="mute">Plug-in power stations need no wiring, which makes them the usual pick for renters. Ask your landlord before connecting anything to the home's wiring.</p></div>`;
+  html += `<div><h3>Generator alternative</h3>At least <strong>${m.generator.runningW.toLocaleString()} running W</strong> / ${m.generator.startingW.toLocaleString()} starting W.<p class="src">We don't list generator prices yet because we haven't verified them.</p></div>`;
+  html += `<div><h3>Rebates in ${esc(D.states[st])}</h3>${nat ? `HEAR: ${esc(nat.hear)} · HOMES: ${esc(nat.homes)}<br>` : ''}${progs.filter(p => /^live/i.test(p.status)).slice(0, 3).map(p => `• ${esc(p.program)}: ${esc(p.amounts)}`).join('<br>') || '<span class="mute">We haven\'t found verified state or utility programs for this state yet.</span>'}<p class="src">Federal battery and heat pump credits ended 12/31/2025. ${progs.length ? `<a href="/rebates/${st.toLowerCase()}/">State details</a>` : '<a href="/rebates/">All states</a>'}</p></div></div>`;
+  html += `<div class="qc-row">${showInstalled ? `<a class="btn" href="/quotes/?zip=${encodeURIComponent($('#qcZip').value)}">Get quotes</a>` : ''}<a class="btn ghost" href="/calculator/?preset=${load === 'climate' ? 'essentials' : load}&h=${h}&state=${st}">Open the full calculator</a><button type="button" class="btn ghost" id="qcAgain">Change answers</button></div>`;
+  $('#qcOut').innerHTML = html; $('#qcOut').hidden = false; $('#qcSteps').hidden = true;
+  $('#qcAgain').addEventListener('click', () => { $('#qcSteps').hidden = false; $('#qcOut').hidden = true; });
+  $('#qcOut').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+</script>

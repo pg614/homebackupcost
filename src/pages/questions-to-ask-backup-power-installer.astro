@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+const faq = [["Do I need a permit to install a home battery or generator?", "Most US towns require electrical permits for panel work, and gas work often needs its own permit. Your installer should pull them. Check with your local building department."], ["What should a backup power quote include?", "Equipment, transfer equipment, labor, permits and inspection, the pad or mounting, and any panel, gas, or trenching work, all itemized."]];
+---
+<Base title={"Questions to Ask a Home Battery or Generator Installer | HomeBackupCost"} description={"Questions to ask a home battery or standby generator installer before you sign: license, permits, what is included, warranty, and who handles inspection."} schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>Questions to ask a battery or generator installer</h1>
+<p class="lede">Ask every installer the same questions so you can compare their quotes.</p>
+<h2>License and permits</h2>
+<ul><li>Is the electrical work done by a licensed electrician? What's the license number? (Check it on your state licensing board's website.)</li><li>Who pulls the permit and schedules the inspection?</li><li>For generators: who handles the gas or propane connection, and is that a licensed plumber or gas fitter?</li></ul>
+<h2>Scope</h2>
+<ul><li>Which circuits will be backed up: the whole home or a critical-loads panel?</li><li>Is a panel or service upgrade needed? Is it in this price?</li><li>What transfer equipment is used? The NEC (702.5) requires listed transfer or interconnection equipment for standby systems (<a href="https://up.codes/s/interconnection-or-transfer-equipment">UpCodes</a>, as of 2026-10-26).</li><li>Will you notify the utility, or is an interconnection application needed? (Required for batteries paired with solar.)</li></ul>
+<h2>Price and warranty</h2>
+<ul><li>Can I get an itemized quote listing equipment, labor, permits, pad, and trenching?</li><li>Who handles the equipment warranty and the labor warranty, and for how long?</li><li>For generators: what does annual maintenance cost?</li><li>What's the payment schedule? Avoid paying most of the price up front.</li></ul>
+<p>Then <a href="/how-to-compare-backup-power-quotes/">compare quotes side by side →</a> and check <a href="/backup-power-installer-red-flags/">red flags →</a></p>
+<p class="note"><a href="/quotes/"><strong>Get installer quotes →</strong></a> · <a href="/calculator/">Size your backup first with the calculator →</a></p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+</Base>

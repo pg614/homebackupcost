@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Get Backup Power & Solar Installer Quotes | HomeBackupCost" description="Request quotes for a whole-home battery, solar plus battery, a generator and transfer switch, or a heat pump. Preview only: this form does not send anything yet.">
+<h1>Get installer quotes</h1>
+<p class="lede">Tell us about the project. Once quote partners are set up, this form will pass your request to them so they can contact you.</p>
+<p class="note"><strong>Preview:</strong> this form is not live yet. It doesn't send or store anything, and nobody will contact you.</p>
+<form id="qf" class="card" novalidate style="display:grid;gap:14px;max-width:640px">
+  <label>ZIP code<br/><input name="zip" id="qfZip" inputmode="numeric" autocomplete="postal-code" pattern="[0-9]{5}" maxlength="5" required style="width:100%" /></label>
+  <fieldset style="border:0;padding:0;margin:0"><legend>Do you own the home?</legend>
+    <label><input type="radio" name="homeowner" value="yes" required /> Yes</label> &nbsp; <label><input type="radio" name="homeowner" value="no" /> No</label></fieldset>
+  <label>Project type<br/><select name="project" required style="width:100%"><option value="">Choose…</option><option value="battery">Whole-home battery</option><option value="solar_battery">Solar + battery</option><option value="generator">Generator / transfer switch</option><option value="heat_pump">Heat pump</option></select></label>
+  <label>Timeline<br/><select name="timeline" required style="width:100%"><option value="">Choose…</option><option>As soon as possible</option><option>Within 3 months</option><option>3–12 months</option><option>Just researching</option></select></label>
+  <label>Full name<br/><input name="name" autocomplete="name" required style="width:100%" /></label>
+  <label>Email<br/><input name="email" type="email" autocomplete="email" required style="width:100%" /></label>
+  <label>Phone (optional)<br/><input name="phone" type="tel" autocomplete="tel" style="width:100%" /></label>
+  <label style="display:flex;gap:10px;align-items:flex-start;font-size:.9rem">
+    <input type="checkbox" name="consent" id="qfConsent" required style="margin-top:4px;flex:none" />
+    <span>By checking this box, I agree that HomeBackupCost and the installer marketplace partner(s) named here may contact me about this request by email, and by phone call and text message at the number I provided, including calls and texts made with automated technology or prerecorded or artificial voices. Message and data rates may apply. <strong>Consent is not a condition of purchase.</strong> I can opt out at any time. <em class="est">[Placeholder: list partner names before launch, e.g. EnergySage and Modernize, once agreements exist.]</em> See our <a href="/privacy/">privacy policy</a>.</span>
+  </label>
+  <button class="btn" type="submit" disabled aria-disabled="true">Request quotes (coming soon)</button>
+  <p class="note"><strong>Coming soon:</strong> quote requests open once our installer partners are confirmed. Nothing on this form is sent or saved.</p>
+  <output id="qfOut" role="status"></output>
+</form>
+<script>
+const f = document.getElementById('qf');
+const q = new URLSearchParams(location.search); if (q.get('zip')) f.zip.value = q.get('zip');
+f.querySelectorAll('input,select,button').forEach(el => el.disabled = true);
+f.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const out = document.getElementById('qfOut');
+  if (!f.checkValidity()) { f.reportValidity(); out.innerHTML = '<span class="bad">Please complete the required fields and check the consent box.</span>'; return; }
+  // ---- PARTNER HANDOFF PLUG-IN POINT (not implemented; sends nothing) ----
+  // const lead = Object.fromEntries(new FormData(f)); lead.consent_text = <exact consent copy>; lead.consent_ts = new Date().toISOString();
+  // 1) EnergySage (via FlexOffers or CJ affiliate link/API, once approved): project in ['battery','solar_battery','heat_pump'] -> redirect/POST per partner spec.
+  // 2) Modernize (lead API, once approved): project in ['generator','heat_pump','solar_battery'].
+  // Store consent proof (text, timestamp, page URL) server-side before any handoff.
+  out.innerHTML = '<div class="note"><strong>Thanks, this is a preview.</strong> Quote requests aren\'t live yet, so nothing was sent or saved and no one will contact you. In the meantime, try the <a href="/calculator/">calculator</a>.</div>';
+  f.querySelectorAll('input,select,button').forEach(el => el.disabled = true);
+});
+</script>
+</Base>

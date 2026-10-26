@@ -1,0 +1,252 @@
+[
+ {
+  "appliance": "Refrigerator",
+  "running_w_min": 150,
+  "running_w_max": 400,
+  "starting_w_min": 800,
+  "starting_w_max": 1200,
+  "daily_kwh": "~1.0-2.0 (EST: 1/3 duty cycle)",
+  "source_url": "https://www.championpowerequipment.com/generator-wattage-chart/",
+  "daily_kwh_note": "computed estimate unless noted"
+ },
+ {
+  "appliance": "Freezer",
+  "running_w_min": 100,
+  "running_w_max": 500,
+  "starting_w_min": 500,
+  "starting_w_max": 1000,
+  "daily_kwh": "~0.8-1.5 (EST)",
+  "source_url": "https://www.championpowerequipment.com/generator-wattage-chart/",
+  "daily_kwh_note": "computed estimate unless noted"
+ },
+ {
+  "appliance": "Furnace fan 1/2 HP",
+  "running_w_min": 300,
+  "running_w_max": 800,
+  "starting_w_min": 800,
+  "starting_w_max": 1600,
+  "daily_kwh": "EST: running W x heating hours",
+  "source_url": "https://www.championpowerequipment.com/generator-wattage-chart/",
+  "daily_kwh_note": "computed estimate unless noted"
+ },
+ {
+  "appliance": "Sump pump 1/3 HP",
+  "running_w_min": 500,
+  "running_w_max": 800,
+  "starting_w_min": 1000,
+  "starting_w_max": 1600,
+  "daily_kwh": "EST ~3.8 at 20% runtime wet weather (outagemath.com)",
+  "source_url": "https://www.championpowerequipment.com/generator-wattage-chart/",
+  "daily_kwh_note": "computed estimate unless noted"
+ },
+ {
+  "appliance": "Sump pump 1/2 HP",
+  "running_w_min": 800,
+  "running_w_max": 1050,
+  "starting_w_min": 1300,
+  "starting_w_max": 2150,
+  "daily_kwh": "EST ~5 at 20% runtime",
+  "source_url": "https://www.championpowerequipment.com/generator-wattage-chart/",
+  "daily_kwh_note": "computed estimate unless noted"
+ },
+ {
+  "appliance": "Well pump 1/2 HP",
+  "running_w_min": 750,
+  "running_w_max": 1000,
+  "starting_w_min": 1500,
+  "starting_w_max": 2000,
+  "daily_kwh": "EST ~0.8 at ~1 hr/day (outagemath.com; 240V surge can reach 5,300W)",
+  "source_url": "https://www.championpowerequipment.com/generator-wattage-chart/",
+  "daily_kwh_note": "computed estimate unless noted"
+ },
+ {
+  "appliance": "Well pump 1 HP",
+  "running_w_min": 1000,
+  "running_w_max": 2000,
+  "starting_w_min": 2000,
+  "starting_w_max": 4000,
+  "daily_kwh": "EST",
+  "source_url": "https://www.championpowerequipment.com/generator-wattage-chart/",
+  "daily_kwh_note": "computed estimate unless noted"
+ },
+ {
+  "appliance": "Window AC 5,000 BTU",
+  "running_w_min": 450,
+  "running_w_max": 600,
+  "starting_w_min": 900,
+  "starting_w_max": 1200,
+  "daily_kwh": "EST running W x hours",
+  "source_url": "https://www.championpowerequipment.com/generator-wattage-chart/",
+  "daily_kwh_note": "computed estimate unless noted"
+ },
+ {
+  "appliance": "Window AC 10,000 BTU",
+  "running_w_min": 900,
+  "running_w_max": 1200,
+  "starting_w_min": 1800,
+  "starting_w_max": 2400,
+  "daily_kwh": "EST",
+  "source_url": "https://www.championpowerequipment.com/generator-wattage-chart/",
+  "daily_kwh_note": "computed estimate unless noted"
+ },
+ {
+  "appliance": "Central AC 3 ton",
+  "running_w_min": 3000,
+  "running_w_max": 3500,
+  "starting_w_min": 5000,
+  "starting_w_max": 6000,
+  "daily_kwh": "EST",
+  "source_url": "https://www.championpowerequipment.com/generator-wattage-chart/",
+  "daily_kwh_note": "computed estimate unless noted"
+ },
+ {
+  "appliance": "Electric range (one burner)",
+  "running_w_min": 1200,
+  "running_w_max": 2400,
+  "starting_w_min": null,
+  "starting_w_max": null,
+  "daily_kwh": "EST",
+  "source_url": "https://www.championpowerequipment.com/generator-wattage-chart/",
+  "daily_kwh_note": "computed estimate unless noted"
+ },
+ {
+  "appliance": "Microwave",
+  "running_w_min": 600,
+  "running_w_max": 1200,
+  "starting_w_min": null,
+  "starting_w_max": null,
+  "daily_kwh": "EST",
+  "source_url": "https://www.championpowerequipment.com/generator-wattage-chart/",
+  "daily_kwh_note": "computed estimate unless noted"
+ },
+ {
+  "appliance": "Space heater",
+  "running_w_min": 750,
+  "running_w_max": 1500,
+  "starting_w_min": null,
+  "starting_w_max": null,
+  "daily_kwh": "EST",
+  "source_url": "https://www.championpowerequipment.com/generator-wattage-chart/",
+  "daily_kwh_note": "computed estimate unless noted"
+ },
+ {
+  "appliance": "Electric water heater",
+  "running_w_min": 3000,
+  "running_w_max": 4500,
+  "starting_w_min": null,
+  "starting_w_max": null,
+  "daily_kwh": "EST",
+  "source_url": "https://www.championpowerequipment.com/generator-wattage-chart/",
+  "daily_kwh_note": "computed estimate unless noted"
+ },
+ {
+  "appliance": "Washing machine",
+  "running_w_min": 500,
+  "running_w_max": 1000,
+  "starting_w_min": 1000,
+  "starting_w_max": 2300,
+  "daily_kwh": "EST",
+  "source_url": "https://www.championpowerequipment.com/generator-wattage-chart/",
+  "daily_kwh_note": "computed estimate unless noted"
+ },
+ {
+  "appliance": "TV 32-55in",
+  "running_w_min": 80,
+  "running_w_max": 400,
+  "starting_w_min": null,
+  "starting_w_max": null,
+  "daily_kwh": "EST",
+  "source_url": "https://www.championpowerequipment.com/generator-wattage-chart/",
+  "daily_kwh_note": "computed estimate unless noted"
+ },
+ {
+  "appliance": "LED bulb (each)",
+  "running_w_min": 8,
+  "running_w_max": 15,
+  "starting_w_min": null,
+  "starting_w_max": null,
+  "daily_kwh": "EST",
+  "source_url": "https://www.championpowerequipment.com/generator-wattage-chart/",
+  "daily_kwh_note": "computed estimate unless noted"
+ },
+ {
+  "appliance": "Phone/laptop charger",
+  "running_w_min": 20,
+  "running_w_max": 100,
+  "starting_w_min": null,
+  "starting_w_max": null,
+  "daily_kwh": "EST",
+  "source_url": "https://www.championpowerequipment.com/generator-wattage-chart/",
+  "daily_kwh_note": "computed estimate unless noted"
+ },
+ {
+  "appliance": "CPAP no heat",
+  "running_w_min": 30,
+  "running_w_max": 60,
+  "starting_w_min": null,
+  "starting_w_max": null,
+  "daily_kwh": "EST ~0.24-0.48 for 8 h",
+  "source_url": "https://www.championpowerequipment.com/generator-wattage-chart/",
+  "daily_kwh_note": "computed estimate unless noted"
+ },
+ {
+  "appliance": "CPAP heated humidifier",
+  "running_w_min": 60,
+  "running_w_max": 120,
+  "starting_w_min": null,
+  "starting_w_max": null,
+  "daily_kwh": "EST ~0.5-1.0 for 8 h",
+  "source_url": "https://www.championpowerequipment.com/generator-wattage-chart/",
+  "daily_kwh_note": "computed estimate unless noted"
+ },
+ {
+  "appliance": "Router/modem (Wi-Fi)",
+  "running_w_min": 10,
+  "running_w_max": 20,
+  "starting_w_min": null,
+  "starting_w_max": null,
+  "daily_kwh": "EST ~0.24-0.48 (24 h)",
+  "source_url": "https://www.championpowerequipment.com/generator-wattage-chart/",
+  "daily_kwh_note": "computed estimate unless noted"
+ },
+ {
+  "appliance": "Security system",
+  "running_w_min": 15,
+  "running_w_max": 40,
+  "starting_w_min": null,
+  "starting_w_max": null,
+  "daily_kwh": "EST",
+  "source_url": "https://www.championpowerequipment.com/generator-wattage-chart/",
+  "daily_kwh_note": "computed estimate unless noted"
+ },
+ {
+  "appliance": "Ceiling fan",
+  "running_w_min": 15,
+  "running_w_max": 75,
+  "starting_w_min": null,
+  "starting_w_max": null,
+  "daily_kwh": "EST",
+  "source_url": "https://www.championpowerequipment.com/generator-wattage-chart/",
+  "daily_kwh_note": "computed estimate unless noted"
+ },
+ {
+  "appliance": "EV Level 2 charging",
+  "running_w_min": null,
+  "running_w_max": null,
+  "starting_w_min": null,
+  "starting_w_max": null,
+  "daily_kwh": "ESTIMATE - needs source (charger nameplate e.g. 7.2-11.5 kW)",
+  "source_url": null,
+  "daily_kwh_note": "UNSOURCED - verify before launch"
+ },
+ {
+  "appliance": "Medical devices (oxygen concentrator etc.)",
+  "running_w_min": null,
+  "running_w_max": null,
+  "starting_w_min": null,
+  "starting_w_max": null,
+  "daily_kwh": "use device nameplate",
+  "source_url": null,
+  "daily_kwh_note": "UNSOURCED - user enters nameplate watts"
+ }
+]

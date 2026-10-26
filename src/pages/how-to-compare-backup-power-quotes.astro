@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+const faq = [["How many quotes should I get for a home battery or generator?", "Three is a common rule of thumb. Ask each installer for the same scope so you can compare."], ["What is a fair price per kWh for a home battery?", "EnergySage reports $1,130\u2013$1,159 per kWh installed (checked 2026-10-25)."]];
+---
+<Base title={"How to Compare Home Battery & Generator Quotes | HomeBackupCost"} description={"A simple way to compare backup power quotes: normalize price per kWh or kW, check scope line by line, and confirm permits and warranty."} schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>How to compare backup power quotes</h1>
+<p class="lede">Get at least 3 quotes for the same scope. Then compare them line by line, not just the bottom line.</p>
+<div class="card"><h3>Step 1: put prices on the same unit</h3><p>For batteries, use price ÷ usable kWh (benchmark: $1,130–$1,159/kWh, <a href="https://www.energysage.com/energy-storage/how-much-do-batteries-cost/">EnergySage</a>, as of 2026-10-25). For generators, compare the kW rating and the total installed price (benchmark: $8,000–$16,000, <a href="https://www.generac.com/resources/home-management/backup-generator-installation/">Generac</a>, as of 2026-10-26).</p></div>
+<div class="card"><h3>Step 2: check the scope line by line</h3><p>Look at backed-up circuits, transfer equipment, panel upgrade, gas or trenching, pad, permit and inspection, and removal of debris.</p></div>
+<div class="card"><h3>Step 3: check what protects you</h3><p>Look at the license number, the equipment and labor warranties, the payment schedule, and the timeline.</p></div>
+<p>Unsure what size to ask for? <a href="/calculator/">Run the calculator</a> first, so every installer quotes the same load.</p>
+<p>See also: <a href="/powerwall-installation-cost/">Powerwall cost</a> · <a href="/standby-generator-installation-cost/">standby generator cost</a> · <a href="/backup-power-installer-red-flags/">red flags</a></p>
+<p class="note"><a href="/quotes/"><strong>Get installer quotes →</strong></a> · <a href="/calculator/">Size your backup first with the calculator →</a></p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+</Base>

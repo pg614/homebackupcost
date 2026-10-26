@@ -1,0 +1,30 @@
+---
+import Base from '../../layouts/Base.astro';
+import { programs, national, STATE_NAMES, LAUNCH_STATES } from '../../data/site.js';
+export function getStaticPaths() { return LAUNCH_STATES.map(s => ({ params: { state: s.toLowerCase() }, props: { st: s } })); }
+const { st } = Astro.props;
+const name = STATE_NAMES[st];
+const progs = programs.filter(p => p.state === st);
+const fed = programs.filter(p => p.state === 'US');
+const nat = national.find(n => n.state === st);
+const isLive = (s) => /^live/i.test(s);
+---
+<Base title={`${name} Home Energy & Backup Battery Rebates (2026 Status) | HomeBackupCost`} description={`Verified ${name} rebates for heat pumps, panels, and backup batteries as of 2026-10-25: state HOMES/HEAR status and ${progs.length} programs, with sources.`}
+ schema={[{ '@context':'https://schema.org','@type':'Dataset', name:`${name} home energy and backup power rebate programs`, url:`https://homebackupcost.com/rebates/${st.toLowerCase()}/`, dateModified:'2026-10-25', spatialCoverage:name, creator:{ '@type':'Organization', name:'HomeBackupCost' }, description:`Status, amounts, and sources for ${progs.length} ${name} rebate programs.` }]}>
+<p class="src"><a href="/rebates/">Rebates</a> / {name}</p>
+<h1>{name} rebates for home energy &amp; backup power</h1>
+<p class="lede">Verified as of 2026-10-25. Programs open, pause, and run out of money, so confirm with the administrator before you buy.</p>
+{nat && <p class="card">State HOMES/HEAR status per NASEO: HEAR <strong>{nat.hear}</strong> · HOMES <strong>{nat.homes}</strong>{nat.note && <> · <span class="mute">{nat.note}</span></>} <span class="src">(<a href={nat.source_url}>{nat.as_of}</a>)</span></p>}
+<h2>Programs</h2>
+<div style="display:grid;gap:12px">
+{progs.map(p => <div class="card">
+<h3 style="margin-top:0">{p.program} <span class={`badge ${isLive(p.status)?'ok':'bad'}`}>{isLive(p.status) ? 'Live' : p.status.split(/\s*[-–(]/)[0]}</span></h3>
+<p><strong>Amount:</strong> {p.amounts}<br/><strong>Covers:</strong> {p.equipment}<br/><strong>Who qualifies:</strong> {p.income_tiers}<br/><strong>Status:</strong> {p.status}<br/><strong>How to apply:</strong> {p.how_to_apply}<br/><strong>Run by:</strong> {p.administrator}</p>
+<p class="src">Source: <a href={p.source_url}>{new URL(p.source_url).hostname}</a> · as of {p.as_of}{/verify|third-party|unverified|contractor-reported/i.test(p.status + p.amounts) && <> · <span class="est">Not yet confirmed with the primary source</span></>}</p>
+</div>)}
+</div>
+<h2>Federal tax credits</h2>
+<ul>{fed.map(p => <li><strong>{p.program}</strong>: {p.status}. <a class="src" href={p.source_url}>IRS</a></li>)}</ul>
+<p><a href="/federal-tax-credits-ended/">What the end of the credits means →</a></p>
+<p><a class="btn" href={`/calculator/?state=${st}`}>Run the calculator for {name}</a></p>
+</Base>

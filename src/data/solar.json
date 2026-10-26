@@ -1,0 +1,113 @@
+{
+  "assumptions": {
+    "peak_sun_hours": 4,
+    "derate": 0.75,
+    "note": "ASSUMPTION: 4 peak sun hours/day (roughly a US middle value; real values vary by state, season, and weather, and storms often bring clouds) and 75% real-world panel output (angle, heat, dust, MPPT losses). For an exact figure for your address, use NREL's PVWatts: https://pvwatts.nlr.gov/"
+  },
+  "panels": [
+    {
+      "brand": "EcoFlow",
+      "panel": "EcoFlow 400W Portable Solar Panel",
+      "watts": 400,
+      "price": 699,
+      "price_note": "$699",
+      "fits": [
+        "EcoFlow DELTA Pro 3",
+        "EcoFlow DELTA Pro Ultra"
+      ],
+      "compat_note": "EcoFlow sells it in a DELTA Pro 3 Solar Generator (PV400W) kit ($3,099).",
+      "product_url": "https://us.ecoflow.com/products/400w-portable-solar-panel",
+      "source_url": "https://us.ecoflow.com/products/400w-portable-solar-panel",
+      "as_of": "2026-10-25"
+    },
+    {
+      "brand": "Anker",
+      "panel": "Anker SOLIX PS400 Bifacial Portable Solar Panel",
+      "watts": 400,
+      "price": 699.99,
+      "price_note": "$699.99",
+      "fits": [
+        "Anker SOLIX F3800 Plus",
+        "Anker SOLIX C1000"
+      ],
+      "compat_note": "Anker brand panel; check the connector/voltage limits for your station.",
+      "product_url": "https://www.ankersolix.com/collections/200-watt-solar-panel",
+      "source_url": "https://www.ankersolix.com/collections/200-watt-solar-panel",
+      "as_of": "2026-10-25"
+    },
+    {
+      "brand": "Jackery",
+      "panel": "Jackery SolarSaga 200W Solar Panel",
+      "watts": 200,
+      "price": 379,
+      "price_note": "$379 sale / $429 regular",
+      "fits": [
+        "Jackery Explorer 5000 Plus",
+        "Jackery Explorer 2000 v2",
+        "Jackery Explorer 1000 v2"
+      ],
+      "compat_note": "Jackery's panel for its Explorer stations (Jackery offers a 5000 Plus kit with 2 x SolarSaga 500 X).",
+      "product_url": "https://www.jackery.com/products/solarsaga-200w-solar-panel",
+      "source_url": "https://www.jackery.com/products/solarsaga-200w-solar-panel",
+      "as_of": "2026-10-25"
+    },
+    {
+      "brand": "BLUETTI",
+      "panel": "BLUETTI PV350 Solar Panel",
+      "watts": 350,
+      "price": 599,
+      "price_note": "$599 sale / $649 regular",
+      "fits": [
+        "BLUETTI Apex 300",
+        "Bluetti Elite 200 v2"
+      ],
+      "compat_note": "BLUETTI lists the PV350 as compatible with the Apex 300 and Elite 200 V2.",
+      "product_url": "https://www.bluettipower.com/products/bluetti-pv350d-solar-panel",
+      "source_url": "https://www.bluettipower.com/collections/solar-panels",
+      "as_of": "2026-10-25"
+    },
+    {
+      "brand": "Goal Zero",
+      "panel": "Goal Zero Nomad 200",
+      "watts": 200,
+      "price": 599.95,
+      "price_note": "$599.95",
+      "fits": [
+        "Goal Zero Yeti 1500X"
+      ],
+      "compat_note": "Goal Zero brand panel.",
+      "product_url": "https://goalzero.com/products/nomad-200-solar-panel",
+      "source_url": "https://goalzero.com/products/nomad-200-solar-panel",
+      "as_of": "2026-10-25"
+    }
+  ],
+  "max_solar_input_w": {
+    "EcoFlow DELTA Pro 3": {
+      "w": 2600,
+      "src": "https://us.ecoflow.com/products/delta-pro-3-solar-generator-pv400w"
+    },
+    "EcoFlow DELTA Pro Ultra": {
+      "w": 5600,
+      "src": "https://us.ecoflow.com/products/delta-pro-ultra"
+    },
+    "Anker SOLIX F3800 Plus": {
+      "w": 3200,
+      "src": "https://www.ankersolix.com/products/f3800-plus-expansion-battery"
+    },
+    "Jackery Explorer 5000 Plus": {
+      "w": 4000,
+      "src": "https://www.jackery.com/products/jackery-explorer-5000-plus-10kwh"
+    }
+  },
+  "rooftop": {
+    "solar_median_per_w": 2.57,
+    "median_system_kw": 12,
+    "median_system_cost": 30712,
+    "solar_part_of_solar_plus_storage_per_w": 2.55,
+    "storage_median_per_kwh": 1130,
+    "period": "EnergySage marketplace quotes, H1 2026 (Jan-Jun), released Sep 2026",
+    "source_url": "https://www.energysage.com/press/energysage-intel-home-electrification-marketplace-report-23/",
+    "secondary_url": "https://www.pv-magazine.com/2026/10/24/residential-solar-prices-rise-3-2-as-third-party-ownership-gains-ground/",
+    "as_of": "2026-10-25"
+  }
+}

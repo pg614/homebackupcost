@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import solar from '../data/solar.json';
+import { batteries } from '../data/site.js';
+const IRS = 'https://www.irs.gov/newsroom/faqs-for-modification-of-sections-25c-25d-25e-30c-30d-45l-45w-and-179d-under-public-law-119-21-139-stat-72-july-4-2025-commonly-known-as-the-one-big-beautiful-bill-obbb';
+const A = solar.assumptions, R = solar.rooftop;
+const perW = A.peak_sun_hours * A.derate / 1000;
+const capOf = (name) => batteries.find(b => b.product === name)?.capacity_kwh;
+const battery135 = Math.round(13.5 * R.storage_median_per_kwh);
+const combo = R.median_system_cost + battery135;
+const faq = [
+ ['Can solar panels recharge a portable power station during an outage?', `Yes, if the station has a solar input. Using our assumption of ${A.peak_sun_hours} peak sun hours and ${Math.round(A.derate*100)}% real-world output, each 100 W of panel makes about ${(100*perW).toFixed(2)} kWh a day. Actual output depends on where you live, the season and the weather.`],
+ ['Is there still a federal tax credit for solar or batteries?', 'No. The IRS says the Section 25D residential clean energy credit does not apply to systems installed after December 31, 2025.'],
+ ['What does rooftop solar plus a home battery cost?', `EnergySage's H1 2026 marketplace data shows a median of $${R.solar_median_per_w}/W for solar (about $${R.median_system_cost.toLocaleString()} for a ${R.median_system_kw} kW system) and $${R.storage_median_per_kwh.toLocaleString()}/kWh for storage. Adding a 13.5 kWh battery puts our estimate at roughly $${combo.toLocaleString()} before any state or utility incentives.`]
+];
+const schema = [{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }];
+---
+<Base title="Solar Backup Power: Portable Panels, Recharge Times & Solar + Battery Cost (2026) | HomeBackupCost" description="Which official solar panels fit each power station, how long they take to recharge, and what rooftop solar plus a home battery costs in 2026. The 25D credit ended 12/31/2025." schema={schema}>
+<h1>Solar backup: keep recharging through a long outage</h1>
+<p class="lede">A battery runs down eventually. Solar panels can refill it during the day, which is how a power station gets you through a multi-day outage.</p>
+<p class="note"><span class="badge est">Assumption</span> We assume <strong>{A.peak_sun_hours} peak sun hours</strong> a day and <strong>{Math.round(A.derate*100)}%</strong> real-world panel output, so each 100 W of panels makes about {(100*perW).toFixed(2)} kWh a day. Winter and cloudy days can be much lower. For your own address, check NREL's <a href="https://pvwatts.nlr.gov/" target="_blank" rel="noopener">PVWatts calculator</a>.</p>
+<h2>Official portable panels and recharge time</h2>
+<div class="tbl"><table><thead><tr><th>Panel</th><th>Watts</th><th>Price*</th><th>Fits</th><th>Days to refill one station with 1 panel <span class="badge est">Est.</span></th></tr></thead><tbody>
+{solar.panels.map(p => <tr><td><a href={p.product_url} target="_blank" rel="nofollow sponsored noopener">{p.panel}</a><br/><span class="src">{p.compat_note}</span></td><td>{p.watts} W</td><td>{p.price_note}</td><td>{p.fits.join(', ')}</td><td>{p.fits.map(f => { const c = capOf(f); return c ? <div>{f}: {(c/(p.watts*perW)).toFixed(1)} days ({c.toFixed(2)} kWh)</div> : null; })}</td></tr>)}
+</tbody></table></div>
+<p class="src">*Prices are from each brand's site as of {solar.panels[0].as_of}, rounded down from the listed price. Recharge time = station capacity ÷ (panel watts × {A.peak_sun_hours} h × {A.derate}).</p>
+<h2>Maximum solar input per station</h2>
+<p>Adding more panels only helps up to the station's solar input limit.</p>
+<div class="tbl"><table><thead><tr><th>Station</th><th>Max solar input</th><th>Best-case kWh/day at that limit <span class="badge est">Est.</span></th></tr></thead><tbody>
+{Object.entries(solar.max_solar_input_w).map(([k,v]) => <tr><td>{k}</td><td><a href={v.src} target="_blank" rel="noopener">{v.w.toLocaleString()} W</a></td><td>{(v.w*perW).toFixed(1)} kWh</td></tr>)}
+</tbody></table></div>
+<p class="src">We haven't captured solar input limits for the smaller stations yet. Check the manufacturer's spec sheet before you buy.</p>
+<h2>Rooftop solar + a home battery: what it costs</h2>
+<div class="tbl"><table><tbody>
+<tr><td>Solar, median price per watt</td><td>${R.solar_median_per_w}/W</td></tr>
+<tr><td>Median system ({R.median_system_kw} kW)</td><td>${R.median_system_cost.toLocaleString()}</td></tr>
+<tr><td>Solar portion when bought with storage</td><td>${R.solar_part_of_solar_plus_storage_per_w}/W</td></tr>
+<tr><td>Battery storage, median</td><td>${R.storage_median_per_kwh.toLocaleString()}/kWh</td></tr>
+<tr><td><strong>Estimate: {R.median_system_kw} kW solar + 13.5 kWh battery</strong> <span class="badge est">Estimate</span></td><td><strong>≈ ${combo.toLocaleString()}</strong> before incentives</td></tr>
+</tbody></table></div>
+<p class="src">Source: <a href={R.source_url} target="_blank" rel="noopener">EnergySage Intel marketplace report</a> ({R.period}); also covered by <a href={R.secondary_url} target="_blank" rel="noopener">pv magazine</a>. Our estimate adds the median system cost to 13.5 kWh × ${R.storage_median_per_kwh}/kWh. Real quotes vary.</p>
+<p class="note">The <strong>federal 30% credit (Section 25D) ended</strong> for systems installed after 12/31/2025 (<a href={IRS} target="_blank" rel="noopener">IRS</a>). Check <a href="/rebates/">state and utility programs</a> instead.</p>
+<p><a class="btn" href="/calculator/">Size your backup with solar recharging</a> <a class="btn ghost" href="/quotes/">Get solar + battery quotes</a></p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+</Base>

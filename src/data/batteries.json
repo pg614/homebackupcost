@@ -1,0 +1,133 @@
+[
+ {
+  "product": "EcoFlow DELTA Pro Ultra",
+  "type": "portable/expandable",
+  "capacity_kwh": 6.144,
+  "output_w": 7200,
+  "surge_w": 10800,
+  "price": "$4,199 sale / $5,799 list; expands to 90 kWh",
+  "source_url": "https://us.ecoflow.com/collections/home-backup-battery",
+  "as_of": "2026-10 (prices fluctuate; promos)"
+ },
+ {
+  "product": "EcoFlow DELTA Pro 3",
+  "type": "portable/expandable",
+  "capacity_kwh": 4.096,
+  "output_w": 4000,
+  "surge_w": 6000,
+  "price": "$2,799 sale / $3,699 list",
+  "source_url": "https://homebatteryreport.com/guides/plug-in-vs-installed-battery-cost",
+  "as_of": "2026-10 (prices fluctuate; promos)"
+ },
+ {
+  "product": "Anker SOLIX F3800 Plus",
+  "type": "portable/expandable",
+  "capacity_kwh": 3.84,
+  "output_w": 6000,
+  "surge_w": 9000,
+  "price": "$2,999.99 (ankersolix.com); earlier third-party listing $2,299.99-$2,599.99",
+  "source_url": "https://www.ankersolix.com/collections/f3800-plus",
+  "as_of": "2026-10-25"
+ },
+ {
+  "product": "Jackery Explorer 5000 Plus",
+  "type": "portable/expandable",
+  "capacity_kwh": 5.04,
+  "output_w": 7200,
+  "surge_w": 14400,
+  "price": "$3,149 sale / $3,499 list",
+  "source_url": "https://homebatteryreport.com/guides/plug-in-vs-installed-battery-cost",
+  "as_of": "2026-10 (prices fluctuate; promos)"
+ },
+ {
+  "product": "BLUETTI Apex 300",
+  "type": "portable/expandable",
+  "capacity_kwh": 2.7648,
+  "output_w": 3840,
+  "surge_w": null,
+  "price": "$1,499 sale / $1,699 list (surge rating not captured - verify)",
+  "source_url": "https://homebatteryreport.com/guides/plug-in-vs-installed-battery-cost",
+  "as_of": "2026-10 (prices fluctuate; promos)",
+  "spec_note": "2,764.8 Wh / 3,840 W per BLUETTI Apex series listing (shop-us.bluettipower.com), 2026-10-25"
+ },
+ {
+  "product": "Jackery Explorer 2000 v2",
+  "type": "portable",
+  "capacity_kwh": 2.042,
+  "output_w": 2200,
+  "surge_w": 4400,
+  "price": "$899",
+  "source_url": "https://homegridhq.com/compare/",
+  "as_of": "2026-10 (prices fluctuate; promos)"
+ },
+ {
+  "product": "Bluetti Elite 200 v2",
+  "type": "portable",
+  "capacity_kwh": 2.073,
+  "output_w": 2600,
+  "surge_w": 3900,
+  "price": "$899",
+  "source_url": "https://homegridhq.com/compare/",
+  "as_of": "2026-10 (prices fluctuate; promos)"
+ },
+ {
+  "product": "Anker SOLIX C1000",
+  "type": "portable",
+  "capacity_kwh": 1.056,
+  "output_w": 1800,
+  "surge_w": 2400,
+  "price": "$470",
+  "source_url": "https://homegridhq.com/compare/",
+  "as_of": "2026-10 (prices fluctuate; promos)"
+ },
+ {
+  "product": "Jackery Explorer 1000 v2",
+  "type": "portable",
+  "capacity_kwh": 1.07,
+  "output_w": 1500,
+  "surge_w": 3000,
+  "price": "$499",
+  "source_url": "https://homegridhq.com/compare/",
+  "as_of": "2026-10 (prices fluctuate; promos)"
+ },
+ {
+  "product": "Goal Zero Yeti 1500X",
+  "type": "portable",
+  "capacity_kwh": 1.516,
+  "output_w": 2000,
+  "surge_w": 3500,
+  "price": "$1,125",
+  "source_url": "https://homegridhq.com/compare/",
+  "as_of": "2026-10 (prices fluctuate; promos)"
+ },
+ {
+  "product": "EcoFlow RIVER 2 Pro",
+  "type": "portable (CA utility-rebate eligible)",
+  "capacity_kwh": 0.768,
+  "output_w": 800,
+  "surge_w": 1600,
+  "price": "$599 MSRP",
+  "source_url": "https://marketplace.sdge.com/sites/default/files/2026GAP_QPL%20List_MBL_Online%20Only_Version2.pdf",
+  "as_of": "2026-10 (prices fluctuate; promos)"
+ },
+ {
+  "product": "Tesla Powerwall 3",
+  "type": "installed",
+  "capacity_kwh": 13.5,
+  "output_w": 11500,
+  "surge_w": 22000,
+  "price": "$9,300 (equipment, per comparison site)",
+  "source_url": "https://homegridhq.com/compare/",
+  "as_of": "2026-10 (prices fluctuate; promos)"
+ },
+ {
+  "product": "FranklinWH aPower 2",
+  "type": "installed",
+  "capacity_kwh": 15.0,
+  "output_w": 10000,
+  "surge_w": 20000,
+  "price": "$10,500 (per comparison site)",
+  "source_url": "https://homegridhq.com/compare/",
+  "as_of": "2026-10 (prices fluctuate; promos)"
+ }
+]

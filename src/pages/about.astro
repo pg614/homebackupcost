@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+const sources = [
+ ['Appliance running and starting watts','Champion Power Equipment generator wattage chart','https://www.championpowerequipment.com/generator-wattage-chart/'],
+ ['Installed battery cost','EnergySage','https://www.energysage.com/energy-storage/how-much-do-batteries-cost/'],
+ ['Heat pump installed cost','EnergySage','https://www.energysage.com/heat-pumps/heat-pump-installation/'],
+ ['Power station specs and prices','Manufacturer pages and comparison sites (us.ecoflow.com, homegridhq.com, homebatteryreport.com, powerstations.reviews, SDG&E QPL)','https://homegridhq.com/compare/'],
+ ['State HOMES/HEAR status','NASEO Home Energy Rebates tracker','https://www.naseo.org/topics/home-energy-rebates'],
+ ['Federal tax credit status','IRS OBBB FAQ','https://www.irs.gov/newsroom/faqs-for-modification-of-sections-25c-25d-25e-30c-30d-45l-45w-and-179d-under-public-law-119-21-139-stat-72-july-4-2025-commonly-known-as-the-one-big-beautiful-bill-obbb'],
+ ['State and utility programs','State agencies and utilities, linked on each state page','/rebates/'],
+];
+---
+<Base title="About & Methodology: How We Verify Backup Power Data | HomeBackupCost" description="How HomeBackupCost sources, dates, and verifies its appliance wattage, battery, cost, and rebate data, and every assumption in the calculator.">
+<h1>About &amp; methodology</h1>
+<p class="lede">HomeBackupCost is an independent guide to sizing and pricing home backup power. We started it because battery and rebate information is scattered, out of date, and often written by sellers.</p>
+<h2>Our rules</h2>
+<ul>
+<li><strong>Every number has a source link and an "as of" date.</strong></li>
+<li><strong>Estimates and assumptions are labeled</strong> <span class="badge est">Estimate</span>.</li>
+<li><strong>No invented data.</strong> We have no fake reviews, testimonials, or "X people used this today" counters. Where we lack a verified figure, we say so; for example, we have no generator prices or EV charger wattage yet.</li>
+<li><strong>Third-party data is flagged.</strong> When a figure comes from a comparison site or contractor rather than the primary source, we note it.</li>
+<li><strong>Brands can't pay to change results.</strong> Calculator matches are ranked by fit and then by price.</li>
+</ul>
+<h2>Calculator assumptions</h2>
+<ul>
+<li><span class="badge est">Assumption</span> <strong>0.85 usable-capacity factor</strong>: needed kWh = energy used ÷ 0.85, to cover inverter losses and reserve capacity.</li>
+<li><span class="badge est">Assumption</span> <strong>Typical running watts</strong> are the midpoint of each sourced min–max range.</li>
+<li><span class="badge est">Assumption</span> <strong>Default hours per day</strong>, for example 8 h for a fridge (compressor on about 1/3 of the time), 8 h for a furnace fan, and 4.8 h for a sump pump (20% runtime in wet weather). Users can edit all of these.</li>
+<li><strong>Peak watts</strong> = the sum of maximum running watts + the single largest start-up surge.</li>
+<li><strong>Installed cost</strong> = capacity × EnergySage's $1,130–$1,159 per kWh.</li>
+<li><strong>Power station prices</strong> are the lowest (sale) price listed in our sources for October 2026.</li>
+</ul>
+<h2>Sources</h2>
+<div class="tbl"><table><thead><tr><th>Data</th><th>Source</th></tr></thead><tbody>{sources.map(([d,n,u]) => <tr><td>{d}</td><td><a href={u}>{n}</a></td></tr>)}</tbody></table></div>
+<p class="src">Last full data review: 2026-10-25. Found an error? A corrections address will be listed here before launch.</p>
+<h2>Known gaps</h2>
+<ul><li>EV Level 2 charging and medical devices: no verified wattage yet. Use your device's nameplate.</li><li>BLUETTI Apex 300 specs are not captured yet.</li><li>No generator prices yet.</li><li>Specs for expansion batteries are not included.</li><li>Rebate details are verified for six states so far; other states show NASEO status only.</li></ul>
+</Base>

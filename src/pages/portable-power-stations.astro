@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import AffLink from '../components/AffLink.astro';
+import { batteries, priceLow, affiliates, expansions } from '../data/site.js';
+const money = (n) => '$' + n.toLocaleString('en-US', { maximumFractionDigits: 2 });
+const portable = batteries.filter(b => !b.type.startsWith('installed'));
+const schema = [{ '@context':'https://schema.org','@type':'ItemList', name:'Portable power stations compared', itemListElement: portable.filter(b=>priceLow(b.price)).map((b,i) => ({ '@type':'ListItem', position:i+1, item:{ '@type':'Product', name:b.product, ...(b.capacity_kwh?{ additionalProperty:[{ '@type':'PropertyValue', name:'Capacity', value:b.capacity_kwh, unitText:'kWh' },{ '@type':'PropertyValue', name:'Continuous output', value:b.output_w, unitText:'W' }] }:{}), offers:{ '@type':'Offer', price:String(priceLow(b.price)), priceCurrency:'USD', url:b.source_url } } })) }];
+---
+<Base title="Portable Power Stations Compared: Capacity, Watts & Prices (2026) | HomeBackupCost" description="Side-by-side specs for EcoFlow, Anker SOLIX, Jackery, Bluetti, and Goal Zero power stations: kWh, output watts, surge, and prices with as-of dates." schema={schema}>
+<h1>Portable power stations compared</h1>
+<p class="lede">Plug-in batteries you can buy and roll out during an outage. Specs and prices come from the linked sources; prices were captured in October 2026 and change often with sales.</p>
+<p class="note"><strong>Affiliate links:</strong> the "Check price" buttons are placeholders that go to the brand's own site. We have no affiliate accounts yet. If that changes, we may earn a commission, as explained in our <a href="/affiliate-disclosure/">disclosure</a>.</p>
+<div class="tbl" style="margin-top:16px"><table>
+<thead><tr><th>Model</th><th>Type</th><th>Capacity</th><th>Output</th><th>Surge</th><th>Price</th><th>As of</th><th></th></tr></thead>
+<tbody>{portable.map(b => <tr>
+<td><strong>{b.product}</strong></td><td>{b.type}</td>
+<td>{b.capacity_kwh ? `${b.capacity_kwh} kWh` : <span class="est">not captured</span>}</td>
+<td>{b.output_w ? `${b.output_w.toLocaleString()} W` : <span class="est">—</span>}</td>
+<td>{b.surge_w ? `${b.surge_w.toLocaleString()} W` : <span class="est">—</span>}</td>
+<td>{b.price}<br/><a class="src" href={b.source_url} target="_blank" rel="noopener">source</a></td>
+<td class="src">{b.as_of}</td>
+<td><AffLink product={b.product} label="Check price" /></td></tr>)}</tbody>
+</table></div>
+<p class="src">Several specs and prices come from third-party comparison sites (homegridhq.com, homebatteryreport.com, powerstations.reviews), as linked. Check the manufacturer's page before you buy. BLUETTI Apex 300 specs are still being verified.</p>
+<h2>Expansion batteries: add capacity later</h2>
+<p>Expandable stations accept the maker's add-on batteries. Adding batteries increases kWh (how long it lasts), not watts (how much runs at once).</p>
+<div class="tbl"><table>
+<thead><tr><th>Base unit</th><th>Add-on battery</th><th>Per battery</th><th>Max add-ons</th><th>Max capacity (1 unit)</th><th>Battery price</th><th></th></tr></thead>
+<tbody>{expansions.map(e => { const b = batteries.find(x => x.product === e.base); return <tr>
+<td><strong>{e.base}</strong></td><td>{e.battery}</td><td>{e.capacity_kwh} kWh</td><td>{e.max_per_base}<br/><span class="src">{e.max_note}</span></td>
+<td>{(b.capacity_kwh + e.max_per_base * e.capacity_kwh).toFixed(2)} kWh</td>
+<td>{e.price_note}<br/><a class="src" href={e.source_url} target="_blank" rel="noopener">source</a> <span class="src">· {e.as_of}</span></td>
+<td><a class="btn ghost" href={e.product_url} target="_blank" rel="nofollow sponsored noopener" data-affiliate="placeholder" data-product={e.battery}>View ↗</a></td></tr>; })}</tbody>
+</table></div>
+<p class="src">Capacities, limits, and prices come from the brand pages linked above. For the BLUETTI B300K's max of 6 per Apex 300, we used BLUETTI's expansion guide, and the Apex 300's 2,764.8 Wh / 3,840 W specs come from BLUETTI's Apex listing; its surge rating is not captured yet. Brands also sell bundles (for example a BLUETTI 2×B300K bundle at $2,049) that can cost less than separate batteries. We have no verified data on Goal Zero Yeti 1500X expansion, so it isn't listed.</p>
+<h2>How to choose</h2>
+<ul>
+<li><strong>Output watts</strong> must cover everything running at once, and <strong>surge watts</strong> must handle motor start-up (fridges, pumps, furnace fans). <a href="/what-size-battery-generator/">Sizing guide →</a></li>
+<li><strong>Capacity (kWh)</strong> sets how long it lasts. A 1 kWh unit running a 100 W load lasts roughly 8.5 hours after the 0.85 usable factor <span class="badge est">Assumption</span>.</li>
+<li><strong>Expandable</strong> units (marked "portable/expandable") accept add-on batteries. The EcoFlow DELTA Pro Ultra lists expansion up to 90 kWh.</li>
+<li>To power hardwired circuits like a furnace or well pump, you need transfer hardware installed by an electrician. Listed prices: EcoFlow Smart Home Panel 2 $1,599, Anker Smart Home Power Kit $1,499 list, Jackery Smart Transfer Switch $1,299 list (<a href="https://homebatteryreport.com/guides/plug-in-vs-installed-battery-cost">source</a>).</li>
+<li><strong>Rebates:</strong> there is no federal credit for portable stations. Some California utilities (PG&amp;E, SDG&amp;E, SCE) offer rebates in wildfire areas. <a href="/rebates/ca/">California details →</a></li>
+</ul>
+<p><a class="btn" href="/calculator/">Find the right size with the calculator</a></p>
+</Base>
