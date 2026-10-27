@@ -16,9 +16,12 @@ const schema = [
 ---
 <Base footerNewsletter={false} title="Home Backup Power Calculator: Battery Size, Cost & Rebates | HomeBackupCost" description="Pick what you need to keep running in an outage and see the battery size (kWh), peak watts, matching power stations, whole-home battery cost, and rebates in your state." schema={schema}>
 <section class="hero">
+<div class="splash"><picture class="art art-light"><source type="image/avif" srcset="/hero/light-640.avif 640w, /hero/light-960.avif 960w, /hero/light-1280.avif 1280w" sizes="100vw" /><img id="hero-light" src="/hero/light-1280.webp" srcset="/hero/light-640.webp 640w, /hero/light-960.webp 960w, /hero/light-1280.webp 1280w" sizes="100vw" width="1280" height="720" loading="lazy" fetchpriority="high" decoding="async" alt="Illustration of a sunny American farmhouse with children playing in the yard and a sleek home battery unit beside the house" /></picture><picture class="art art-dark"><source type="image/avif" srcset="/hero/dark-640.avif 640w, /hero/dark-960.avif 960w, /hero/dark-1280.avif 1280w" sizes="100vw" /><img id="hero-dark" src="/hero/dark-1280.webp" srcset="/hero/dark-640.webp 640w, /hero/dark-960.webp 960w, /hero/dark-1280.webp 1280w" sizes="100vw" width="1280" height="720" loading="lazy" fetchpriority="high" decoding="async" alt="Illustration of a farmhouse at night during a power outage, its windows still lit by a home battery while the neighboring farm is dark" /></picture><script is:inline>(function(){var t=document.documentElement.getAttribute('data-theme')==='light'?'light':'dark';var i=document.getElementById('hero-'+t);if(i){i.loading='eager';}})();</script></div>
+<div class="hero-copy">
 <p class="eyebrow"><span class="dot"></span> Free calculator · Sourced data, as of 2026-10-25</p>
 <h1>How much backup power does <span class="hl">your home</span> really need?</h1>
 <p class="lede">Enter your ZIP and answer 3 quick questions. You'll get a ballpark battery size, the cheapest setup that covers it, installed and generator options, and your state's rebates, with a source for every number.</p>
+</div>
 <QuickCheck />
 </section>
 <h2 id="full">Full calculator: pick every appliance</h2>
@@ -33,7 +36,16 @@ const schema = [
 {faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
 <Newsletter />
 <style>
-.hero{padding:28px 0 18px}.eyebrow{color:var(--mute);font-size:.85rem;display:flex;gap:8px;align-items:center}
+.hero{padding:0 0 18px;position:relative}
+.splash{position:relative;margin:0 calc(50% - 50vw);height:min(56vw,520px);overflow:hidden}
+.art{display:none}.art img{width:100%;height:100%;object-fit:cover;object-position:50% 60%;display:block}
+:root[data-theme=light] .art-light,:root:not([data-theme=light]) .art-dark{display:block;height:100%}
+.splash::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,color-mix(in srgb,var(--bg) 88%,transparent) 0%,color-mix(in srgb,var(--bg) 55%,transparent) 38%,transparent 62%),linear-gradient(to bottom,transparent 70%,var(--bg) 100%)}
+.hero-copy{position:relative;margin-top:calc(-1 * min(56vw,520px));padding:56px 0 0;max-width:600px;min-height:calc(min(56vw,520px) - 40px)}
+.hero-copy h1{font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.08}
+.hero > :global(:not(.splash)){position:relative;z-index:1}
+.hero .lede{max-width:540px;font-weight:500}
+@media(max-width:720px){.splash{height:62vw}.art img{object-position:62% 55%}.splash::after{background:linear-gradient(to bottom,transparent 60%,var(--bg) 100%)}.hero-copy{margin-top:0;padding-top:14px;min-height:0}}.eyebrow{color:var(--mute);font-size:.85rem;display:flex;gap:8px;align-items:center}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--volt);box-shadow:0 0 12px var(--volt)}
 .hl{background:linear-gradient(90deg,var(--hl1),var(--hl2));-webkit-background-clip:text;background-clip:text;color:transparent}
 .tile{text-decoration:none;color:var(--ink)}.tile:hover{border-color:var(--volt)}.tile h3{margin-top:0}

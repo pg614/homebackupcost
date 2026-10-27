@@ -6,6 +6,7 @@ for (const f of walk('dist')) {
   if (f.endsWith('.html')) {
     let s = fs.readFileSync(f,'utf8');
     s = s.replace(/(href|src|action)=(["'])\/(?!\/)/g, `$1=$2${BASE}/`);
+    s = s.replace(/(srcset=")([^"]*)"/g, (m,a,v)=>a+v.replace(/(^|, )\/(?!\/)/g, `$1${BASE}/`)+'"');
     s = s.replace('<head>', '<head><meta name="robots" content="noindex, nofollow">');
     fs.writeFileSync(f, s);
   } else if (f.endsWith('.js')) {
