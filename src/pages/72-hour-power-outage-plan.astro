@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+const faq = [
+["Why plan for 72 hours?", "Three days is the common planning window. The UK's October 2026 campaign asks households to prepare for up to three days of disruption, and says France, Ireland, and the Netherlands use the same window. FDA's medical device outage booklet asks whether you have supplies for a minimum of 3 days."],
+["How much battery do I need for 3 days without power?", "For phones, Wi-Fi, and six LED bulbs, about 3.1 kWh over 3 days with our 0.85 usable factor. Add a refrigerator and it's about 10.9 kWh. Use the calculator to match your home."],
+["How long will food last in a power outage?", "Ready.gov says a closed refrigerator keeps food cold for about 4 hours and a full freezer about 48 hours. Throw out food that has been at 40°F or higher for 2 hours or more."]
+];
+---
+<Base footerNewsletter={false} title="72-Hour Power Outage Plan: A 3-Day Backup Power Checklist | HomeBackupCost" description="A simple 3-day power outage plan: what to keep running, how much battery it takes (3–11 kWh), food and medicine timing, and safety, based on Ready.gov, FDA, and UK guidance." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>Your 72-hour power outage plan</h1>
+<p class="lede">A simple, three-day plan for keeping the essentials running. Figures as of 2026-10-28.</p>
+<p>Three days is the standard planning window. On October 22, 2026, the UK government asked households to be ready for up to three days of disruption, a window it says France, Ireland, and the Netherlands also use (<a href="https://www.gov.uk/government/news/households-encouraged-to-take-small-simple-steps-to-stay-prepared-in-an-emergency">GOV.UK</a>). Ready.gov advises supplies to last "several days" (<a href="https://www.ready.gov/kit">Ready.gov</a>).</p>
+
+<h2>Step 1: List what needs power</h2>
+<p>Ready.gov's first step is an inventory of the things you rely on that use electricity (<a href="https://www.ready.gov/power-outages">Ready.gov</a>). Start with these, then size them in the <a href="/calculator/?scenario=winter">calculator</a>:</p>
+<div class="tbl"><table><thead><tr><th>Level</th><th>What runs</th><th>Energy for 3 days</th></tr></thead><tbody>
+<tr><td>Stay connected</td><td>Phones, Wi-Fi router, 6 LED bulbs</td><td>≈ 3.1 kWh</td></tr>
+<tr><td>Keep food</td><td>Above + refrigerator</td><td>≈ 10.9 kWh</td></tr>
+<tr><td>Stay warm (winter)</td><td>Above + furnace blower 8 h/day</td><td>≈ 26.4 kWh</td></tr>
+</tbody></table></div>
+<p class="src"><span class="badge est">Estimate</span> Midpoints of the <a href="https://www.championpowerequipment.com/generator-wattage-chart/">Champion wattage chart</a> ranges, our default hours (fridge 8 h, router 24 h, LEDs 5 h, chargers 3 h), divided by 0.85 usable. For scale, a 2.04 kWh station like the Jackery Explorer 2000 v2 covers the first level for about 2 days.</p>
+
+<h2>Step 2: Pick your power</h2>
+<ul>
+<li><strong>Power banks and a small station</strong> for the "stay connected" level. <a href="/portable-power-stations/">Compare stations →</a></li>
+<li><strong>A 5 kWh-class station or a generator</strong> to add the fridge. Generators go outdoors only, at least 20 feet from windows, doors, and attached garages (<a href="https://www.ready.gov/power-outages">Ready.gov</a>). <a href="/generator-safety/">Generator safety →</a></li>
+<li><strong>Installed battery or standby generator</strong> for heat and sump pumps. <a href="/winter-storm-power-outage-heat/">Winter storm guide →</a></li>
+</ul>
+
+<h2>Step 3: Food, water, and medicine timing</h2>
+<ul>
+<li>Fridge: about 4 hours cold if closed. Full freezer: about 48 hours. Toss food at 40°F or higher for 2+ hours (<a href="https://www.ready.gov/power-outages">Ready.gov</a>).</li>
+<li>Water: the UK campaign suggests 3 litres per person per day for drinking (<a href="https://beready.campaign.gov.uk/be-ready-for-emergencies/">Be Ready</a>).</li>
+<li>Medical devices: work through FDA's outage booklet with your provider, including supplies for at least 3 days (<a href="https://www.fda.gov/media/80782/download">FDA</a>). <a href="/cpap-medical-device-power-outage/">CPAP and medical devices →</a></li>
+</ul>
+
+<h2>Step 4: Safety checklist</h2>
+<ul>
+<li>Battery-backup CO alarms on every level (<a href="https://www.ready.gov/power-outages">Ready.gov</a>).</li>
+<li>Flashlights for everyone instead of candles.</li>
+<li>Unplug electronics so surges don't damage them when power returns.</li>
+<li>Know your nearest warming or cooling center.</li>
+</ul>
+<p class="note"><a href="/calculator/"><strong>Size your 3-day plan in the calculator →</strong></a></p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>
