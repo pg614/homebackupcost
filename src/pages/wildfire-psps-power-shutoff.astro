@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+const faq = [
+["What is a Public Safety Power Shutoff (PSPS)?", "A planned outage a utility uses during high fire-risk weather to reduce the chance its lines start a wildfire. PG&E says it aims to notify customers two days ahead, one day ahead, and just before a shutoff."],
+["How long does a PSPS outage last?", "PG&E's goal is to restore power to all customers within 24 hours after severe weather has passed, once crews inspect the lines. Total outage time depends on how long the weather lasts, so planning for 2 days is a reasonable starting point."],
+["How much battery do I need for a 2-day PSPS?", "Our PSPS scenario (fridge, ceiling fan, Wi-Fi, lights, phones) uses about 3.4 kWh a day, or about 8.1 kWh for 2 days with the 0.85 usable factor. A 5 kWh-class station plus a few solar panels, or one station recharged in the car, can cover it."],
+["Are there rebates for backup power in PSPS areas?", "In California, as of October 2026: PG&E's Generator & Battery Rebate (up to $300, +$200 CARE/FERA), SDG&E's Generator Assistance Program ($150 power station, $300 generator), and SCE's portable power station rebate (up to $200). Eligibility rules apply; check each utility's page."]
+];
+---
+<Base footerNewsletter={false} title="Wildfire Power Shutoff (PSPS): Backup Power for a 2-Day Outage | HomeBackupCost" description="How to plan for a Public Safety Power Shutoff: notice timing, how long PSPS outages last, about 8 kWh for 2 days of essentials, and California utility rebates." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>Wildfire power shutoffs (PSPS): a calm backup plan</h1>
+<p class="lede">PSPS outages usually come with notice, which makes them one of the easiest outages to plan for. Figures as of 2026-10-28.</p>
+
+<h2>How a shutoff works</h2>
+<ul>
+<li><strong>Notice:</strong> PG&amp;E aims to notify customers two days ahead, one day ahead, and just before shutting off power, whenever the forecast allows (<a href="https://www.pge.com/assets/pge/docs/outages-and-safety/safety/Public-Safety-Power-Shutoff-Policies-and-Procedures.pdf">PG&amp;E PSPS policies</a>).</li>
+<li><strong>Restoration:</strong> after the weather passes, crews inspect lines. PG&amp;E's goal is to restore all customers within 24 hours after severe weather has passed (same source).</li>
+<li>Other utilities, including SCE and SDG&amp;E, run their own PSPS programs, so sign up for your utility's alerts.</li>
+</ul>
+
+<h2>What 2 days of essentials takes</h2>
+<p><span class="badge est">Estimate</span> Refrigerator, ceiling fan, Wi-Fi, 6 LED bulbs, and phone charging use about <strong>3.4 kWh/day</strong>, or about <strong>8.1 kWh for 2 days</strong> (<a href="https://www.championpowerequipment.com/generator-wattage-chart/">Champion</a> wattage midpoints, our default hours, ÷ 0.85). <a href="/calculator/?scenario=psps">Open the PSPS scenario →</a></p>
+<p>Because you usually get notice, a battery is a good fit: charge it fully the day before, pre-chill the fridge and freezer, and keep the doors closed. Ready.gov says a full freezer holds temperature for about 48 hours (<a href="https://www.ready.gov/power-outages">Ready.gov</a>).</p>
+
+<h2>California rebates (as of October 2026)</h2>
+<div class="tbl"><table><thead><tr><th>Program</th><th>Amount</th><th>Status</th></tr></thead><tbody>
+<tr><td><a href="https://www.pge.com/en/outages-and-safety/outage-preparedness-and-support/general-outage-resources/generator-and-battery-rebate-program.html">PG&amp;E Generator &amp; Battery Rebate</a></td><td>Up to $300 (+$200 CARE/FERA)</td><td>Live, ~125 rebates left as of 10/15/2026; apply by 12/31/2026. Portable batteries must be 290–1,000 Wh.</td></tr>
+<tr><td><a href="https://sdge.com/generator-assistance-program">SDG&amp;E Generator Assistance Program</a></td><td>$150 power station; $300 generator</td><td>Live; coupons expire 12/31/2026</td></tr>
+<tr><td><a href="https://www.sce.com/outages-safety/outage-preparedness/backup-power-solutions">SCE portable power station rebate</a></td><td>Up to $200</td><td>Live</td></tr>
+</tbody></table></div>
+<p><a href="/rebates/ca/">All California programs →</a></p>
+
+<h2>Safety during fire weather</h2>
+<ul>
+<li>Generators: outdoors only, 20+ feet from windows, doors, and attached garages, and let them cool before refueling, since spilled fuel on hot parts can ignite (<a href="https://www.ready.gov/power-outages">Ready.gov</a>). <a href="/generator-safety/">Generator safety →</a></li>
+<li>If officials order an evacuation, leave. A shutoff can overlap with an active fire.</li>
+<li>If you rely on powered medical equipment, tell your utility and plan with your provider. <a href="/cpap-medical-device-power-outage/">Medical devices →</a></li>
+</ul>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>
