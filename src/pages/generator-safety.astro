@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+const faq = [
+["How far from the house should a generator be?", "At least 20 feet. Ready.gov says generators and fuel should always be used outdoors and at least 20 feet away from windows, doors, and attached garages. CPSC also says to point the exhaust away from the home."],
+["Is it safe to run a generator in the garage with the door open?", "No. CPSC says opening doors or windows will not provide enough ventilation to prevent lethal carbon monoxide buildup. Never run a generator in a home, garage, basement, crawlspace, shed, or on a porch."],
+["Do generators with CO shutoff help?", "Yes. CPSC says models certified to PGMA G300-2018 and UL 2201 are estimated to reduce CO poisoning deaths by 87% and 100%, respectively, and recommends looking for generators that shut off automatically when CO levels are high."],
+["Can I plug my generator into a wall outlet?", "No. Backfeeding through an outlet can electrocute utility workers and neighbors. Use heavy-duty extension cords to appliances, or have an electrician install a transfer switch or interlock."]
+];
+---
+<Base footerNewsletter={false} title="Generator Safety: The 20-Foot Rule, Carbon Monoxide, and Refueling | HomeBackupCost" description="Portable generator safety from Ready.gov, CDC, and CPSC: the 20-foot rule, CO alarms, CO-shutoff models, refueling, wet-weather use, and why never to backfeed." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>Generator safety: the short list that matters</h1>
+<p class="lede">Generators are useful in an outage when they're used the right way. These are the official rules, in plain language. Figures as of 2026-10-28.</p>
+
+<h2>The 20-foot rule</h2>
+<p>Run generators and store fuel <strong>outdoors, at least 20 feet from windows, doors, and attached garages</strong> (<a href="https://www.ready.gov/power-outages">Ready.gov</a>). CDC says more than 20 feet from windows, doors, and vents (<a href="https://www.cdc.gov/carbon-monoxide/about/index.html">CDC</a>). CPSC adds: point the exhaust away from the home and any building someone could enter (<a href="https://www.cpsc.gov/Newsroom/News-Releases/2022/CPSC-Releases-New-Report-on-Carbon-Monoxide-CO-Fatalities-Urges-Generator-Safety-in-New-PSA">CPSC</a>).</p>
+<p>Never inside a home, garage, basement, crawlspace, shed, or porch, even with doors and windows open (CPSC).</p>
+
+<h2>Carbon monoxide</h2>
+<ul>
+<li>CO is colorless and odorless (<a href="https://www.ready.gov/power-outages">Ready.gov</a>).</li>
+<li>Install battery-operated or battery-backup CO alarms on every level and outside sleeping areas; test monthly (CPSC).</li>
+<li>CPSC estimates about 85 U.S. consumers die each year from CO from portable generators (2017–2019 average), and 81% of generator CO deaths happen at home (CPSC).</li>
+<li>Look for models with automatic CO shutoff. CPSC estimates the PGMA G300-2018 and UL 2201 standards reduce CO deaths by 87% and 100%, respectively.</li>
+<li>If an alarm sounds, get outside right away and call 911 (CPSC).</li>
+</ul>
+
+<h2>Wiring and cords</h2>
+<ul>
+<li>Connect appliances with heavy-duty extension cords (<a href="https://www.ready.gov/power-outages">Ready.gov</a>).</li>
+<li>Never backfeed through a wall outlet. Use a transfer switch or interlock installed by an electrician (<a href="https://www.osha.gov/sites/default/files/publications/OSHA3286.pdf">OSHA</a>). <a href="/transfer-switch-vs-interlock-kit/">Transfer switch vs interlock →</a></li>
+</ul>
+<h2>Weather and fuel</h2>
+<ul>
+<li>Keep the generator dry and protected from rain or flooding; touching a wet generator can cause shock (<a href="https://www.ready.gov/power-outages">Ready.gov</a>).</li>
+<li>Let it cool before refueling; fuel spilled on hot engine parts can ignite (Ready.gov).</li>
+<li>Store gasoline in approved containers, and don't keep it more than 30 days without stabilizer (<a href="https://www.maine.gov/dep/homeowner/gas_tips.html">Maine DEP</a>).</li>
+</ul>
+<h2>The fuel-free alternative</h2>
+<p>Battery power stations make no exhaust, so they can run inside. <a href="/power-station-vs-generator-cost/">Compare the cost of a power station vs a generator →</a></p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>

@@ -25,6 +25,7 @@ Key facts:
 - [Transfer switch vs interlock kit vs inlet box; backfeeding is not permitted (NEC 702.5, CPSC)](https://homebackupcost.com/transfer-switch-vs-interlock-kit/)
 - [Winter storm power outage: keeping the heat on for 3 days (furnace blower watts, sump pump, space heaters, CO safety per CDC/Ready.gov)](https://homebackupcost.com/winter-storm-power-outage-heat/)
 - [Calculator scenario mode: will my backup last X days? (winter storm, hurricane, wildfire PSPS, heat wave)](https://homebackupcost.com/calculator/?scenario=winter)
+- [Generator safety: 20-foot rule (Ready.gov, CDC), carbon monoxide, CPSC CO-shutoff standards, refueling, no backfeeding](https://homebackupcost.com/generator-safety/)
 - [CPAP and medical devices in a power outage: sourced CPAP wattages (ResMed, Champion), battery runtime math, FDA planning; always use your device label](https://homebackupcost.com/cpap-medical-device-power-outage/)
 - [Wildfire Public Safety Power Shutoff (PSPS): notice timing, restoration goals, 2-day backup sizing, California rebates](https://homebackupcost.com/wildfire-psps-power-shutoff/)
 - [Hurricane power outage: planning backup power for a week without power (Ready.gov, Honda, Generac specs)](https://homebackupcost.com/hurricane-power-outage-week/)
