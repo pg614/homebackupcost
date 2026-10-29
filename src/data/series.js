@@ -6,4 +6,5 @@ export const SERIES = [
   { href:'/72-hour-power-outage-plan/', title:"72-hour power plan", blurb:"A simple 3-day plan: what to keep running, how much battery, food and medicine timing.", icon:"\u23f1\ufe0f" },
   { href:'/hurricane-power-outage-week/', title:"Hurricane: a week without power", blurb:"About 74 kWh for a week of essentials, generator fuel per day, and storm safety.", icon:"\ud83c\udf00" },
   { href:'/wildfire-psps-power-shutoff/', title:"Wildfire power shutoffs (PSPS)", blurb:"Notice timing, how long shutoffs last, ~8 kWh for 2 days, and CA rebates.", icon:"\ud83d\udd25" },
+  { href:'/cpap-medical-device-power-outage/', title:"CPAP and medical devices", blurb:"Sourced CPAP watts, battery runtime math, and FDA's planning steps.", icon:"\ud83e\ude7a" },
 ];

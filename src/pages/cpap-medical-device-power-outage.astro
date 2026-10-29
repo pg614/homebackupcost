@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+const faq = [
+["How much power does a CPAP use?", "It depends on the machine and settings. ResMed lists the AirSense 11 at 56.1 W typical and 73.2 W peak. The Champion wattage chart lists CPAPs at about 30–60 W without heat and 60–120 W with a heated humidifier. Check the label or manual for your own device."],
+["How long will a power station run my CPAP?", "Divide usable battery watt-hours by your device's watts. At ResMed's 56.1 W typical figure, an 8-hour night is about 450 Wh, so a 1,070 Wh station (Jackery Explorer 1000 v2) with 85% usable covers about 2 nights. Turning off the humidifier and heated tube usually cuts use a lot."],
+["Can I plug my CPAP into any battery?", "Ask your device maker first. FDA advises finding out from the manufacturer whether your device can run on batteries or a generator. ResMed says it does not endorse third-party batteries for the AirSense 11."],
+["What about oxygen concentrators and other devices?", "We don't publish wattages for oxygen concentrators or other life-sustaining equipment, because they vary widely by model. Use the watts on the device label and plan with your medical provider and equipment supplier."]
+];
+---
+<Base footerNewsletter={false} title="CPAP and Medical Devices in a Power Outage: Battery Sizing | HomeBackupCost" description="How to keep a CPAP or other powered medical device running in an outage: sourced CPAP wattages, battery runtime math, FDA's planning steps, and why to use your device label." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>CPAP and medical devices in a power outage</h1>
+<p class="lede">How to size backup power for a CPAP or other powered medical device, using your device's own numbers. Figures as of 2026-10-28.</p>
+<p class="note"><strong>Check your device label first.</strong> Every number below is an example from a published source. Your device's label or manual is the number to plan around. Talk to your doctor or equipment supplier before changing settings or connecting a battery, inverter, or generator. If a device is life-sustaining, plan with your provider and let your utility know.</p>
+
+<h2>Step 1: Find your device's watts</h2>
+<div class="tbl"><table><thead><tr><th>Device</th><th>Published power use</th><th>Source</th></tr></thead><tbody>
+<tr><td>ResMed AirSense 11 CPAP</td><td>56.1 W typical, 73.2 W peak (65 W power supply, 24 V DC)</td><td><a href="https://document.resmed.com/documents/products/machine/airsense-11/user-guide/airsense11_user-guide_amer_mul.pdf">ResMed user guide</a></td></tr>
+<tr><td>CPAP, no heat (general)</td><td>30–60 W</td><td><a href="https://www.championpowerequipment.com/generator-wattage-chart/">Champion chart</a></td></tr>
+<tr><td>CPAP with heated humidifier (general)</td><td>60–120 W</td><td><a href="https://www.championpowerequipment.com/generator-wattage-chart/">Champion chart</a></td></tr>
+<tr><td>Oxygen concentrators, nebulizers, others</td><td colspan="2">Use your device label. We don't list these because models vary widely.</td></tr>
+</tbody></table></div>
+
+<h2>Step 2: Do the runtime math</h2>
+<p><strong>Watt-hours per night</strong> = device watts × hours of use. <strong>Nights per charge</strong> = battery Wh × 0.85 ÷ watt-hours per night <span class="badge est">Assumption: 85% usable</span>.</p>
+<div class="tbl"><table><thead><tr><th>Battery</th><th>At 56.1 W × 8 h (≈449 Wh/night)</th><th>At 30 W × 8 h (240 Wh/night)</th></tr></thead><tbody>
+<tr><td>Medistrom Pilot-24 Lite (95 Wh)</td><td>≈ 0.2 nights (about 1.4 h)</td><td>≈ 0.3 nights (about 2.7 h)</td></tr>
+<tr><td>Anker SOLIX C1000 (1,056 Wh)</td><td>≈ 2.0 nights</td><td>≈ 3.7 nights</td></tr>
+<tr><td>Jackery Explorer 1000 v2 (1,070 Wh)</td><td>≈ 2.0 nights</td><td>≈ 3.8 nights</td></tr>
+<tr><td>Jackery Explorer 2000 v2 (2,042 Wh)</td><td>≈ 3.9 nights</td><td>≈ 7.2 nights</td></tr>
+</tbody></table></div>
+<p class="src">Capacities: <a href="https://www.medistrom.com/products-pilot24-lite.html">Medistrom</a>; <a href="https://homegridhq.com/compare/">HomeGridHQ</a> (October 2026). Medistrom quotes its own runtime with the humidifier and heated tube turned off, and a DC connection to the device avoids inverter losses. Compatibility depends on your machine: ResMed says it does not endorse third-party batteries for the AirSense 11 (<a href="https://shop.resmed.com.au/pages/airsense-11-pre-purchase-faqs">ResMed FAQ</a>).</p>
+<p><a href="/calculator/?preset=medical">Try the CPAP / medical preset in the calculator →</a></p>
+
+<h2>Step 3: Make a plan with FDA's checklist</h2>
+<p>FDA's home-use device booklet walks through the questions to ask your manufacturer or provider (<a href="https://www.fda.gov/media/80782/download">FDA</a>):</p>
+<ul>
+<li>Can the device run on batteries or another power source, and which type?</li>
+<li>Could you be harmed if it stops for a short time, and how long?</li>
+<li>Do you need supplies for a minimum of 3 days?</li>
+<li>After power returns, check for damage and incorrect settings before use.</li>
+</ul>
+<h2>Refrigerated medicine</h2>
+<p>Ready.gov: if the power is out for more than a day, discard medication that should be refrigerated unless the label says otherwise, and contact your doctor or pharmacist for a new supply (<a href="https://www.ready.gov/power-outages">Ready.gov</a>). Ask your pharmacist in advance how long your medicine is stable at room temperature.</p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>
