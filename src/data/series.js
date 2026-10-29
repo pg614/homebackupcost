@@ -7,6 +7,6 @@ export const SERIES = [
   { href:'/hurricane-power-outage-week/', title:"Hurricane: a week without power", blurb:"About 74 kWh for a week of essentials, generator fuel per day, and storm safety.", icon:"\ud83c\udf00" },
   { href:'/wildfire-psps-power-shutoff/', title:"Wildfire power shutoffs (PSPS)", blurb:"Notice timing, how long shutoffs last, ~8 kWh for 2 days, and CA rebates.", icon:"\ud83d\udd25" },
   { href:'/cpap-medical-device-power-outage/', title:"CPAP and medical devices", blurb:"Sourced CPAP watts, battery runtime math, and FDA's planning steps.", icon:"\ud83e\ude7a" },
-  { href:'/generator-safety/', title:"Generator safety", blurb:"The 20-foot rule, CO alarms, CO-shutoff models, and safe refueling.", icon:"\u26a0\ufe0f" },
+  { href:'/generator-safety/', title:"Generator safety", blurb:"The 20-foot rule, CO alarms, CO-shutoff models, and safe refueling.", icon:"🛡️" },
   { href:'/power-station-vs-generator-cost/', title:"Power station vs generator cost", blurb:"Upfront plus fuel for your outage, with noise and CO side by side.", icon:"\u2696\ufe0f" },
 ];
