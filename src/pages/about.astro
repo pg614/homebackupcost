@@ -11,8 +11,12 @@ const sources = [
 ];
 ---
 <Base title="About & Methodology: How We Verify Backup Power Data | HomeBackupCost" description="How HomeBackupCost sources, dates, and verifies its appliance wattage, battery, cost, and rebate data, and every assumption in the calculator.">
-<h1>About &amp; methodology</h1>
+<h1>About HomeBackupCost</h1>
 <p class="lede">HomeBackupCost is an independent guide to sizing and pricing home backup power. We started it because battery and rebate information is scattered, out of date, and often written by sellers.</p>
+<h2>Who runs it</h2>
+<p>HomeBackupCost is run by Paul Graves in Dublin, Ohio. It is an independent site: no battery, generator, or solar company owns it or reviews pages before they go live. Read our <a href="/methodology/">sources and editorial policy</a> and <a href="/affiliate-disclosure/">affiliate disclosure</a>, or <a href="/contact/">contact us</a>.</p>
+<h2>How we research</h2>
+<p>We start from primary sources: manufacturer spec sheets, federal agencies (IRS, EIA, Ready.gov, CDC, CPSC, FDA), state energy offices, utilities, and established cost surveys such as EnergySage. Each figure is recorded with its source link and the date we checked it, and pages are re-checked when sources change.</p>
 <h2>Our rules</h2>
 <ul>
 <li><strong>Every number has a source link and an "as of" date.</strong></li>
@@ -30,9 +34,9 @@ const sources = [
 <li><strong>Installed cost</strong> = capacity × EnergySage's $1,130–$1,159 per kWh.</li>
 <li><strong>Power station prices</strong> are the lowest (sale) price listed in our sources for October 2026.</li>
 </ul>
-<h2>Sources</h2>
+<h2 id="sources">Sources</h2>
 <div class="tbl"><table><thead><tr><th>Data</th><th>Source</th></tr></thead><tbody>{sources.map(([d,n,u]) => <tr><td>{d}</td><td><a href={u}>{n}</a></td></tr>)}</tbody></table></div>
-<p class="src">Last full data review: 2026-10-25. Found an error? A corrections address will be listed here before launch.</p>
+<p class="src">Last full data review: 2026-10-25. Found an error? See <a href="/contact/">Contact</a> for how to report it.</p>
 <h2>Known gaps</h2>
 <ul><li>EV Level 2 charging and medical devices: no verified wattage yet. Use your device's nameplate.</li><li>BLUETTI Apex 300 specs are not captured yet.</li><li>No generator prices yet.</li><li>Specs for expansion batteries are not included.</li><li>Rebate details are verified for six states so far; other states show NASEO status only.</li></ul>
 </Base>

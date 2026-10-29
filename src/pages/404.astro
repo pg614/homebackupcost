@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import { SERIES } from '../data/series.js';
+---
+<Base title="Page Not Found | HomeBackupCost" description="Page not found." footerNewsletter={false} h1Name="Page not found">
+<h1>Page not found</h1>
+<p class="lede">That page does not exist or has moved. These may help:</p>
+<ul>
+<li><a href="/">Home backup power cost: quick check</a></li>
+<li><a href="/calculator/">Backup power calculator</a></li>
+<li><a href="/what-size-battery-generator/">What size battery or generator do I need?</a></li>
+<li><a href="/rebates/">Rebates by state</a></li>
+{SERIES.map(x => <li><a href={x.href}>{x.title}</a></li>)}
+</ul>
+</Base>

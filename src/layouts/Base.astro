@@ -2,8 +2,38 @@
 import { SERIES } from '../data/series.js';
 import { AS_OF } from '../data/site.js';
 import Newsletter from '../components/Newsletter.astro';
-const { title, description, schema = [], updated = AS_OF, footerNewsletter = true } = Astro.props;
-const canonical = new URL(Astro.url.pathname, Astro.site).href;
+import { SEO, NON_ARTICLE } from '../data/seo.js';
+import { STATE_NAMES } from '../data/site.js';
+import { execSync } from 'node:child_process';
+import { existsSync } from 'node:fs';
+const { title: rawTitle, description: rawDesc, schema = [], updated = AS_OF, footerNewsletter = true, h1Name } = Astro.props;
+const path = Astro.url.pathname.replace(/^\/404(\.html)?\/?$/, '/404/');
+const canonical = new URL(path, Astro.site).href;
+const ORIGIN = 'https://homebackupcost.com';
+const stateM = path.match(/^\/rebates\/([a-z]{2})\/$/);
+const stateName = stateM ? STATE_NAMES[stateM[1].toUpperCase()] : null;
+let [title, description] = SEO[path] || [rawTitle, rawDesc];
+if (stateName && !SEO[path]) title = `${stateName} Home Energy & Battery Rebates (2026)`;
+if (title.length > 60) title = title.replace(/ \| HomeBackupCost$/, '');
+// Dates from git history of the page source (first commit = published, last = modified).
+function gitDate(args){ try { let src = 'src/pages' + (path === '/' ? '/index' : stateM ? '/rebates/[state]' : path.replace(/\/$/, '')) + '.astro'; if (!existsSync(src)) src = 'src/pages' + path + 'index.astro'; const out = execSync(`git log ${args} --format=%cs -- "${src}"`, { encoding:'utf8' }).trim().split('\n').filter(Boolean); return args.includes('reverse') ? out[0] : out[0]; } catch { return null; } }
+const published = gitDate('--reverse --diff-filter=A') || AS_OF;
+const modifiedGit = gitDate('-1') || AS_OF;
+const modified = modifiedGit > updated ? modifiedGit : updated;
+const isArticle = !NON_ARTICLE.includes(path) && path !== '/404/';
+const crumbName = h1Name || title.split(/[:|]/)[0].trim();
+const crumbs = path === '/' ? [] : [['Home', ORIGIN + '/'], ...(stateM ? [['Rebates', ORIGIN + '/rebates/']] : []), [crumbName, canonical]];
+const ogImage = ORIGIN + '/og-image.jpg';
+const org = { '@type':'Organization', '@id': ORIGIN + '/#org', name:'HomeBackupCost', url: ORIGIN + '/', logo: ORIGIN + '/favicon.svg', founder: { '@type':'Person', name:'Paul Graves' }, address: { '@type':'PostalAddress', addressLocality:'Dublin', addressRegion:'OH', addressCountry:'US' } };
+const site = { '@type':'WebSite', '@id': ORIGIN + '/#website', name:'HomeBackupCost', url: ORIGIN + '/', publisher: { '@id': ORIGIN + '/#org' }, inLanguage:'en-US' };
+const author = { '@type':'Person', name:'Paul Graves', url: ORIGIN + '/about/' };
+const page = isArticle
+  ? { '@type':'Article', headline: title.replace(/ \| HomeBackupCost$/, ''), description, url: canonical, mainEntityOfPage: canonical, image: ogImage, datePublished: published, dateModified: modified, author, publisher: { '@id': ORIGIN + '/#org' } }
+  : { '@type':'WebPage', name: title, description, url: canonical, isPartOf: { '@id': ORIGIN + '/#website' }, dateModified: modified };
+const graph = [{ '@context':'https://schema.org', '@graph': [org, site, page, ...(crumbs.length ? [{ '@type':'BreadcrumbList', itemListElement: crumbs.map(([n,u],i) => ({ '@type':'ListItem', position:i+1, name:n, item:u })) }] : [])] }];
+const allSchema = [...graph, ...schema];
+const inSeries = SERIES.some(x => x.href === path);
+const related = inSeries ? SERIES.filter(x => x.href !== path) : [];
 const nav = [['/calculator/','Calculator'],['/solar-backup/','Solar'],['/quotes/','Get quotes'],['/portable-power-stations/','Power stations'],['/whole-home-battery-cost/','Whole-home batteries'],['/what-size-battery-generator/','Sizing guide'],['/rebates/','Rebates']];
 ---
 <!doctype html>
@@ -11,12 +41,18 @@ const nav = [['/calculator/','Calculator'],['/solar-backup/','Solar'],['/quotes/
 <head>
 <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{title}</title><meta name="description" content={description} />
-<link rel="canonical" href={canonical} />
-<meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:url" content={canonical} /><meta property="og:type" content="website" />
+{path !== "/404/" && <link rel="canonical" href={canonical} />}
+{path === '/404/' && <meta name="robots" content="noindex" />}
+<meta property="og:site_name" content="HomeBackupCost" /><meta property="og:locale" content="en_US" />
+<meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:url" content={canonical} /><meta property="og:type" content={isArticle ? 'article' : 'website'} />
+<meta property="og:image" content={ogImage} /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta property="og:image:alt" content="Illustration of a farmhouse with rooftop solar panels and a home backup battery" />
+<meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={title} /><meta name="twitter:description" content={description} /><meta name="twitter:image" content={ogImage} />
+{isArticle && <meta property="article:modified_time" content={modified} />}
+<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
 <meta name="theme-color" content="#0b1020" media="(prefers-color-scheme: dark)" /><meta name="theme-color" content="#f6f8fc" media="(prefers-color-scheme: light)" />
 <script is:inline>(function(){try{var t=localStorage.getItem('hbc-theme');if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-{schema.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+{allSchema.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
 <style is:global>
 :root{color-scheme:dark;--bg:#0b1020;--glow:#1d2a66;--panel:#121a33;--panel2:#18234a;--field:#0d1430;--deep:#0a0f24;--ink:#e8edff;--mute:#a7b2d6;--volt:#c6ff3d;--link:#c6ff3d;--on-volt:#0b1020;--amber:#ffb020;--line:#2c3866;--warn:#ffcf66;--ok:#5cf2a0;--bad:#ff8a8a;--hdr:rgba(11,16,32,.88);--hl1:#c6ff3d;--hl2:#ffb020}
 :root[data-theme=light]{color-scheme:light;--bg:#f6f8fc;--glow:#e3ebff;--panel:#ffffff;--panel2:#f1f5fd;--field:#ffffff;--deep:#f4f7ff;--ink:#0d1530;--mute:#4a5578;--volt:#3d6b00;--link:#2a5a00;--on-volt:#ffffff;--amber:#b35c00;--line:#cdd6ea;--warn:#8a5a00;--ok:#0b7a43;--bad:#b42318;--hdr:rgba(246,248,252,.9);--hl1:#3d7a00;--hl2:#c25e00}
@@ -53,6 +89,8 @@ details summary{cursor:pointer;font-weight:600}
 .prep{position:relative;font-size:.92rem;margin-right:6px}.prep summary{list-style:none;cursor:pointer;color:var(--ink);font-weight:700;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:var(--panel2);white-space:nowrap}.prep summary::-webkit-details-marker{display:none}.prep[open] summary{border-color:var(--volt)}
 .prep-panel{position:absolute;top:calc(100% + 8px);left:0;z-index:50;min-width:280px;display:grid;gap:2px;padding:8px;background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 32px rgba(0,0,0,.25)}.prep-panel a{color:var(--ink);text-decoration:none;padding:9px 10px;border-radius:8px}.prep-panel a:hover,.prep-panel a:focus{background:var(--panel2)}
 @media(max-width:760px){header.site .wrap{position:relative}.prep{order:2;position:static}.prep-panel{left:12px;right:12px;min-width:0;top:auto;margin-top:8px}}
+.crumbs{font-size:.82rem;color:var(--mute);margin-top:14px}.crumbs a{color:var(--mute)}.byline{font-size:.85rem;color:var(--mute);margin:.2em 0 0}.byline a{color:var(--mute)}
+.related{margin-top:48px;border-top:1px solid var(--line);padding-top:8px}
 </style>
 </head>
 <body>
@@ -62,11 +100,16 @@ details summary{cursor:pointer;font-weight:600}
 <details class="prep" id="prepMenu"><summary>Outage Prep <span aria-hidden="true">▾</span></summary><div class="prep-panel" role="menu">{SERIES.map(x => <a role="menuitem" href={x.href}><span aria-hidden="true">{x.icon}</span> {x.title}</a>)}</div></details>
 <nav class="main" aria-label="Main">{nav.map(([h,t]) => <a href={h}>{t}</a>)}</nav>
 </div></header>
-<main class="wrap"><slot /></main>
+<main class="wrap">
+{crumbs.length > 0 && <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a>{stateM && <> › <a href="/rebates/">Rebates</a></>} › <span aria-current="page">{crumbName}</span></nav>}
+{isArticle && <p class="byline">By <a href="/about/">Paul Graves</a> · Last updated <time datetime={modified}>{modified}</time> · <a href="/methodology/">How we research</a></p>}
+<slot />
+{related.length > 0 && <section class="related" aria-labelledby="related-h"><h2 id="related-h">More outage prep guides</h2><ul>{related.map(x => <li><a href={x.href}>{x.title}</a>: <span class="mute">{x.blurb}</span></li>)}</ul><p>Check your own numbers in the <a href="/calculator/">backup power calculator</a> or see <a href="/what-size-battery-generator/">what size battery or generator you need</a>.</p></section>}
+</main>
 <footer class="site"><div class="wrap">
 {footerNewsletter && <Newsletter compact />}
 <p><strong>HomeBackupCost</strong> — independent backup power sizing and cost data. Page data as of {updated}. Every figure links to its source; estimates are labeled <span class="badge est">Estimate</span>.</p>
-<p><a href="/about/">About &amp; methodology</a> · <a href="/affiliate-disclosure/">Affiliate disclosure</a> · <a href="/privacy/">Privacy</a> · <a href="/federal-tax-credits-ended/">Federal tax credits ended</a> · <a href="/llms.txt">llms.txt</a></p>
+<p><a href="/about/">About</a> · <a href="/methodology/">Sources &amp; editorial policy</a> · <a href="/contact/">Contact</a> · <a href="/affiliate-disclosure/">Affiliate disclosure</a> · <a href="/privacy/">Privacy</a> · <a href="/federal-tax-credits-ended/">Federal tax credits ended</a> · <a href="/llms.txt">llms.txt</a></p>
 <p>Not electrical, legal, or tax advice. Have a licensed electrician connect anything to your home's wiring.</p>
 </div></footer>
 <script is:inline>document.getElementById('themeBtn').addEventListener('click',function(){var r=document.documentElement,t=r.getAttribute('data-theme')==='light'?'dark':'light';r.setAttribute('data-theme',t);try{localStorage.setItem('hbc-theme',t)}catch(e){}});</script>
