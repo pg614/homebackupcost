@@ -23,4 +23,6 @@ Key facts:
 - [Installer red flags](https://homebackupcost.com/backup-power-installer-red-flags/)
 - [How to compare backup power quotes](https://homebackupcost.com/how-to-compare-backup-power-quotes/)
 - [Transfer switch vs interlock kit vs inlet box; backfeeding is not permitted (NEC 702.5, CPSC)](https://homebackupcost.com/transfer-switch-vs-interlock-kit/)
+- [Winter storm power outage: keeping the heat on for 3 days (furnace blower watts, sump pump, space heaters, CO safety per CDC/Ready.gov)](https://homebackupcost.com/winter-storm-power-outage-heat/)
+- [Calculator scenario mode: will my backup last X days? (winter storm, hurricane, wildfire PSPS, heat wave)](https://homebackupcost.com/calculator/?scenario=winter)
 - [Methodology and sources](https://homebackupcost.com/about/)

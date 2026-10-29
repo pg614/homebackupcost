@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+const faq = [
+["Will my gas furnace work during a power outage?", "Usually not. Most modern gas furnaces need electricity for the blower fan, controls, and igniter. A 1/2 HP furnace blower runs about 300–800 W and can need about 1,600 W to start (Champion Power Equipment wattage chart). Check your furnace's label or manual for its exact rating."],
+["Can a portable power station run my furnace?", "A station rated above the blower's starting watts can run the fan, but it has to connect through a listed transfer switch or interlock installed by a licensed electrician, or a furnace made to plug in. At a typical 550 W for 12 hours a day, the blower alone uses about 6.6 kWh per day, more than most single portable stations hold."],
+["How long will a power station run a space heater?", "Not long. A plug-in space heater draws about 750–1,500 W (Champion). A 2.04 kWh station like the Jackery Explorer 2000 v2, with 85% usable, runs a 1,500 W heater for about 1.2 hours. Heating one room by running the furnace blower is usually a better use of stored energy."],
+["Is it safe to run a generator in the garage with the door open?", "No. CDC and CPSC say never use a generator inside a home or garage, even with doors and windows open. Ready.gov says to keep generators at least 20 feet from windows, doors, and attached garages."],
+["Can I heat my house with a gas oven or stove?", "No. Ready.gov says never use a gas stovetop or oven to heat your home because it raises your carbon monoxide risk."]
+];
+---
+<Base footerNewsletter={false} title="Winter Storm Power Outage: Keeping the Heat On for 3 Days | HomeBackupCost" description="How much backup power it takes to keep heat on through a 3-day winter outage: furnace blower watts, sump pump, space heaters, and carbon monoxide safety from CDC and Ready.gov." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>Winter storm power outage: keeping the heat on for 3 days</h1>
+<p class="lede">What it actually takes to keep a furnace, sump pump, and fridge running through a 3-day outage, and how to do it safely. Figures as of 2026-10-28.</p>
+<p class="note"><strong>Plan first, buy second.</strong> Ready.gov's advice is to list what in your home needs electricity, plan backup for it, install battery-backup CO alarms, and know where local warming centers are (<a href="https://www.ready.gov/power-outages">Ready.gov, Power Outages</a>, page updated 06/04/2026, read 2026-10-28). <a href="/calculator/?scenario=winter">Run the winter storm scenario in the calculator →</a></p>
+
+<h2>Why this winter</h2>
+<p>NERC, which oversees North American grid reliability, scheduled its 2026–2027 Winter Reliability Assessment for release on <strong>November 18, 2026</strong> (<a href="https://www.nerc.com/globalassets/who-we-are/standing-committees/rstc/ras/2026_2027_wra_schedule.pdf">NERC schedule</a>). We'll add its findings when it's out. Earlier this month, DOE issued emergency Order No. 202-26-50 to PJM, the grid operator for 13 states and DC, on October 12, effective October 13–16, 2026, so PJM could run specified units and call on backup generation as a last resort (<a href="https://www.energy.gov/ceser/2026-doe-202c-orders">DOE 202(c) orders</a>). That order did not mean outages happened; it is a tool to prevent them.</p>
+
+<h2>1. The furnace blower: the key load</h2>
+<p>Most gas and oil furnaces won't heat without electricity, because the blower fan, controls, and igniter need power. A 1/2 HP furnace fan runs <strong>300–800 W</strong> and needs up to <strong>1,600 W</strong> to start (<a href="https://www.championpowerequipment.com/generator-wattage-chart/">Champion Power Equipment wattage chart</a>, as of 2026-10-25). Your furnace's label has its own number; use that if it differs.</p>
+<p><span class="badge est">Estimate</span> At the 550 W midpoint and 12 hours of runtime a day, the blower uses about <strong>6.6 kWh/day</strong>, or about 19.8 kWh over 3 days. Colder weather and leakier homes mean more hours.</p>
+<p>A furnace has to be connected through a listed transfer switch or interlock installed by a licensed electrician, never a backfed outlet. <a href="/transfer-switch-vs-interlock-kit/">Transfer switch vs interlock →</a></p>
+
+<h2>2. Sump pump</h2>
+<p>Snowmelt and freezing rain can keep a sump pump busy. A 1/3 HP pump runs <strong>500–800 W</strong> with about <strong>1,600 W</strong> to start; a 1/2 HP runs 800–1,050 W with 2,150 W to start (Champion). <span class="badge est">Assumption</span> Our calculator defaults to 4.8 hours of pumping a day, which you should change to match your basement.</p>
+
+<h2>3. Space heaters: what they really need</h2>
+<p>A plug-in space heater draws <strong>750–1,500 W</strong> (Champion). That's more than a furnace blower, for one room.</p>
+<div class="tbl"><table><thead><tr><th>Power station (capacity)</th><th>1,500 W heater</th><th>750 W heater</th><th>550 W furnace blower</th></tr></thead><tbody>
+<tr><td>Anker SOLIX C1000 (1.056 kWh)</td><td>≈0.6 h</td><td>≈1.2 h</td><td>≈1.6 h</td></tr>
+<tr><td>Jackery Explorer 2000 v2 (2.042 kWh)</td><td>≈1.2 h</td><td>≈2.3 h</td><td>≈3.2 h</td></tr>
+<tr><td>EcoFlow DELTA Pro 3 (4.096 kWh)</td><td>≈2.3 h</td><td>≈4.6 h</td><td>≈6.3 h</td></tr>
+<tr><td>Jackery Explorer 5000 Plus (5.04 kWh)</td><td>≈2.9 h</td><td>≈5.7 h</td><td>≈7.8 h</td></tr>
+</tbody></table></div>
+<p class="src">Runtime = capacity × 0.85 usable ÷ watts <span class="badge est">Assumption</span>. Capacities from <a href="https://homegridhq.com/compare/">HomeGridHQ</a> and <a href="https://homebatteryreport.com/guides/plug-in-vs-installed-battery-cost">Home Battery Report</a>, October 2026. Never leave a space heater running unattended, and plug it straight into the station or wall, not a power strip.</p>
+
+<h2>4. A sample 3-day winter plan</h2>
+<p><span class="badge est">Estimate</span> Fridge (8 h/day), furnace blower (12 h/day), 1/3 HP sump pump (4.8 h/day), Wi-Fi router, six LED bulbs, and phone charging come to about <strong>12.8 kWh/day</strong>, or about <strong>45 kWh</strong> for 3 days after the 0.85 usable factor. That's in the range of an installed battery bank or a generator, not a single portable station. Dropping the sump pump and running the blower 8 hours cuts it to about 7.5 kWh/day.</p>
+<p>Ways to make it last: heat fewer rooms and close doors, keep the fridge and freezer shut (Ready.gov: a fridge keeps food cold for about 4 hours, a full freezer about 48 hours), and charge devices in the daytime. <a href="/calculator/?scenario=winter">Try your own numbers →</a></p>
+
+<h2>5. Carbon monoxide: the real risk</h2>
+<ul>
+<li>CDC: never use a generator inside your home or garage, even with doors and windows open, and only use it more than 20 feet from windows, doors, and vents (<a href="https://www.cdc.gov/carbon-monoxide/about/index.html">CDC, CO basics</a>).</li>
+<li>Ready.gov: generators and fuel go outdoors, <strong>at least 20 feet</strong> from windows, doors, and attached garages, and never heat your home with a gas stove or oven (<a href="https://www.ready.gov/power-outages">Ready.gov</a>).</li>
+<li>Install battery-operated or battery-backup CO alarms on every level and near sleeping areas, and test them monthly (<a href="https://www.cpsc.gov/Newsroom/News-Releases/2022/CPSC-Releases-New-Report-on-Carbon-Monoxide-CO-Fatalities-Urges-Generator-Safety-in-New-PSA">CPSC</a>).</li>
+<li>CPSC found 43% of engine-driven tool CO deaths in 2011–2021 happened November through February, and weather outages from ice, snow, and storms were a leading reason people were running generators (<a href="https://www.cpsc.gov/s3fs-public/Fatal-Incidents-Associated-with-Non-Fire-Carbon-Monoxide-Poisioning-from-Engine-Driven-Generators-and-Other-Engine-Driven-Tools-2011-2021.pdf">CPSC report</a>).</li>
+</ul>
+<p>Battery power stations make no exhaust, which is one reason people use them indoors. If you'd feel cold or unsafe, Ready.gov's advice is to go to a community location with power.</p>
+<p class="note"><a href="/calculator/?scenario=winter"><strong>Will your backup last 3 days? Check in the calculator →</strong></a> · <a href="/portable-power-stations/">Compare power stations</a> · <a href="/standby-generator-installation-cost/">Standby generator costs</a></p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>
