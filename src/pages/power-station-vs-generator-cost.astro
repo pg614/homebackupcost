@@ -44,7 +44,7 @@ function run(){var w=+$('w').value||0,h=+$('h').value||0,d=+$('d').value||1,gas=
 var s=D.stations.find(function(x){return x.name===$('st').value}),np=+$('np').value||0,p=s.panel,solarDay=p?np*p.watts*D.psh*D.derate/1000:0;
 var use=s.kwh*0.85,net=kwhDay-solarDay,last=net<=0?Infinity:use/net,stCost=s.price+(p?np*p.price:0);
 var r='<div class="tbl"><table><thead><tr><th>Option</th><th>Upfront</th><th>Fuel for '+d+' days</th><th>Total</th><th>Noise</th><th>CO / exhaust</th></tr></thead><tbody>';
-var ok=s.out>=w, lastTxt=last===Infinity?'covers daily use in good sun':(last>=d?'lasts all '+d+' days':'lasts ≈'+(last<1?(last*24).toFixed(1)+' h':last.toFixed(1)+' days')+' of '+d);
+var ok=s.out>=w, lastTxt=last===Infinity?'covers daily use in good sun':(last>=d?'lasts all '+d+' days':'lasts ≈'+(last<1?(last*24).toFixed(1)+' h':last.toFixed(1)+' days')+' of '+d+' days');
 r+='<tr><td><strong><a href="'+s.src+'" target="_blank" rel="noopener">'+s.name+'</a></strong>'+(np&&p?' + '+np+' × '+p.panel:'')+'<br><span class="src">'+s.kwh+' kWh, '+lastTxt+(ok?'':' · output too low for this load')+(np&&!p?' · no matched panel in our data':'')+'</span></td><td>'+m(stCost)+'</td><td>$0</td><td><strong>'+m(stCost)+'</strong></td><td>No engine (fans only)</td><td>None</td></tr>';
 D.gens.forEach(function(g){var f=w/g.rated;if(f>1){r+='<tr><td>'+g.name+'</td><td colspan="5" class="bad">Load is above its '+g.rated.toLocaleString()+' W rating</td></tr>';return;}
 var gal=gph(g.curve,f)*h,price=g.fuel==='gas'?gas:lp,fuel=gal*d*price,up=g.priceHigh?m(g.price)+'–'+m(g.priceHigh)+' installed':m(g.price),tot=g.priceHigh?m(g.price+fuel)+'–'+m(g.priceHigh+fuel):m(g.price+fuel);
