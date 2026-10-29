@@ -1,0 +1,5 @@
+// Outage Prep series. Only list pages that exist; add each new page when it goes live.
+export const SERIES = [
+  { href:'/winter-storm-power-outage-heat/', title:'Winter storm: keep the heat on', blurb:'Furnace blower watts, sump pumps, space heaters, and CO safety for a 3-day outage.', icon:'❄️' },
+  { href:'/calculator/?scenario=winter', title:'Will my backup last X days?', blurb:'Pick a scenario and see kWh needed, runtime, and what solar adds.', icon:'🔋' },
+];

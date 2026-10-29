@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Calculator from '../components/Calculator.astro';
 import QuickCheck from '../components/QuickCheck.astro';
 import Newsletter from '../components/Newsletter.astro';
+import { SERIES } from '../data/series.js';
 const faq = [
  ['How big a battery do I need to run a fridge during an outage?', 'A refrigerator draws about 150–400 running watts and 800–1,200 watts to start (Champion Power Equipment chart). If the compressor runs about a third of the time (our assumption), that is roughly 1–3 kWh per day. Use the calculator to add your other essentials.'],
  ['Is there still a federal tax credit for home batteries?', 'No. Under the 2025 law known as the One Big Beautiful Bill, the Section 25D credit does not apply to installations completed after 12/31/2025, per the IRS FAQ.'],
@@ -26,6 +27,12 @@ const schema = [
 </section>
 <h2 id="full">Full calculator: pick every appliance</h2>
 <Calculator />
+<section class="prep-row" aria-labelledby="prepH">
+<p class="eyebrow"><span class="dot"></span> Outage Prep series</p>
+<h2 id="prepH" style="margin-top:4px">Plan for the outages you're most likely to see</h2>
+<p class="mute" style="max-width:640px">Calm, sourced guides for storms, shutoffs, and long outages. Every number links to where it came from.</p>
+<div class="grid">{SERIES.map(x => <a class="card tile prep-card" href={x.href}><span class="prep-ic" aria-hidden="true">{x.icon}</span><h3>{x.title}</h3><p class="mute">{x.blurb}</p><span class="prep-go">Read guide →</span></a>)}</div>
+</section>
 <section class="grid" style="margin-top:36px">
 <a class="card tile" href="/portable-power-stations/"><h3>Portable power stations compared</h3><p class="mute">Capacity, output, surge, and price for 11 models, with price dates.</p></a>
 <a class="card tile" href="/whole-home-battery-cost/"><h3>Whole-home battery cost</h3><p class="mute">Powerwall 3, FranklinWH, and EnergySage's installed price data.</p></a>
@@ -50,5 +57,6 @@ const schema = [
 .hl{background:linear-gradient(90deg,var(--hl1),var(--hl2));-webkit-background-clip:text;background-clip:text;color:transparent}
 .tile{text-decoration:none;color:var(--ink)}.tile:hover{border-color:var(--volt)}.tile h3{margin-top:0}
 @media(max-width:600px){.hero{padding:14px 0 8px}.hero .lede{font-size:1rem}}
+.prep-row{margin-top:40px}.prep-card{display:flex;flex-direction:column;gap:6px}.prep-card h3{margin:4px 0 0}.prep-card p{margin:0;flex:1}.prep-ic{font-size:1.6rem}.prep-go{color:var(--link);font-weight:700;font-size:.9rem}
 </style>
 </Base>
