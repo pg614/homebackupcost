@@ -1,0 +1,66 @@
+---
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+import batteries from '../data/batteries.json';
+import solar from '../data/solar.json';
+import { priceLow } from '../data/site.js';
+const stations = batteries.filter(b => !b.type.startsWith('installed') && priceLow(b.price)).map(b => ({ name:b.product, kwh:b.capacity_kwh, out:b.output_w, price:priceLow(b.price), src:b.source_url, panel: solar.panels.find(p => p.fits.includes(b.product)) || null }));
+// Fuel curves: [load fraction, gal/h] from manufacturer specs. Between points we interpolate linearly (estimate).
+const gens = [
+ { id:'eu2200', name:'Honda EU2200i (inverter, gasoline)', rated:1800, price:1199, fuel:'gas', curve:[[0.25,0.95/8.1],[1,0.95/3.2]], db:'48–57 dBA (1/4 to rated load)', co:'CO-MINDER automatic shutoff', src:'https://powerequipment.honda.com/generators/models/eu2200i', psrc:'https://homepowerfacts.com/generators/honda-eu2200i/' },
+ { id:'eu7000', name:'Honda EU7000iS (inverter, gasoline)', rated:5500, price:4899, fuel:'gas', curve:[[0.25,5.1/16],[0.5,5.1/8],[1,5.1/6.4]], db:'52–58 dBA (1/4 to rated load)', co:'Check model listing', src:'https://powerequipment.honda.com/generators/models/eu7000is', psrc:'https://powerequipment.honda.com/generators/models/eu7000is' },
+ { id:'gen22', name:'Generac 22 kW standby (propane)', rated:22000, price:8000, priceHigh:16000, fuel:'propane', curve:[[0.5,2.53],[1,3.90]], db:'67 dBA at 23 ft, normal load', co:'Permanently installed outdoors', src:'https://www.generac.com/residential-products/standby-generators/22kW-Standby-Generator-With-Whole-House-Switch-WiFi-Enabled-7043/', psrc:'/standby-generator-installation-cost/' },
+];
+const D = { stations, gens, gas:4.269, propane:2.730, psh:solar.assumptions.peak_sun_hours, derate:solar.assumptions.derate };
+const faq = [
+["Is a power station or a generator cheaper for a long outage?", "For short outages, a power station often costs less overall and has no fuel. For multi-day outages with heavy loads, a generator usually costs less upfront per kWh delivered, but you pay for fuel every day. The calculator shows both for your load, days, and fuel price."],
+["How much gas does a generator use per day?", "It depends on load. Honda rates the EU2200i at 8.1 hours on 0.95 gallons at 1/4 load (about 2.8 gal/day running nonstop) and the EU7000iS at 16 hours on 5.1 gallons at 1/4 load (about 7.7 gal/day)."],
+["Which is quieter?", "A power station has no engine; its only noise is cooling fans. Honda lists the EU2200i at 48–57 dBA, and Generac lists its 22 kW standby at 67 dBA at 23 feet under normal load."],
+["What about carbon monoxide?", "Fuel-burning generators make CO and must run outdoors at least 20 feet from windows, doors, and attached garages (Ready.gov). Battery power stations produce no exhaust."]
+];
+---
+<Base footerNewsletter={false} title="Power Station vs Generator Cost Calculator: Upfront + Fuel for Your Outage | HomeBackupCost" description="Compare a portable power station with a gas or propane generator for your outage: upfront price, fuel gallons per day × days × local fuel price, plus noise and carbon monoxide tradeoffs." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) },{ '@context':'https://schema.org','@type':'WebApplication', name:'Power Station vs Generator Cost Calculator', applicationCategory:'UtilitiesApplication', operatingSystem:'Any', offers:{ '@type':'Offer', price:'0', priceCurrency:'USD' } }]}>
+<h1>Power station vs generator: total cost for your outage</h1>
+<p class="lede">Upfront price plus fuel (gallons per day × days × your fuel price), with the noise and carbon monoxide tradeoffs side by side. Prices as of October 2026.</p>
+<section class="card" id="pvg">
+<div class="grid">
+<label>Average load (watts)<br><input type="number" id="w" value="450" min="10" max="20000" /></label>
+<label>Hours per day<br><input type="number" id="h" value="24" min="1" max="24" /></label>
+<label>Outage days<br><input type="number" id="d" value="3" min="1" max="90" /></label>
+<label>Gasoline $/gal<br><input type="number" id="gas" step="0.01" value="4.269" /></label>
+<label>Propane $/gal<br><input type="number" id="lp" step="0.01" value="2.730" /></label>
+<label>Power station<br><select id="st">{stations.map(s => <option value={s.name} selected={s.name==='Jackery Explorer 5000 Plus'}>{s.name}</option>)}</select></label>
+<label>Solar panels for the station<br><input type="number" id="np" value="0" min="0" max="12" /></label>
+</div>
+<p class="src">Defaults: 450 W is about our winter essentials example (12.8 kWh/day ÷ 24 h is 533 W; 450 W is a lighter load). Fuel prices: EIA U.S. average regular gasoline $4.269/gal, week of 10/26/2026 (<a href="https://www.eia.gov/petroleum/gasdiesel/">EIA</a>); residential propane $2.730/gal excluding taxes, 10/26/2026 (<a href="https://www.eia.gov/petroleum/heatingoilpropane/">EIA</a>). Enter your local prices.</p>
+<div id="out" aria-live="polite"></div>
+</section>
+<script type="application/json" id="pvgData" set:html={JSON.stringify(D)}></script>
+<script is:inline>
+(function(){var D=JSON.parse(document.getElementById('pvgData').textContent),$=function(i){return document.getElementById(i)};
+function gph(c,f){if(f<=c[0][0])return c[0][1];for(var i=1;i<c.length;i++){if(f<=c[i][0]){var a=c[i-1],b=c[i];return a[1]+(b[1]-a[1])*(f-a[0])/(b[0]-a[0]);}}return c[c.length-1][1];}
+function m(n){return '$'+Math.round(n).toLocaleString('en-US')}
+function run(){var w=+$('w').value||0,h=+$('h').value||0,d=+$('d').value||1,gas=+$('gas').value||0,lp=+$('lp').value||0;var kwhDay=w*h/1000;
+var s=D.stations.find(function(x){return x.name===$('st').value}),np=+$('np').value||0,p=s.panel,solarDay=p?np*p.watts*D.psh*D.derate/1000:0;
+var use=s.kwh*0.85,net=kwhDay-solarDay,last=net<=0?Infinity:use/net,stCost=s.price+(p?np*p.price:0);
+var r='<div class="tbl"><table><thead><tr><th>Option</th><th>Upfront</th><th>Fuel for '+d+' days</th><th>Total</th><th>Noise</th><th>CO / exhaust</th></tr></thead><tbody>';
+var ok=s.out>=w, lastTxt=last===Infinity?'covers daily use in good sun':(last>=d?'lasts all '+d+' days':'lasts ≈'+(last<1?(last*24).toFixed(1)+' h':last.toFixed(1)+' days')+' of '+d);
+r+='<tr><td><strong><a href="'+s.src+'" target="_blank" rel="noopener">'+s.name+'</a></strong>'+(np&&p?' + '+np+' × '+p.panel:'')+'<br><span class="src">'+s.kwh+' kWh, '+lastTxt+(ok?'':' · output too low for this load')+(np&&!p?' · no matched panel in our data':'')+'</span></td><td>'+m(stCost)+'</td><td>$0</td><td><strong>'+m(stCost)+'</strong></td><td>No engine (fans only)</td><td>None</td></tr>';
+D.gens.forEach(function(g){var f=w/g.rated;if(f>1){r+='<tr><td>'+g.name+'</td><td colspan="5" class="bad">Load is above its '+g.rated.toLocaleString()+' W rating</td></tr>';return;}
+var gal=gph(g.curve,f)*h,price=g.fuel==='gas'?gas:lp,fuel=gal*d*price,up=g.priceHigh?m(g.price)+'–'+m(g.priceHigh)+' installed':m(g.price),tot=g.priceHigh?m(g.price+fuel)+'–'+m(g.priceHigh+fuel):m(g.price+fuel);
+r+='<tr><td><strong><a href="'+g.src+'" target="_blank" rel="noopener">'+g.name+'</a></strong><br><span class="src">≈'+gal.toFixed(1)+' gal/day '+(g.fuel==='gas'?'gasoline':'propane')+' at '+Math.round(f*100)+'% load'+(f<g.curve[0][0]?' (spec starts at '+Math.round(g.curve[0][0]*100)+'%, so this is an upper estimate)':'')+'</span></td><td>'+up+'<br><a class="src" href="'+g.psrc+'">price source</a></td><td>'+m(fuel)+'<br><span class="src">'+(gal*d).toFixed(0)+' gal</span></td><td><strong>'+tot+'</strong></td><td>'+g.db+'</td><td>Makes CO. Outdoors only, 20+ ft from windows, doors, garages. '+g.co+'</td></tr>';});
+r+='</tbody></table></div>';$('out').innerHTML=r;}
+document.getElementById('pvg').addEventListener('input',run);run();})();
+</script>
+<h2>How the math works</h2>
+<ul>
+<li><strong>Fuel</strong> = gallons per hour at your load × hours per day × days × fuel price. Gallons per hour come from manufacturer runtime specs (<a href="https://powerequipment.honda.com/generators/models/eu2200i">Honda EU2200i</a>: 3.2 h at rated load, 8.1 h at 1/4 load on 0.95 gal; <a href="https://powerequipment.honda.com/generators/models/eu7000is">Honda EU7000iS</a>: 6.4/8/16 h at rated/half/quarter load on 5.1 gal; <a href="https://www.generac.com/residential-products/standby-generators/22kW-Standby-Generator-With-Whole-House-Switch-WiFi-Enabled-7043/">Generac 22 kW</a>: 2.53/3.90 gal/h propane at half/full load). Between points we interpolate <span class="badge est">Estimate</span>.</li>
+<li><strong>Prices:</strong> Honda EU2200i $1,199 MSRP and EU7000iS $4,899 MSRP; standby $8,000–$16,000 installed (<a href="/standby-generator-installation-cost/">standby guide</a>); power stations and panels from our <a href="/portable-power-stations/">October 2026 price data</a>. Prices change often.</li>
+<li><strong>Power station runtime</strong> = capacity × 0.85 usable ÷ (daily use − solar). <span class="badge est">Assumption</span> Solar at {D.psh} peak sun hours and {Math.round(D.derate*100)}% output.</li>
+<li>Not included: oil changes, extension cords, transfer equipment, propane tank rental, tax, or the value of your time refueling.</li>
+</ul>
+<p class="note"><a href="/generator-safety/"><strong>Generator safety: the 20-foot rule →</strong></a></p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>
