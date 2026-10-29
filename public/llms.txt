@@ -25,4 +25,5 @@ Key facts:
 - [Transfer switch vs interlock kit vs inlet box; backfeeding is not permitted (NEC 702.5, CPSC)](https://homebackupcost.com/transfer-switch-vs-interlock-kit/)
 - [Winter storm power outage: keeping the heat on for 3 days (furnace blower watts, sump pump, space heaters, CO safety per CDC/Ready.gov)](https://homebackupcost.com/winter-storm-power-outage-heat/)
 - [Calculator scenario mode: will my backup last X days? (winter storm, hurricane, wildfire PSPS, heat wave)](https://homebackupcost.com/calculator/?scenario=winter)
+- [How to build your own home power plant: 30-day and 90+ day outage setups with sourced costs, fuel storage limits, transfer switches, load shedding](https://homebackupcost.com/build-your-own-home-power-plant/)
 - [Methodology and sources](https://homebackupcost.com/about/)

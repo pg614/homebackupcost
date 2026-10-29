@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+const faq = [
+["Can a home realistically ride out a 30-day power outage?", "Yes, with the right equipment, but it's a large project. Our sample 30-day setup (about 12 kW of solar, about 40 kWh of batteries, and a standby generator) comes to roughly $81,000–$97,000 using EnergySage averages and installer cost ranges, before any local incentives. Most households will get more value from a smaller essentials setup plus a plan to use community resources."],
+["How long can I store gasoline for a generator?", "Not long. Maine DEP advises against storing gasoline more than 30 days without stabilizer, and Honda suggests buying only what you'll use within about 3 months. That makes gasoline a poor fit for month-long outages unless you rotate it through your car."],
+["Is propane better than gasoline for long outages?", "For storage, yes. The Propane Education & Research Council says propane has an indefinite shelf life, as long as the tank is in good condition. The tradeoff is volume: a Generac 22 kW standby generator burns about 2.53 gallons of propane an hour at half load, or about 61 gallons a day."],
+["Do I need a transfer switch?", "Yes, for anything that powers house circuits. NEC 702.5 requires listed transfer equipment, and OSHA says never connect a generator to building wiring without a transfer switch installed by a qualified electrician."],
+["What if my backup can't keep up?", "Shed loads to essentials, and use community resources. Ready.gov advises going to a community location with power if heat or cold is extreme and checking with local officials about heating and cooling locations."]
+];
+---
+<Base footerNewsletter={false} title="How to Build Your Own Home Power Plant: 30-Day and 90+ Day Outage Setups | HomeBackupCost" description="An honest guide to riding out a month-long or longer power outage: solar, battery banks, standby generators, fuel storage limits, transfer switches, load shedding, non-electric heat, and real cost ranges." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>How to build your own home power plant</h1>
+<p class="lede">What it takes to keep a house running for 30 days or 90+ days without the grid, what it costs, and what's practical. Figures as of 2026-10-28.</p>
+<p class="note"><strong>The honest version first:</strong> long grid outages are rare, and most homes never need this. A month-long setup is a five- or six-figure project with permits, an electrician, and usually a utility interconnection review. The parts below are listed in the order that gives the most resilience per dollar. Have a licensed electrician design and connect anything that touches your panel.</p>
+
+<h2>The five building blocks</h2>
+<div class="grid">
+<div class="card"><h3>1. Load shedding</h3><p>The cheapest kWh is one you don't use. Our winter essentials example (fridge, furnace blower 8 h, Wi-Fi, lights, phones) is about <strong>7.5 kWh/day</strong>; add a sump pump and more blower time and it's about 12.8 kWh/day. <a href="/winter-storm-power-outage-heat/">See the math</a>. Central AC, electric water heaters, ranges, and dryers are what make whole-home backup expensive.</p></div>
+<div class="card"><h3>2. Solar</h3><p>The only source that refuels itself. EnergySage's average for a typical 12 kW home system is <strong>$31,135</strong> (range $27,526–$33,869), about <strong>$2.60/W</strong> before incentives (<a href="https://www.energysage.com/local-data/solar-panel-cost/">EnergySage</a>, data updated 2026-10-23). <span class="badge est">Assumption</span> At 4 peak sun hours and 75% output, 12 kW makes about 36 kWh on a good day. Cloudy and winter days make much less.</p></div>
+<div class="card"><h3>3. Battery bank</h3><p>Stores solar for night and cloudy days. Installed batteries average about <strong>$1,130–$1,159 per kWh</strong> (<a href="https://www.energysage.com/energy-storage/how-much-do-batteries-cost/">EnergySage</a>). A Tesla Powerwall 3 holds 13.5 kWh. For grid-tied solar to keep running in an outage, the system has to be designed for backup.</p></div>
+<div class="card"><h3>4. Backup generator</h3><p>Covers long cloudy stretches. Standby generators typically run <strong>$8,000–$16,000</strong> installed (<a href="/standby-generator-installation-cost/">our standby cost guide</a>). A Generac 22 kW unit burns <strong>2.53 gal/h of propane at half load</strong> and 3.90 gal/h at full load, or 228–327 ft³/h of natural gas (<a href="https://www.generac.com/residential-products/standby-generators/22kW-Standby-Generator-With-Whole-House-Switch-WiFi-Enabled-7043/">Generac spec</a>).</p></div>
+<div class="card"><h3>5. Transfer equipment</h3><p>Required by NEC 702.5 so backup power can't flow onto utility lines. Plug-in transfer kits for big power stations list at $1,299–$1,599 (<a href="https://homebatteryreport.com/guides/plug-in-vs-installed-battery-cost">Home Battery Report</a>); standby generators include an automatic transfer switch. <a href="/transfer-switch-vs-interlock-kit/">Transfer switch vs interlock →</a></p></div>
+</div>
+
+<h2>Fuel: the hard limit on long outages</h2>
+<div class="tbl"><table><thead><tr><th>Fuel</th><th>Storage life</th><th>What it means for 30+ days</th></tr></thead><tbody>
+<tr><td>Gasoline</td><td>Maine DEP: don't store more than 30 days without stabilizer (<a href="https://www.maine.gov/dep/homeowner/gas_tips.html">Maine DEP</a>). Honda: buy only what you'll use in under 3 months; fuel can deteriorate in as little as 15 days in some regions (<a href="https://powerequipment.honda.com/generators/fuel-recommendations">Honda</a>).</td><td>A Honda EU7000iS runs 16 h on its 5.1-gal tank at 1/4 load (<a href="https://powerequipment.honda.com/generators/models/eu7000is">Honda</a>), about 7.7 gal/day running around the clock, or about 230 gallons for 30 days. That's not practical or safe to store at home. Rotation (using stored gas in your car and refilling) keeps a small supply fresh.</td></tr>
+<tr><td>Propane</td><td>"Indefinite shelf life" (<a href="https://propane.com/environment/">PERC</a>), as long as the tank and valve are sound.</td><td>The 22 kW Generac at half load uses about 61 gal/day. A large tank buys days, not months, unless the generator only runs to top up batteries.</td></tr>
+<tr><td>Natural gas</td><td>Piped in; nothing to store.</td><td>Usually the simplest long-run option where available, though supply is up to your gas utility.</td></tr>
+</tbody></table></div>
+<p>The practical takeaway: for long outages, let solar and batteries carry the daily load, and run the generator in short sessions to recharge the batteries on cloudy days. That stretches any stored fuel much further than running it around the clock.</p>
+
+<h2>Sample setups (money no object)</h2>
+<div class="grid">
+<div class="card"><h3>30-day setup</h3><ul>
+<li>12 kW solar: $27,526–$33,869</li>
+<li>3 × 13.5 kWh batteries (40.5 kWh): $45,765–$46,940</li>
+<li>Standby generator (natural gas or propane) with automatic transfer switch: $8,000–$16,000</li>
+</ul><p><strong>≈ $81,000–$97,000</strong> <span class="badge est">Estimate</span> before incentives, panel upgrades, or a propane tank. Covers essentials indefinitely in good sun, with the generator for cloudy stretches.</p></div>
+<div class="card"><h3>90+ day setup</h3><ul>
+<li>20 kW solar at $2.60/W: ≈ $52,000</li>
+<li>4 × 13.5 kWh batteries (54 kWh): $61,020–$62,586</li>
+<li>Standby generator on natural gas, or propane with the largest tank your site and supplier allow: $8,000–$16,000 plus tank</li>
+</ul><p><strong>≈ $121,000–$131,000</strong> <span class="badge est">Estimate</span> before incentives and tank. Over months, fuel deliveries can't be counted on, so solar has to carry most days. Big systems may need a panel or service upgrade and utility approval.</p></div>
+</div>
+<p class="src">Totals add the EnergySage solar range (scaled at $2.60/W for 20 kW), batteries at $1,130–$1,159/kWh, and our standby range. Real quotes vary widely. <a href="/how-to-compare-backup-power-quotes/">How to compare quotes →</a></p>
+
+<h2>Non-electric heat</h2>
+<p>A properly installed, vented wood or pellet stove can heat part of a home without power (pellet stoves need electricity for the feeder and fan). EPA's Burn Wise program covers safe use: burn only dry, seasoned wood and have chimneys inspected (<a href="https://www.epa.gov/burnwise/best-wood-burning-practices">EPA Burn Wise</a>). Never use a gas stove or oven, grill, or camp heater to heat your home; Ready.gov warns they raise carbon monoxide risk (<a href="https://www.ready.gov/power-outages">Ready.gov</a>). Keep battery-backup CO alarms on every level.</p>
+
+<h2>Community and shelter options</h2>
+<p>Even a strong setup can be outlasted by damage or a medical need. Ready.gov advises going to a community location with power if heat or cold is extreme, and checking with local officials about heating and cooling centers (<a href="https://www.ready.gov/power-outages">Ready.gov</a>). The Red Cross lists open shelters during disasters (<a href="https://www.redcross.org/get-help/disaster-relief-and-recovery-services/find-an-open-shelter.html">Red Cross shelter finder</a>). Agreeing in advance with a relative or friend outside your area is often the simplest 30-day plan of all.</p>
+
+<p class="note"><a href="/calculator/"><strong>Size your essentials first in the calculator →</strong></a> · <a href="/solar-backup/">Solar backup guide</a> · <a href="/whole-home-battery-cost/">Whole-home battery cost</a></p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>
