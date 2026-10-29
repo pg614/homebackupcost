@@ -79,6 +79,11 @@ const stations = batteries.filter(b => !b.type.startsWith('installed') && b.capa
 .k-l{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mute)}
 .k-v{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;color:var(--volt);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .k-s{font-size:.78rem;color:var(--mute)}
+:global(#lastOut .kpis){display:grid;grid-template-columns:1fr 1fr;gap:12px}
+:global(#lastOut .kpi){background:var(--deep);border:1px solid var(--line);border-radius:14px;padding:14px}
+:global(#lastOut .k-l){font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mute)}
+:global(#lastOut .k-v){font-size:clamp(1.4rem,3.5vw,2rem);font-weight:800;color:var(--volt);font-variant-numeric:tabular-nums}
+:global(#lastOut .k-s){font-size:.78rem;color:var(--mute)}
 </style>
 <script>
 import { solarNeeds, calculate, matchBatteries } from '../data/calc.js';
