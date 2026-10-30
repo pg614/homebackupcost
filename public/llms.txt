@@ -1,42 +1,54 @@
 # HomeBackupCost
 
-> Independent, source-linked guide to sizing and pricing home backup power (portable power stations, whole-home batteries, generators) in the US, plus rebate status by state. All data as of 2026-10-25; estimates are labeled.
+> Independent, source-linked US guide to the cost and sizing of home backup power (portable power stations, whole-home batteries, standby generators, solar backup), plus home energy rebate status by state.
 
-Key facts:
-- Home page Quick Check: ZIP + 3 questions gives a ballpark kWh, the cheapest portable setup, installed and generator options, and state rebates.
-- Federal 25D (battery) and 25C (heat pump) tax credits do not apply to work completed/placed in service after 12/31/2025 (IRS OBBB FAQ).
-- Typical installed whole-home battery (~13.5 kWh): ~$15,647; ~$1,130–$1,159/kWh (EnergySage).
-- Calculator method: kWh needed = Σ(typical running W × qty × hours/day) × days / 1000 / 0.85 (0.85 usable-capacity factor is an assumption). Peak W = Σ max running W + largest single starting surge.
+Prices and figures on each page carry their own sources and "as of" dates; check the page for current values.
 
-## Pages
-- [Backup power calculator](https://homebackupcost.com/calculator/): kWh, peak watts, matching batteries, cost, rebates by state
-- [Portable power stations compared](https://homebackupcost.com/portable-power-stations/): specs and dated prices
-- [Whole-home battery cost](https://homebackupcost.com/whole-home-battery-cost/)
-- [What size battery or generator do I need](https://homebackupcost.com/what-size-battery-generator/)
-- [Rebates by state (HOMES/HEAR status)](https://homebackupcost.com/rebates/) — CSV: https://homebackupcost.com/rebates/homes-hear-status.csv
-- [Solar backup](https://homebackupcost.com/solar-backup/): official portable panels per station, recharge times (assumption: 4 peak sun hours, 0.75 derate), rooftop solar + battery cost (EnergySage H1 2026: $2.57/W, $1,130/kWh)
-- [Get quotes](https://homebackupcost.com/quotes/): installer quote request (preview, not live)
-- [Federal tax credits ended 12/31/2025](https://homebackupcost.com/federal-tax-credits-ended/)
-- [Standby generator installation cost](https://homebackupcost.com/standby-generator-installation-cost/): $8,000–$16,000 installed (Generac, as of 2026-10-26)
-- [Powerwall installation cost / is my quote fair](https://homebackupcost.com/powerwall-installation-cost/)
-- [Questions to ask a battery or generator installer](https://homebackupcost.com/questions-to-ask-backup-power-installer/)
-- [Installer red flags](https://homebackupcost.com/backup-power-installer-red-flags/)
-- [How to compare backup power quotes](https://homebackupcost.com/how-to-compare-backup-power-quotes/)
-- [Transfer switch vs interlock kit vs inlet box; backfeeding is not permitted (NEC 702.5, CPSC)](https://homebackupcost.com/transfer-switch-vs-interlock-kit/)
-- [Winter storm power outage: keeping the heat on for 3 days (furnace blower watts, sump pump, space heaters, CO safety per CDC/Ready.gov)](https://homebackupcost.com/winter-storm-power-outage-heat/)
-- [Calculator scenario mode: will my backup last X days? (winter storm, hurricane, wildfire PSPS, heat wave)](https://homebackupcost.com/calculator/?scenario=winter)
-- [Power station vs generator cost calculator: upfront + fuel gallons/day x days x local gas or propane price (EIA), noise and CO tradeoffs](https://homebackupcost.com/power-station-vs-generator-cost/)
-- [Generator safety: 20-foot rule (Ready.gov, CDC), carbon monoxide, CPSC CO-shutoff standards, refueling, no backfeeding](https://homebackupcost.com/generator-safety/)
-- [CPAP and medical devices in a power outage: sourced CPAP wattages (ResMed, Champion), battery runtime math, FDA planning; always use your device label](https://homebackupcost.com/cpap-medical-device-power-outage/)
-- [Wildfire Public Safety Power Shutoff (PSPS): notice timing, restoration goals, 2-day backup sizing, California rebates](https://homebackupcost.com/wildfire-psps-power-shutoff/)
-- [Hurricane power outage: planning backup power for a week without power (Ready.gov, Honda, Generac specs)](https://homebackupcost.com/hurricane-power-outage-week/)
-- [72-hour power outage plan: 3-day backup power checklist (Ready.gov, FDA, UK 3-day guidance)](https://homebackupcost.com/72-hour-power-outage-plan/)
-- [How to build your own home power plant: 30-day and 90+ day outage setups with sourced costs, fuel storage limits, transfer switches, load shedding](https://homebackupcost.com/build-your-own-home-power-plant/)
-- [Methodology and sources](https://homebackupcost.com/about/)
-- [Sources, methodology and editorial policy](https://homebackupcost.com/methodology/)
-- [About: run by Paul Graves, Dublin, Ohio; independent](https://homebackupcost.com/about/)
-- [Contact and corrections](https://homebackupcost.com/contact/)
-- [Affiliate disclosure](https://homebackupcost.com/affiliate-disclosure/)
+## Tools
+- [Home Backup Power Cost: Battery Size, Price & Rebates](https://homebackupcost.com/): home page with a quick check by ZIP code
+- [Backup Power Calculator: kWh, Surge Watts & Runtime](https://homebackupcost.com/calculator/): size a battery or generator from your appliances
+- [Power Station vs Generator: Total Outage Cost](https://homebackupcost.com/power-station-vs-generator-cost/): compare upfront and fuel cost over an outage
+- [Get Backup Power & Solar Installer Quotes](https://homebackupcost.com/quotes/): installer quote request page
+
+## Cost guides
+- [Portable Power Stations Compared (2026): kWh & Prices](https://homebackupcost.com/portable-power-stations/): specs and dated prices
+- [Whole-Home Battery Cost 2026: Installed Prices](https://homebackupcost.com/whole-home-battery-cost/)
+- [Standby Generator Installation Cost 2026](https://homebackupcost.com/standby-generator-installation-cost/)
+- [Powerwall 3 Installation Cost 2026: Is Your Quote Fair?](https://homebackupcost.com/powerwall-installation-cost/)
+- [Solar Backup Power: Panels, Recharge Times & Cost](https://homebackupcost.com/solar-backup/)
+- [What Size Battery or Generator Do I Need?](https://homebackupcost.com/what-size-battery-generator/)
+- [Build Your Own Home Power Plant: 30 & 90+ Day Setups](https://homebackupcost.com/build-your-own-home-power-plant/)
+
+## Hiring an installer
+- [Questions to Ask a Home Battery or Generator Installer](https://homebackupcost.com/questions-to-ask-backup-power-installer/)
+- [Backup Power Installer Red Flags to Watch For](https://homebackupcost.com/backup-power-installer-red-flags/)
+- [How to Compare Home Battery & Generator Quotes](https://homebackupcost.com/how-to-compare-backup-power-quotes/)
+- [Transfer Switch vs Interlock Kit vs Inlet Box](https://homebackupcost.com/transfer-switch-vs-interlock-kit/)
+
+## Rebates and tax credits
+- [Home Energy Rebates by State: HOMES & HEAR Tracker](https://homebackupcost.com/rebates/)
+- [Ohio Home Energy & Battery Rebates (2026)](https://homebackupcost.com/rebates/oh/)
+- [Michigan Home Energy & Battery Rebates (2026)](https://homebackupcost.com/rebates/mi/)
+- [New York Home Energy & Battery Rebates (2026)](https://homebackupcost.com/rebates/ny/)
+- [North Carolina Home Energy & Battery Rebates (2026)](https://homebackupcost.com/rebates/nc/)
+- [California Home Energy & Battery Rebates (2026)](https://homebackupcost.com/rebates/ca/)
+- [Illinois Home Energy & Battery Rebates (2026)](https://homebackupcost.com/rebates/il/)
+- [Federal Battery Tax Credit Ended 12/31/2025: What Is Left](https://homebackupcost.com/federal-tax-credits-ended/)
+
+## Outage planning and safety
+- [72-Hour Power Outage Plan: 3-Day Backup Checklist](https://homebackupcost.com/72-hour-power-outage-plan/)
+- [Winter Storm Power Outage: Keep the Heat On 3 Days](https://homebackupcost.com/winter-storm-power-outage-heat/)
+- [Hurricane Power Outage: Backup Power for a Week](https://homebackupcost.com/hurricane-power-outage-week/)
+- [Wildfire Power Shutoff (PSPS): 2-Day Backup Plan](https://homebackupcost.com/wildfire-psps-power-shutoff/)
+- [CPAP & Medical Devices in a Power Outage](https://homebackupcost.com/cpap-medical-device-power-outage/)
+- [Generator Safety: 20-Foot Rule, CO & Refueling](https://homebackupcost.com/generator-safety/)
+
+## About
+- [About HomeBackupCost](https://homebackupcost.com/about/): who runs the site and how it researches
+- [Sources, Methodology & Editorial Policy](https://homebackupcost.com/methodology/)
+- [Contact](https://homebackupcost.com/contact/): questions and corrections
+- [Affiliate Disclosure](https://homebackupcost.com/affiliate-disclosure/)
+- [Privacy Policy](https://homebackupcost.com/privacy/)
 
 ## Optional
 - [Sitemap](https://homebackupcost.com/sitemap.xml)
