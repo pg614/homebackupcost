@@ -39,6 +39,16 @@ const nav = [['/calculator/','Calculator'],['/solar-backup/','Solar'],['/quotes/
 <!doctype html>
 <html lang="en">
 <head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q7EBVLRBWD" is:inline></script>
+<script is:inline>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-Q7EBVLRBWD');
+document.addEventListener('submit',function(e){var f=e.target;if(!f||!f.closest)return;var b=f.closest('[data-newsletter]');if(!b)return;
+var loc=b.classList.contains('nl-compact')?'footer':(location.pathname==='/'?'home':'guide');gtag('event','newsletter_signup',{form_location:loc});},true);
+document.addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[data-affiliate],a[rel~="sponsored"]');if(!a)return;
+gtag('event','affiliate_click',{link_url:a.href,program:a.getAttribute('data-program')||a.getAttribute('data-affiliate')||a.hostname,page_path:location.pathname,transport_type:'beacon'});},true);
+</script>
+
 <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{title}</title><meta name="description" content={description} />
 {path !== "/404/" && <link rel="canonical" href={canonical} />}
