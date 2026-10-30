@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import Newsletter from '../components/Newsletter.astro';
 const faq = [["How much does a Powerwall cost installed?", "EnergySage reports a typical installed cost of about $15,647 for a battery of about 13.5 kWh, or $1,130\u2013$1,159 per kWh (checked 2026-10-25). Your price depends on your home and installer."], ["Can I still get the 30% tax credit on a Powerwall?", "No. The IRS says the Section 25D credit does not apply to installations completed after 12/31/2025."]];
 ---
-<Base footerNewsletter={false} title={"Powerwall 3 Installation Cost 2026: Is Your Quote Fair? | HomeBackupCost"} description={"What a Tesla Powerwall 3 costs installed in 2026: EnergySage reports about $15,647 typical for ~13.5 kWh. How to judge a quote and what is not included."} schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<Base title={"Powerwall 3 Installation Cost 2026: Is Your Quote Fair? | HomeBackupCost"} description={"What a Tesla Powerwall 3 costs installed in 2026: EnergySage reports about $15,647 typical for ~13.5 kWh. How to judge a quote and what is not included."} schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
 <h1>Is your Powerwall quote fair?</h1>
 <p class="lede">Use the installed cost per kWh to judge a home battery quote. That number lets you compare a Powerwall with other brands.</p>
 <div class="grid">

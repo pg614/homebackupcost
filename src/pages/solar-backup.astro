@@ -16,7 +16,7 @@ const faq = [
 ];
 const schema = [{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }];
 ---
-<Base footerNewsletter={false} title="Solar Backup Power: Portable Panels, Recharge Times & Solar + Battery Cost (2026) | HomeBackupCost" description="Which official solar panels fit each power station, how long they take to recharge, and what rooftop solar plus a home battery costs in 2026. The 25D credit ended 12/31/2025." schema={schema}>
+<Base title="Solar Backup Power: Portable Panels, Recharge Times & Solar + Battery Cost (2026) | HomeBackupCost" description="Which official solar panels fit each power station, how long they take to recharge, and what rooftop solar plus a home battery costs in 2026. The 25D credit ended 12/31/2025." schema={schema}>
 <h1>Solar backup: keep recharging through a long outage</h1>
 <p class="lede">A battery runs down eventually. Solar panels can refill it during the day, which is how a power station gets you through a multi-day outage.</p>
 <p class="note"><span class="badge est">Assumption</span> We assume <strong>{A.peak_sun_hours} peak sun hours</strong> a day and <strong>{Math.round(A.derate*100)}%</strong> real-world panel output, so each 100 W of panels makes about {(100*perW).toFixed(2)} kWh a day. Winter and cloudy days can be much lower. For your own address, check NREL's <a href="https://pvwatts.nlr.gov/" target="_blank" rel="noopener">PVWatts calculator</a>.</p>

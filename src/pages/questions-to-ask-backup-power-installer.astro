@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
 const faq = [["Do I need a permit to install a home battery or generator?", "Most US towns require electrical permits for panel work, and gas work often needs its own permit. Your installer should pull them. Check with your local building department."], ["What should a backup power quote include?", "Equipment, transfer equipment, labor, permits and inspection, the pad or mounting, and any panel, gas, or trenching work, all itemized."]];
 ---
 <Base title={"Questions to Ask a Home Battery or Generator Installer | HomeBackupCost"} description={"Questions to ask a home battery or standby generator installer before you sign: license, permits, what is included, warranty, and who handles inspection."} schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
@@ -15,4 +16,5 @@ const faq = [["Do I need a permit to install a home battery or generator?", "Mos
 <p class="note"><a href="/quotes/"><strong>Get installer quotes →</strong></a> · <a href="/calculator/">Size your backup first with the calculator →</a></p>
 <h2>FAQ</h2>
 {faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
 </Base>

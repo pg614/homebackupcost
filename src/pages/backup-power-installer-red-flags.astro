@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
 const faq = [["Is it a red flag if an installer mentions the federal battery tax credit?", "In 2026, yes, if they say it applies to a new install. The IRS says 25D does not apply to installations completed after 12/31/2025."], ["Can an installer skip the permit?", "Panel and gas work generally require permits. Check with your local building department."]];
 ---
 <Base title={"Backup Power Installer Red Flags: Batteries & Generators | HomeBackupCost"} description={"Warning signs in a home battery or standby generator quote: pitches that still promise the 30% tax credit, no permit, pressure tactics, and vague scope."} schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
@@ -18,4 +19,5 @@ const faq = [["Is it a red flag if an installer mentions the federal battery tax
 <p class="note"><a href="/quotes/"><strong>Get installer quotes →</strong></a> · <a href="/calculator/">Size your backup first with the calculator →</a></p>
 <h2>FAQ</h2>
 {faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
 </Base>

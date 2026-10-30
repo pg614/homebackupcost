@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
 const faq = [["How many quotes should I get for a home battery or generator?", "Three is a common rule of thumb. Ask each installer for the same scope so you can compare."], ["What is a fair price per kWh for a home battery?", "EnergySage reports $1,130\u2013$1,159 per kWh installed (checked 2026-10-25)."]];
 ---
 <Base title={"How to Compare Home Battery & Generator Quotes | HomeBackupCost"} description={"A simple way to compare backup power quotes: normalize price per kWh or kW, check scope line by line, and confirm permits and warranty."} schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
@@ -13,4 +14,5 @@ const faq = [["How many quotes should I get for a home battery or generator?", "
 <p class="note"><a href="/quotes/"><strong>Get installer quotes →</strong></a> · <a href="/calculator/">Size your backup first with the calculator →</a></p>
 <h2>FAQ</h2>
 {faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
 </Base>

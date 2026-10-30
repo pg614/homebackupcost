@@ -15,7 +15,7 @@ const schema = [
  { '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) },
 ];
 ---
-<Base footerNewsletter={false} title="Home Backup Power Calculator: Battery Size, Cost & Rebates | HomeBackupCost" description="Pick what you need to keep running in an outage and see the battery size (kWh), peak watts, matching power stations, whole-home battery cost, and rebates in your state." schema={schema}>
+<Base title="Home Backup Power Calculator: Battery Size, Cost & Rebates | HomeBackupCost" description="Pick what you need to keep running in an outage and see the battery size (kWh), peak watts, matching power stations, whole-home battery cost, and rebates in your state." schema={schema}>
 <section class="hero">
 <div class="splash"><picture class="art art-light"><source media="(max-width: 720px)" type="image/avif" srcset="/hero/light-v3-m640.avif 640w, /hero/light-v3-m960.avif 960w" sizes="100vw" /><source media="(max-width: 720px)" type="image/webp" srcset="/hero/light-v3-m640.webp 640w, /hero/light-v3-m960.webp 960w" sizes="100vw" /><source type="image/avif" srcset="/hero/light-v2-640.avif 640w, /hero/light-v2-960.avif 960w, /hero/light-v2-1280.avif 1280w" sizes="100vw" /><img id="hero-light" src="/hero/light-v2-1280.webp" srcset="/hero/light-v2-640.webp 640w, /hero/light-v2-960.webp 960w, /hero/light-v2-1280.webp 1280w" sizes="100vw" width="1280" height="720" loading="lazy" fetchpriority="high" decoding="async" alt="Illustration of a sunny American farmhouse with solar panels on the roof, a glowing green home backup battery beside the house, an American flag in the yard, and children playing with their dog" /></picture><picture class="art art-dark"><source media="(max-width: 720px)" type="image/avif" srcset="/hero/dark-v2-m640.avif 640w, /hero/dark-v2-m960.avif 960w" sizes="100vw" /><source media="(max-width: 720px)" type="image/webp" srcset="/hero/dark-v2-m640.webp 640w, /hero/dark-v2-m960.webp 960w" sizes="100vw" /><source type="image/avif" srcset="/hero/dark-v2-640.avif 640w, /hero/dark-v2-960.avif 960w, /hero/dark-v2-1280.avif 1280w" sizes="100vw" /><img id="hero-dark" src="/hero/dark-v2-1280.webp" srcset="/hero/dark-v2-640.webp 640w, /hero/dark-v2-960.webp 960w, /hero/dark-v2-1280.webp 1280w" sizes="100vw" width="1280" height="720" loading="lazy" fetchpriority="high" decoding="async" alt="Illustration of a farmhouse at night during a power outage, windows lit by its rooftop solar panels and glowing green home battery while the neighboring farm sits dark, as children with lanterns play near the American flag" /></picture><script is:inline>(function(){var t=document.documentElement.getAttribute('data-theme')==='light'?'light':'dark';var i=document.getElementById('hero-'+t);if(i){i.loading='eager';}})();</script></div>
 <div class="hero-copy">
@@ -33,6 +33,7 @@ const schema = [
 <p class="mute" style="max-width:640px">Calm, sourced guides for storms, shutoffs, and long outages. Every number links to where it came from.</p>
 <div class="grid">{SERIES.map(x => <a class="card tile prep-card" href={x.href}><span class="prep-ic" aria-hidden="true">{x.icon}</span><h3>{x.title}</h3><p class="mute">{x.blurb}</p><span class="prep-go">Read guide →</span></a>)}</div>
 </section>
+<Newsletter />
 <section class="grid" style="margin-top:36px">
 <a class="card tile" href="/portable-power-stations/"><h3>Portable power stations compared</h3><p class="mute">Capacity, output, surge, and price for 11 models, with price dates.</p></a>
 <a class="card tile" href="/whole-home-battery-cost/"><h3>Whole-home battery cost</h3><p class="mute">Powerwall 3, FranklinWH, and EnergySage's installed price data.</p></a>
@@ -41,7 +42,6 @@ const schema = [
 </section>
 <h2>Quick answers</h2>
 {faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
-<Newsletter />
 <style>
 .hero{padding:0 0 18px;position:relative}
 .splash{position:relative;margin:0 calc(50% - 50vw);height:min(56vw,520px);overflow:hidden}

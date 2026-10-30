@@ -1,42 +1,41 @@
 ---
-import { EMAIL_LIVE, EMAIL_ENDPOINT } from '../data/email-config.js';
+// Kit (kit.com) form 10121289 / uid d8a59f2b96
+const KIT_ACTION = 'https://app.kit.com/forms/10121289/subscriptions';
+const KIT_PAGE = 'https://homebackupcost.kit.com/d8a59f2b96';
 const { compact = false } = Astro.props;
 ---
-<section class:list={['nl', compact ? 'nl-compact' : 'card']} data-newsletter data-live={EMAIL_LIVE ? '1' : '0'} data-endpoint={EMAIL_ENDPOINT}>
-<h2 class="nl-h">Backup power, before the next outage</h2>
-<p class="mute nl-p">A short email when it matters: outage-season prep checklists before summer storms and winter freezes, state and utility rebates that open, change, or run out of money, and real price drops on the power stations in our data.</p>
-<form novalidate class="nl-f">
-<label class="nl-e"><span class="sr">Email</span><input type="email" name="email" autocomplete="email" required maxlength="254" placeholder="you@example.com" /></label>
-<button class="btn" type="submit" disabled={!EMAIL_LIVE}>{EMAIL_LIVE ? 'Subscribe' : 'Coming soon'}</button>
-<label class="hp" aria-hidden="true">Company <input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
-<p class="src nl-msg" role="status">{EMAIL_LIVE ? <>Unsubscribe anytime. See our <a href="/privacy/">privacy policy</a>.</> : <><strong>Coming soon:</strong> signups aren't open yet, so nothing is sent or stored.</>}</p>
+<section class:list={['nl', compact ? 'nl-compact' : 'card']} data-newsletter aria-label="Newsletter signup">
+<h2 class="nl-h">Get calm, sourced outage-prep and backup power updates</h2>
+<p class="mute nl-p">Occasional emails when prices, rebates, or outage guidance change. Unsubscribe anytime.</p>
+<form class="nl-f" action={KIT_ACTION} method="post" target="_blank" data-sv-form="10121289" data-uid="d8a59f2b96">
+<label class="nl-e"><span class="sr">Email address</span><input type="email" name="email_address" autocomplete="email" required maxlength="254" placeholder="you@example.com" /></label>
+<button class="btn" type="submit">Subscribe</button>
+<p class="src nl-msg" role="status" aria-live="polite">Sent with <a href="https://kit.com/privacy" target="_blank" rel="noopener">Kit</a>. See our <a href="/privacy/">privacy policy</a>.</p>
 </form>
+<noscript><p class="src">Or <a href={KIT_PAGE} target="_blank" rel="noopener">sign up on our Kit page</a>.</p></noscript>
 </section>
 <style>
 .nl.card{margin-top:40px}.nl-h{margin-top:0}
 .nl-compact .nl-h{font-size:1.05rem;margin:0 0 4px;color:var(--ink)}.nl-compact .nl-p{font-size:.88rem;margin:0 0 8px}
 .nl-compact{max-width:620px;margin-bottom:18px}
-.nl-f{display:flex;gap:10px;flex-wrap:wrap}.nl-e{flex:1;min-width:200px}.nl-e input{width:100%;padding:10px 12px}
+.nl-f{display:flex;gap:10px;flex-wrap:wrap}.nl-e{flex:1;min-width:200px}.nl-e input{width:100%;padding:10px 12px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:8px}
 .nl-msg{width:100%;margin:2px 0 0}
-.nl .btn[disabled]{opacity:.55;cursor:not-allowed}.nl .btn[disabled]:hover{background:var(--volt);color:var(--on-volt)}
-.hp{position:absolute!important;left:-9999px;width:1px;height:1px;overflow:hidden}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 </style>
 <script>
 for (const box of document.querySelectorAll('[data-newsletter]')) {
-  if (box.dataset.live !== '1') continue; // flag off: nothing is sent or stored
   const form = box.querySelector('form'), msg = box.querySelector('.nl-msg'), btn = form.querySelector('[type=submit]');
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const email = form.email.value.trim();
+    const email = form.email_address.value.trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { msg.innerHTML = '<span class="bad">Please enter a valid email address.</span>'; return; }
     btn.disabled = true; msg.textContent = 'Subscribing…';
     try {
-      const r = await fetch(box.dataset.endpoint + '/subscribe', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email, consent: true, company: form.company.value, page: location.pathname }) });
+      const r = await fetch(form.action, { method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(form) });
       const j = await r.json().catch(() => ({}));
-      if (!r.ok) throw new Error(j.error || 'Something went wrong');
-      msg.innerHTML = '<span class="ok">You\'re in. Check your inbox to confirm.</span>'; form.reset();
-    } catch (err) { msg.innerHTML = `<span class="bad">${String(err.message).replace(/[<>&]/g, '')}. Please try again.</span>`; }
+      if (!r.ok || (j.status && j.status !== 'success')) throw new Error('kit');
+      msg.innerHTML = '<span class="ok">Thanks. Check your inbox to confirm your subscription.</span>'; form.reset();
+    } catch { HTMLFormElement.prototype.submit.call(form); msg.innerHTML = 'Finishing your signup in a new tab. If nothing opened, <a href="https://homebackupcost.kit.com/d8a59f2b96" target="_blank" rel="noopener">use our Kit page</a>.'; }
     finally { btn.disabled = false; }
   });
 }

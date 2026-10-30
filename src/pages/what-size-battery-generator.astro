@@ -9,7 +9,7 @@ const ex2 = calculate([{...pick('CPAP heated humidifier'),qty:1,hours:8},{...pic
 const faq = [['What size generator do I need to run a refrigerator and furnace?', `Using the Champion wattage chart, a fridge (400 W max running, 1,200 W start) plus a 1/2 HP furnace fan (800 W max running, 1,600 W start) and Wi-Fi need about ${ex1.runningW.toLocaleString()} running watts and ${ex1.peakW.toLocaleString()} peak watts, so a 2,500 W-class generator or power station covers it.`],['How many kWh do I need for a 24-hour outage?', `For a fridge, a furnace fan running 8 hours, and Wi-Fi, our estimate is about ${ex1.kwh.toFixed(1)} kWh, including the 0.85 usable-capacity assumption.`]];
 const schema = [{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }];
 ---
-<Base footerNewsletter={false} title="What Size Battery or Generator Do I Need? Watts & kWh Explained | HomeBackupCost" description="How to size a backup battery or generator: running vs. starting watts, kWh for an outage, a sourced appliance wattage table, and worked examples." schema={schema}>
+<Base title="What Size Battery or Generator Do I Need? Watts & kWh Explained | HomeBackupCost" description="How to size a backup battery or generator: running vs. starting watts, kWh for an outage, a sourced appliance wattage table, and worked examples." schema={schema}>
 <h1>What size battery or generator do I need?</h1>
 <p class="lede">You need two numbers: <strong>watts</strong>, meaning how much power runs at once, and <strong>kWh</strong>, meaning how much energy you use over the outage.</p>
 <div class="grid">

@@ -7,7 +7,7 @@ const inst = batteries.filter(b => b.type.startsWith('installed'));
 const faq = [['How much does a Tesla Powerwall 3 cost?','A comparison site lists the Powerwall 3 (13.5 kWh) equipment at $9,300, with installation extra (homegridhq.com, October 2026). EnergySage reports a typical installed cost of about $15,647 for a battery of about 13.5 kWh.'],['Is there a federal tax credit for home batteries in 2026?','No. The IRS says installations completed after 12/31/2025 are not eligible for the Section 25D credit.']];
 const schema = [{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }];
 ---
-<Base footerNewsletter={false} title="Whole-Home Battery Cost 2026: Powerwall 3, FranklinWH & Installed Prices | HomeBackupCost" description="What a whole-home backup battery costs installed in 2026: about $15,647 typical for 13.5 kWh (EnergySage), Powerwall 3 and FranklinWH aPower 2 specs, and what's changed with tax credits." schema={schema}>
+<Base title="Whole-Home Battery Cost 2026: Powerwall 3, FranklinWH & Installed Prices | HomeBackupCost" description="What a whole-home backup battery costs installed in 2026: about $15,647 typical for 13.5 kWh (EnergySage), Powerwall 3 and FranklinWH aPower 2 specs, and what's changed with tax credits." schema={schema}>
 <h1>Whole-home battery cost</h1>
 <p class="lede">An installed battery, like the Tesla Powerwall, is wired into your panel and switches on automatically when the grid goes down.</p>
 <div class="grid">
