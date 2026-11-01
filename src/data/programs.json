@@ -54,10 +54,10 @@
   "equipment": "smart thermostat",
   "amounts": "$75",
   "income_tiers": "none",
-  "status": "live",
+  "status": "live; new enrollment temporarily unavailable while AEP updates its portal (AEP expects it back by 11/2/2026)",
   "how_to_apply": "aepohio.com",
   "source_url": "https://www.aepohio.com/savings/home/money-saving-programs/power-rewards/",
-  "as_of": "2026-10-25"
+  "as_of": "2026-11-01"
  },
  {
   "state": "MI",
@@ -177,7 +177,7 @@
   "status": "EXHAUSTED - SF fully reserved 2/24/2026, waitlist closed 7/17/2026; MF reserved 9/1/2026",
   "how_to_apply": "closed",
   "source_url": "https://techcleanca.com/incentives/heehrarebates/",
-  "as_of": "2026-10-25"
+  "as_of": "2026-11-01"
  },
  {
   "state": "CA",
@@ -225,7 +225,7 @@
   "status": "live, ~125 rebates left as of 10/15/2026; apply by 12/31/2026",
   "how_to_apply": "pge.com",
   "source_url": "https://www.pge.com/en/outages-and-safety/outage-preparedness-and-support/general-outage-resources/generator-and-battery-rebate-program.html",
-  "as_of": "2026-10-25"
+  "as_of": "2026-11-01"
  },
  {
   "state": "CA",
@@ -237,7 +237,7 @@
   "status": "live; coupons expire 12/31/2026",
   "how_to_apply": "sdge.com",
   "source_url": "https://sdge.com/generator-assistance-program",
-  "as_of": "2026-10-25"
+  "as_of": "2026-11-01"
  },
  {
   "state": "CA",
@@ -249,7 +249,7 @@
   "status": "live",
   "how_to_apply": "sce.com",
   "source_url": "https://www.sce.com/outages-safety/outage-preparedness/backup-power-solutions",
-  "as_of": "2026-10-25"
+  "as_of": "2026-11-01"
  },
  {
   "state": "IL",
@@ -261,7 +261,7 @@
   "status": "NOT LAUNCHED - DOE has not processed application",
   "how_to_apply": "none yet",
   "source_url": "https://epa.illinois.gov/topics/energy/residential/energy-rebates.html",
-  "as_of": "2026-10-25"
+  "as_of": "2026-11-01"
  },
  {
   "state": "IL",
