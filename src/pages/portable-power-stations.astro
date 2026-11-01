@@ -5,7 +5,7 @@ import AffLink from '../components/AffLink.astro';
 import { batteries, priceLow, affiliates, expansions } from '../data/site.js';
 const money = (n) => '$' + n.toLocaleString('en-US', { maximumFractionDigits: 2 });
 const portable = batteries.filter(b => !b.type.startsWith('installed'));
-const schema = [{ '@context':'https://schema.org','@type':'ItemList', name:'Portable power stations compared', itemListElement: portable.filter(b=>priceLow(b.price)).map((b,i) => ({ '@type':'ListItem', position:i+1, item:{ '@type':'Product', name:b.product, ...(b.capacity_kwh?{ additionalProperty:[{ '@type':'PropertyValue', name:'Capacity', value:b.capacity_kwh, unitText:'kWh' },{ '@type':'PropertyValue', name:'Continuous output', value:b.output_w, unitText:'W' }] }:{}), offers:{ '@type':'Offer', price:String(priceLow(b.price)), priceCurrency:'USD', url:b.source_url } } })) }];
+const schema = [{ '@context':'https://schema.org','@type':'ItemList', name:'Portable power stations compared', itemListElement: portable.filter(b=>priceLow(b.price)).map((b,i) => ({ '@type':'ListItem', position:i+1, name:b.product, url:b.source_url })) }];
 ---
 <Base title="Portable Power Stations Compared: Capacity, Watts & Prices (2026) | HomeBackupCost" description="Side-by-side specs for EcoFlow, Anker SOLIX, Jackery, Bluetti, and Goal Zero power stations: kWh, output watts, surge, and prices with as-of dates." schema={schema}>
 <h1>Portable power stations compared</h1>
