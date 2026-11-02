@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { batteries } from '../data/site.js';
+const pick = ['Anker SOLIX C1000','Jackery Explorer 1000 v2','Jackery Explorer 2000 v2','EcoFlow DELTA Pro 3'];
+const st = pick.map(n => batteries.find(b => b.product === n)).filter(Boolean);
+const fr = [['Top-freezer',362],['Bottom-freezer',556],['Side-by-side',640]].map(([k,y]) => ({ k, y, w: y*1000/8760 }));
+const hrs = (b,w) => (b.capacity_kwh*1000*0.85/w);
+const fmt = h => h >= 48 ? `≈ ${(h/24).toFixed(1)} days` : `≈ ${Math.round(h)} h`;
+const top = fr[0];
+const j1 = st.find(b => b.product==='Jackery Explorer 1000 v2');
+const faq = [
+["How long will a 1,000 Wh power station run a refrigerator?", `About ${Math.round(hrs(j1,top.w))} hours for a typical ENERGY STAR top-freezer fridge (362 kWh/year, about ${top.w.toFixed(0)} W average), and about ${Math.round(hrs(j1,fr[2].w))} hours for a side-by-side (640 kWh/year). That assumes 85% of the rated capacity is usable and nothing else is plugged in. Older fridges, hot rooms, and door openings shorten it.`],
+["How many watts does a refrigerator need to start?", "The Champion wattage chart lists a refrigerator at 150–400 W running and 800–1,200 W to start. The station's surge rating needs to cover the starting watts."],
+["Why isn't runtime just battery size divided by the fridge's watts?", "The compressor cycles on and off, so the average draw is much lower than the running watts. Dividing by the yearly kWh (from the yellow EnergyGuide label) gives a better average."],
+["How long is food safe in a fridge without power?", "Ready.gov says a closed refrigerator keeps food cold for about four hours and a full freezer holds its temperature for about 48 hours. Throw out food that reaches 40 °F or higher."]
+];
+---
+<Base title="How Long Will a Power Station Run a Refrigerator? | HomeBackupCost" description="A 1,000 Wh power station runs a typical ENERGY STAR fridge about 22 hours. Runtime math by fridge type and station size, with sourced kWh and surge watts." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>How long will a power station run a refrigerator?</h1>
+<p class="lede"><strong>Short answer:</strong> a 1,000 Wh station runs a typical efficient top-freezer fridge for about {Math.round(hrs(j1,top.w))} hours, and a 2,000 Wh station roughly doubles that. Bigger side-by-side fridges use about 75% more power, so expect less. Figures as of 2026-11-02.</p>
+
+<h2>Step 1: Find your fridge's average watts</h2>
+<p>The yellow EnergyGuide label lists yearly kWh. <strong>Average watts = kWh per year × 1,000 ÷ 8,760 hours.</strong> Median ENERGY STAR certified values by type:</p>
+<div class="tbl"><table><thead><tr><th>Fridge type</th><th>Median kWh/year</th><th>kWh/day</th><th>Average watts</th></tr></thead><tbody>
+{fr.map(f => <tr><td>{f.k}</td><td>{f.y}</td><td>{(f.y/365).toFixed(2)}</td><td>≈ {f.w.toFixed(0)} W</td></tr>)}
+</tbody></table></div>
+<p class="src">Source: <a href="https://fridge.com/data/energy-index">Fridge.com Refrigerator Energy-Efficiency Index</a>, built from the U.S. EPA/DOE <a href="https://data.energystar.gov/resource/p5st-her9.json">ENERGY STAR certified list</a> (2026-09-10). Certified test values, not metered household use. Older or non-certified fridges use more.</p>
+
+<h2>Step 2: Runtime by station</h2>
+<p><strong>Hours = battery Wh × 0.85 ÷ average watts</strong> <span class="badge est">Assumption: 85% usable</span></p>
+<div class="tbl"><table><thead><tr><th>Station (capacity, surge)</th>{fr.map(f => <th>{f.k} (≈{f.w.toFixed(0)} W)</th>)}</tr></thead><tbody>
+{st.map(b => <tr><td>{b.product} ({(b.capacity_kwh*1000).toLocaleString()} Wh, {b.surge_w.toLocaleString()} W surge)</td>{fr.map(f => <td>{fmt(hrs(b,f.w))}</td>)}</tr>)}
+</tbody></table></div>
+<p class="src">Capacities and surge ratings from our <a href="/portable-power-stations/">power station table</a> (October 2026). Example: {(j1.capacity_kwh*1000).toLocaleString()} Wh × 0.85 ÷ {top.w.toFixed(1)} W = {hrs(j1,top.w).toFixed(1)} hours.</p>
+<p>A field test by Spare Theory measured 22.9 hours from a 1,000 Wh station with a fridge averaging 34 W in a 22 °C room, and 18.5 hours in a 27 °C room with door openings (<a href="https://www.sparetheory.com/field-tests/fridge-runtime">Spare Theory</a>). That lines up with the math above.</p>
+
+<h2>Step 3: Check the starting surge</h2>
+<p>A refrigerator runs at 150–400 W and needs 800–1,200 W for a moment to start the compressor (<a href="https://www.championpowerequipment.com/generator-wattage-chart/">Champion chart</a>). All four stations above list surge ratings of 2,400 W or more.</p>
+
+<h2>Ways to stretch it</h2>
+<ul>
+<li>Keep the door shut. Ready.gov says a closed fridge keeps food cold for about four hours with no power at all (<a href="https://www.ready.gov/power-outages">Ready.gov</a>).</li>
+<li>Run the fridge in shifts, a few hours on and a few off, and check it stays at 40 °F or below with a fridge thermometer.</li>
+<li>Recharge with solar during the day. See <a href="/solar-backup/">solar backup</a>.</li>
+</ul>
+<p><a href="/calculator/?preset=essentials">Add your fridge and other essentials in the calculator →</a> · <a href="/what-size-battery-generator/">Sizing guide</a> · <a href="/72-hour-power-outage-plan/">72-hour plan</a></p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>

@@ -1,5 +1,10 @@
 // Search titles (<60 chars) and meta descriptions (<155). Numbers here must match the sourced figures on each page.
 export const SEO = {
+ '/how-long-will-a-power-station-run-a-refrigerator/': ['How Long Will a Power Station Run a Fridge?','A 1,000 Wh power station runs a typical ENERGY STAR fridge about 22 hours. Runtime math by fridge type and station size, with surge watts.'],
+ '/how-long-will-a-power-station-run-a-sump-pump/': ['How Long Will a Power Station Run a Sump Pump?','A 1/3 HP sump pump draws 500-800 W and up to 1,600 W to start. Runtime by duty cycle and station size, with sourced wattages.'],
+ '/how-long-will-a-power-station-run-a-space-heater/': ['How Long Will a Power Station Run a Space Heater?','A 1,500 W space heater drains a 2 kWh power station in about 1.2 hours. Runtime by station size and setting, plus better ways to stay warm.'],
+ '/ecoflow-vs-jackery/': ['EcoFlow vs Jackery for Home Backup: Price per kWh','EcoFlow vs Jackery power stations: capacity, output, surge, dated prices, cost per kWh, and transfer switch costs for home backup.'],
+ '/ohio-home-battery-cost/': ['Home Battery Cost in Ohio (2026): $16,900 Average','A 13 kWh home battery averages $16,900 installed in Ohio ($1,300/kWh, EnergySage). Costs by size, rebate status, and outage data.'],
  '/': ['Home Backup Power Cost: Battery Size, Price & Rebates','Pick what to keep running in an outage and see the battery size, peak watts, matching power stations, installed cost, and rebates in your state.'],
  '/about/': ['About HomeBackupCost: Who We Are & How We Research','Who runs HomeBackupCost, how we research backup power costs, and why every number on the site links to a dated source.'],
  '/affiliate-disclosure/': ['Affiliate Disclosure | HomeBackupCost','How HomeBackupCost may earn money from product links and installer quotes, and how that does and does not affect our recommendations.'],

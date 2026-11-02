@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { batteries } from '../data/site.js';
+const pick = ['Anker SOLIX C1000','Jackery Explorer 2000 v2','EcoFlow DELTA Pro 3','EcoFlow DELTA Pro Ultra'];
+const st = pick.map(n => batteries.find(b => b.product === n)).filter(Boolean);
+const usable = b => b.capacity_kwh*1000*0.85;
+const ws = [1500,750,550];
+const j2 = st[1];
+const faq = [
+["How long will a power station run a 1,500 W space heater?", `About ${(usable(j2)/1500).toFixed(1)} hours on a 2,042 Wh station (Jackery Explorer 2000 v2) with 85% usable. A 1,056 Wh station manages about ${(usable(st[0])/1500*60).toFixed(0)} minutes.`],
+["Is the low setting better?", "On low (about 750 W) runtime roughly doubles, but heat output halves too. Electric resistance heat turns each watt into the same amount of heat at any setting."],
+["What's a better way to stay warm in an outage?", "If you have a gas furnace, running its blower (about 300–800 W on the Champion chart) heats the whole house for far less battery than a space heater. CDC says never to use a generator inside your home or garage, or a portable gas camp stove indoors."]
+];
+---
+<Base title="How Long Will a Power Station Run a Space Heater? | HomeBackupCost" description="A 1,500 W space heater drains a 2 kWh power station in about 1.2 hours. Runtime math by station size and heater setting, plus better ways to stay warm." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>How long will a power station run a space heater?</h1>
+<p class="lede"><strong>Short answer:</strong> not long. A space heater on high draws about 1,500 W, so a 2,042 Wh station runs it for about {(usable(j2)/1500).toFixed(1)} hours. Even a 6 kWh station lasts only about {(usable(st[3])/1500).toFixed(1)} hours. Figures as of 2026-11-02.</p>
+
+<h2>The math</h2>
+<p>Plug-in space heaters draw 750–1,500 W (<a href="https://www.championpowerequipment.com/generator-wattage-chart/">Champion chart</a>). <strong>Hours = battery Wh × 0.85 ÷ heater watts</strong> <span class="badge est">Assumption: 85% usable</span>. The 550 W column is an example of a small heater on its lowest setting; check your heater's label.</p>
+<div class="tbl"><table><thead><tr><th>Station (capacity, output)</th>{ws.map(w => <th>{w.toLocaleString()} W</th>)}</tr></thead><tbody>
+{st.map(b => <tr><td>{b.product} ({(b.capacity_kwh*1000).toLocaleString()} Wh, {b.output_w.toLocaleString()} W)</td>{ws.map(w => <td>≈ {(usable(b)/w).toFixed(1)} h</td>)}</tr>)}
+</tbody></table></div>
+<p class="src">Capacities and output from our <a href="/portable-power-stations/">power station table</a> (October 2026). Example: 2,042 Wh × 0.85 ÷ 1,500 W = {(usable(j2)/1500).toFixed(2)} hours. All four stations can deliver 1,500 W continuously.</p>
+
+<h2>Better uses of the battery</h2>
+<ul>
+<li><strong>Furnace blower:</strong> 300–800 W running, 800–1,600 W to start (Champion), and it moves heat from a gas furnace through the whole house. See <a href="/winter-storm-power-outage-heat/">keeping the heat on in a winter storm</a> for the 3-day math.</li>
+<li><strong>Heat one room:</strong> close doors, use blankets, and run the heater in short bursts rather than all night.</li>
+<li><strong>Longer outages:</strong> a generator supplies heater-level power for much longer. Compare in <a href="/power-station-vs-generator-cost/">power station vs generator</a>, and read <a href="/generator-safety/">generator safety</a> first.</li>
+</ul>
+<p class="note">CDC: never use a generator inside your home or garage, even if doors and windows are open, and never use a portable gas camp stove indoors (<a href="https://www.cdc.gov/carbon-monoxide/about/index.html">CDC</a>).</p>
+<p><a href="/calculator/?scenario=winter">Try the winter scenario in the calculator →</a></p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>

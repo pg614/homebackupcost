@@ -9,4 +9,7 @@ export const SERIES = [
   { href:'/cpap-medical-device-power-outage/', title:"CPAP and medical devices", blurb:"Sourced CPAP watts, battery runtime math, and FDA's planning steps.", icon:"\ud83e\ude7a" },
   { href:'/generator-safety/', title:"Generator safety", blurb:"The 20-foot rule, CO alarms, CO-shutoff models, and safe refueling.", icon:"🛡️" },
   { href:'/power-station-vs-generator-cost/', title:"Power station vs generator cost", blurb:"Upfront plus fuel for your outage, with noise and CO side by side.", icon:"\u2696\ufe0f" },
+  { href:'/how-long-will-a-power-station-run-a-refrigerator/', title:'How long will a station run a fridge?', blurb:'ENERGY STAR kWh by fridge type and runtime for four station sizes.', icon:'🧊' },
+  { href:'/how-long-will-a-power-station-run-a-sump-pump/', title:'How long will a station run a sump pump?', blurb:'Pump watts, surge, and runtime at 10%, 25%, and 50% duty.', icon:'💧' },
+  { href:'/how-long-will-a-power-station-run-a-space-heater/', title:'How long will a station run a space heater?', blurb:'Why 1,500 W drains a battery fast, and better ways to stay warm.', icon:'🌡️' },
 ];

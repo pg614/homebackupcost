@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { batteries } from '../data/site.js';
+const pick = ['Anker SOLIX C1000','Jackery Explorer 2000 v2','EcoFlow DELTA Pro 3','Jackery Explorer 5000 Plus'];
+const st = pick.map(n => batteries.find(b => b.product === n)).filter(Boolean);
+const W = 650; // midpoint of Champion 1/3 HP 500–800 W
+const duty = [0.1,0.25,0.5];
+const usable = b => b.capacity_kwh*1000*0.85;
+const h = (b,d) => usable(b)/(W*d);
+const c1 = st[0];
+const faq = [
+["How long will a power station run a sump pump?", `It depends on how often the pump runs. A 1/3 HP pump draws about 500–800 W (Champion). At 650 W, a 1,056 Wh station has enough energy for about ${(usable(c1)/W*60).toFixed(0)} minutes of actual pumping. If the pump runs 25% of the time, that stretches to about ${h(c1,0.25).toFixed(1)} hours.`],
+["What size power station do I need for a sump pump?", "One whose surge rating covers the pump's starting watts: up to 1,600 W for a 1/3 HP pump and 2,150 W for a 1/2 HP pump on the Champion chart. Then size the battery for the pumping hours you expect."],
+["Is a battery backup sump pump better?", "For long or frequent outages, many homeowners use a separate 12 V backup pump in the same pit, which switches on by itself and also covers a failed primary pump. A power station can be an extra layer. Ask a plumber what fits your pit."]
+];
+---
+<Base title="How Long Will a Power Station Run a Sump Pump? | HomeBackupCost" description="A 1/3 HP sump pump draws 500–800 W and up to 1,600 W to start. Runtime math by duty cycle and station size, with sourced wattages." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>How long will a power station run a sump pump?</h1>
+<p class="lede"><strong>Short answer:</strong> hours, not days, in a real storm. A 1/3 HP pump uses about 650 W while running, so a 1,000 Wh station holds a bit over an hour of actual pumping. How long that lasts depends on how often your pump kicks on. Figures as of 2026-11-02.</p>
+<p class="note">Your pump's label (amps × 120 V) beats any chart number below. Test any setup on a dry day by pouring a bucket of water into the pit.</p>
+
+<h2>Step 1: Pump watts</h2>
+<div class="tbl"><table><thead><tr><th>Pump</th><th>Running watts</th><th>Starting watts</th></tr></thead><tbody>
+<tr><td>1/3 HP</td><td>500–800 W</td><td>1,000–1,600 W</td></tr>
+<tr><td>1/2 HP</td><td>800–1,050 W</td><td>1,300–2,150 W</td></tr>
+</tbody></table></div>
+<p class="src">Source: <a href="https://www.championpowerequipment.com/generator-wattage-chart/">Champion wattage chart</a> (checked October 2026).</p>
+
+<h2>Step 2: Runtime math</h2>
+<p><strong>Hours = battery Wh × 0.85 ÷ (pump watts × share of time running)</strong>. We use 650 W, the middle of the 1/3 HP range. <span class="badge est">Assumptions: 85% usable; duty cycles are examples</span></p>
+<div class="tbl"><table><thead><tr><th>Station (capacity, surge)</th><th>Pumping time in the battery</th>{duty.map(d => <th>Runs {d*100}% of the time</th>)}</tr></thead><tbody>
+{st.map(b => <tr><td>{b.product} ({(b.capacity_kwh*1000).toLocaleString()} Wh, {b.surge_w.toLocaleString()} W surge)</td><td>≈ {(usable(b)/W*60).toFixed(0)} min</td>{duty.map(d => <td>≈ {h(b,d).toFixed(1)} h</td>)}</tr>)}
+</tbody></table></div>
+<p class="src">Capacities from our <a href="/portable-power-stations/">power station table</a> (October 2026). Example: 1,056 Wh × 0.85 ÷ (650 W × 0.25) = {h(c1,0.25).toFixed(1)} hours. Each start adds a short surge, so real runtime is a little lower.</p>
+<p>How often a pump runs varies a lot. One EcoFlow community member reported their pump running 50–200 times a day normally and more than 3,000 times on a very heavy rain day (<a href="https://www.reddit.com/r/Ecoflow_community/comments/1kawqg6/power_station_as_sump_pump_backup/">Reddit</a>). That's why we show a range.</p>
+
+<h2>Step 3: Check surge</h2>
+<p>The station's surge rating should cover the pump's starting watts. All four stations above list 2,400 W or more, which covers the Champion ranges for both 1/3 HP (up to 1,600 W) and 1/2 HP (up to 2,150 W).</p>
+
+<h2>Longer outages</h2>
+<p>For multi-day storms, pair the station with a generator or a battery backup pump, or move to an installed system. Compare costs in <a href="/power-station-vs-generator-cost/">power station vs generator</a> and <a href="/transfer-switch-vs-interlock-kit/">transfer switch options</a>. Winter melt is covered in <a href="/winter-storm-power-outage-heat/">keeping the heat on</a>.</p>
+<p><a href="/calculator/?preset=flood">Try the sump pump preset in the calculator →</a></p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>

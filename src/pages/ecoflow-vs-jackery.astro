@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { batteries } from '../data/site.js';
+const rows = batteries.filter(b => /^(EcoFlow|Jackery)/.test(b.product)).map(b => { const m = b.price.match(/\$([\d,]+)/); const p = m ? +m[1].replace(/,/g,'') : null; return { ...b, p, perkwh: p ? p / b.capacity_kwh : null }; }).sort((a,b) => a.capacity_kwh - b.capacity_kwh);
+const usd = n => '$' + Math.round(n).toLocaleString();
+const dp3 = rows.find(r => r.product === 'EcoFlow DELTA Pro 3');
+const j5 = rows.find(r => r.product === 'Jackery Explorer 5000 Plus');
+const faq = [
+["Is EcoFlow or Jackery better for home backup?", "Neither wins across the board. In our October 2026 price data, the Jackery Explorer 2000 v2 and 1000 v2 are the cheapest per kWh of the EcoFlow and Jackery models we track, while EcoFlow's DELTA Pro Ultra has the most capacity in one unit (6.1 kWh, expandable). Pick by the capacity, output, and transfer setup you need."],
+["Which one can run more of my house?", `The Jackery Explorer 5000 Plus and EcoFlow DELTA Pro Ultra both list 7,200 W output. The EcoFlow DELTA Pro 3 lists 4,000 W. Running watts limit what can be on at once; kWh limits how long.`],
+["Can either connect to my home's panel?", "Yes, with extra hardware: EcoFlow Smart Home Panel 2 ($1,599) and Jackery Smart Transfer Switch ($1,299 list), per homebatteryreport.com (October 2026). An electrician installs them."]
+];
+---
+<Base title="EcoFlow vs Jackery for Home Backup: Price per kWh | HomeBackupCost" description="EcoFlow vs Jackery power stations side by side: capacity, output, surge, dated prices and cost per kWh, plus transfer switch costs for home backup." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>EcoFlow vs Jackery for home backup</h1>
+<p class="lede"><strong>Short answer:</strong> there's no overall winner. Jackery's mid-size units cost the least per kWh of the two brands' models in our data, while EcoFlow offers the biggest single unit. At the large end, the {j5.product} ({usd(j5.perkwh)}/kWh) and {dp3.product} ({usd(dp3.perkwh)}/kWh) are close. Prices as of October 2026; they change with sales.</p>
+
+<h2>Side by side</h2>
+<div class="tbl"><table><thead><tr><th>Model</th><th>Capacity</th><th>Output</th><th>Surge</th><th>Price listed</th><th>Price per kWh</th></tr></thead><tbody>
+{rows.map(r => <tr><td><strong>{r.product}</strong></td><td>{(r.capacity_kwh*1000).toLocaleString()} Wh</td><td>{r.output_w.toLocaleString()} W</td><td>{r.surge_w ? r.surge_w.toLocaleString() + ' W' : '—'}</td><td>{r.price}<br/><a class="src" href={r.source_url}>source</a></td><td>{r.perkwh ? usd(r.perkwh) : '—'}</td></tr>)}
+</tbody></table></div>
+<p class="src">Price per kWh = first listed price ÷ capacity in kWh, e.g. {usd(dp3.p)} ÷ {dp3.capacity_kwh} kWh = {usd(dp3.perkwh)}. Sale prices where listed. As of {dp3.as_of}. Check the maker's site for today's price.</p>
+
+<h2>Adding a home connection</h2>
+<div class="tbl"><table><thead><tr><th>Hardware</th><th>Price</th></tr></thead><tbody>
+<tr><td>EcoFlow Smart Home Panel 2</td><td>$1,599</td></tr>
+<tr><td>Jackery Smart Transfer Switch</td><td>$1,299 list</td></tr>
+</tbody></table></div>
+<p class="src">Source: <a href="https://homebatteryreport.com/guides/plug-in-vs-installed-battery-cost">homebatteryreport.com</a> (October 2026). Electrician labor is extra; we don't have sourced labor figures. Example: {dp3.product} ({usd(dp3.p)}) + Smart Home Panel 2 ($1,599) = {usd(dp3.p + 1599)} before labor. {j5.product} ({usd(j5.p)}) + Smart Transfer Switch ($1,299) = {usd(j5.p + 1299)} before labor.</p>
+
+<h2>How to choose</h2>
+<ul>
+<li><strong>Size by kWh first.</strong> Add up what you need to run and for how long in the <a href="/calculator/">calculator</a>.</li>
+<li><strong>Then check output and surge</strong> against your biggest motor load, like a well pump or sump pump (<a href="/how-long-will-a-power-station-run-a-sump-pump/">sump pump runtime</a>).</li>
+<li><strong>Compare more brands</strong>, including Anker SOLIX and BLUETTI, in our <a href="/portable-power-stations/">power station table</a>.</li>
+<li><strong>Need the whole house?</strong> See <a href="/whole-home-battery-cost/">installed battery costs</a>.</li>
+</ul>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>

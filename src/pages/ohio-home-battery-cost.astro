@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+const faq = [
+["How much does a home battery cost in Ohio?", "EnergySage reports an average of $16,900 for a 13 kWh battery installed in Ohio before incentives, or about $1,300 per kWh, with a typical range of $14,365 to $19,435 (as of October 2026)."],
+["Are there battery rebates in Ohio?", "We haven't found one in our data as of November 2026. Ohio's federally funded HOMES/HEAR rebates have not launched, and the federal 25D battery tax credit ended for installs completed after 12/31/2025. Check our Ohio rebates page for updates."],
+["How often does the power go out in Ohio?", "EIA reports the average Ohio customer was without power for 205.4 minutes in 2025 including major events (130 minutes without them), across about 1.3 interruptions. In 2024 the figure was 510.5 minutes including major events."]
+];
+---
+<Base title="Home Battery Cost in Ohio (2026): $16,900 Average | HomeBackupCost" description="A 13 kWh home battery averages $16,900 installed in Ohio ($1,300/kWh, EnergySage, Oct 2026). Costs by size, rebate status, outage data, and cheaper options." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>How much does a home battery cost in Ohio?</h1>
+<p class="lede"><strong>Short answer:</strong> about <strong>$16,900</strong> for a 13 kWh battery installed, before incentives, according to EnergySage marketplace data for Ohio. That's about $1,300 per kWh, a bit above the national figure. As of 2026-11-02.</p>
+<div class="grid">
+<div class="card"><div class="mute">Ohio average (13 kWh)</div><div style="font-size:2.2rem;font-weight:800;color:var(--volt)">$16,900</div><div class="src"><a href="https://www.energysage.com/local-data/energy-storage-cost/oh/">EnergySage</a> · updated 2026-10-25</div></div>
+<div class="card"><div class="mute">Ohio per kWh</div><div style="font-size:2.2rem;font-weight:800;color:var(--volt)">$1,300</div><div class="src">National: $1,130–$1,159 (<a href="https://www.energysage.com/energy-storage/how-much-do-batteries-cost/">EnergySage</a>)</div></div>
+<div class="card"><div class="mute">Ohio battery rebate</div><div style="font-size:2.2rem;font-weight:800;color:var(--bad)">None found</div><div class="src"><a href="/rebates/oh/">Ohio rebate status</a></div></div>
+</div>
+
+<h2>Ohio cost by battery size</h2>
+<div class="tbl"><table><thead><tr><th>System size</th><th>Average installed cost</th></tr></thead><tbody>
+<tr><td>10 kWh</td><td>$13,000</td></tr><tr><td>13 kWh</td><td>$16,900</td></tr><tr><td>20 kWh</td><td>$26,000</td></tr><tr><td>26 kWh</td><td>$33,800</td></tr>
+</tbody></table></div>
+<p class="src">Source: <a href="https://www.energysage.com/local-data/energy-storage-cost/oh/">EnergySage, Storage cost in Ohio</a>, updated 2026-10-25. These are quotes on the EnergySage marketplace, before incentives. The math is size × $1,300/kWh: 13 × $1,300 = $16,900. EnergySage gives a 13 kWh range of $14,365–$19,435.</p>
+
+<h2>Incentives in Ohio</h2>
+<ul>
+<li><strong>Federal tax credit:</strong> ended for installs completed after 12/31/2025 (<a href="/federal-tax-credits-ended/">details</a>).</li>
+<li><strong>Ohio Home Energy Rebates (HOMES/HEAR):</strong> not launched, with no expected launch date, and planned for heat pumps, panels, wiring, and weatherization rather than batteries (<a href="https://nationalhousingtrust.org/sites/default/files/documents/DOE-Rebates-State-Funding-Tracker-3-26.pdf">tracker</a>, as of 2026-10-25).</li>
+<li><strong>AEP Ohio Power Rewards:</strong> $75 for a smart thermostat, not a battery (<a href="https://www.aepohio.com/savings/home/money-saving-programs/power-rewards/">AEP Ohio</a>).</li>
+</ul>
+
+<h2>How often Ohio loses power</h2>
+<div class="tbl"><table><thead><tr><th>Ohio, average customer</th><th>2025</th><th>2024</th></tr></thead><tbody>
+<tr><td>Minutes without power, all events</td><td>205.4</td><td>510.5</td></tr>
+<tr><td>Minutes without power, excluding major events</td><td>130.0</td><td>133.2</td></tr>
+<tr><td>Interruptions per year, all events</td><td>1.275</td><td>1.298</td></tr>
+</tbody></table></div>
+<p class="src">Source: <a href="https://www.eia.gov/electricity/annual/html/epa_11_03.html">EIA Electric Power Annual, Table 11.3</a> (SAIDI and SAIFI). Averages hide big storms: 2024's major events pushed the total well above a typical year.</p>
+
+<h2>Cheaper options</h2>
+<p>If you mainly need the fridge, furnace blower, sump pump, and Wi-Fi through a short outage, a large portable station with a transfer kit costs much less. For example, an EcoFlow DELTA Pro 3 ($2,799 sale) plus a Smart Home Panel 2 ($1,599) is $4,398 before electrician labor (October 2026 prices). See <a href="/ecoflow-vs-jackery/">EcoFlow vs Jackery</a>, <a href="/portable-power-stations/">all power stations</a>, and <a href="/standby-generator-installation-cost/">standby generator cost</a>.</p>
+<p><a class="btn" href="/calculator/">Size your battery in the calculator</a></p>
+<p>Comparing quotes? Use <a href="/how-to-compare-backup-power-quotes/">how to compare quotes</a> and <a href="/questions-to-ask-backup-power-installer/">questions to ask an installer</a>.</p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>
