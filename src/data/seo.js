@@ -5,7 +5,7 @@ export const SEO = {
  '/how-long-will-a-power-station-run-a-space-heater/': ['How Long Will a Power Station Run a Space Heater?','A 1,500 W space heater drains a 2 kWh power station in about 1.2 hours. Runtime by station size and setting, plus better ways to stay warm.'],
  '/ecoflow-vs-jackery/': ['EcoFlow vs Jackery for Home Backup: Price per kWh','EcoFlow vs Jackery power stations: capacity, output, surge, dated prices, cost per kWh, and transfer switch costs for home backup.'],
  '/ohio-home-battery-cost/': ['Home Battery Cost in Ohio (2026): $16,900 Average','A 13 kWh home battery averages $16,900 installed in Ohio ($1,300/kWh, EnergySage). Costs by size, rebate status, and outage data.'],
- '/': ['Home Backup Power Cost: Battery Size, Price & Rebates','Pick what to keep running in an outage and see the battery size, peak watts, matching power stations, installed cost, and rebates in your state.'],
+ '/': ['What Size Backup Battery Do You Need? Free Calculator & 2026 Costs','Pick what you need running in a power outage (fridge, furnace, sump pump, Wi-Fi) and get the right battery size, real prices, and rebates in your state. Free, no sign-up.'],
  '/about/': ['About HomeBackupCost: Who We Are & How We Research','Who runs HomeBackupCost, how we research backup power costs, and why every number on the site links to a dated source.'],
  '/affiliate-disclosure/': ['Affiliate Disclosure | HomeBackupCost','How HomeBackupCost may earn money from product links and installer quotes, and how that does and does not affect our recommendations.'],
  '/privacy/': ['Privacy Policy | HomeBackupCost','The calculator runs in your browser. What happens if you ask us to email your report or join the newsletter. We do not sell personal data.'],
