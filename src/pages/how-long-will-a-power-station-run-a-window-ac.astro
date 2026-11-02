@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { batteries } from '../data/site.js';
+const pick = ['Anker SOLIX C1000','Jackery Explorer 2000 v2','EcoFlow DELTA Pro 3','Jackery Explorer 5000 Plus'];
+const st = pick.map(n => batteries.find(b => b.product === n)).filter(Boolean);
+// Median CEER of ENERGY STAR certified 115 V window units by size (data.energystar.gov dataset 5xn2-dv4h, pulled 2026-11-02)
+const ac = [[5000,14.4,21],[8000,15.0,94],[10000,15.0,92],[12000,15.0,111]].map(([btu,ceer,n]) => ({ btu, ceer, n, w: btu/ceer }));
+const duty = [1, 0.5];
+const hrs = (b,w,d) => b.capacity_kwh*1000*0.85/(w*d);
+const a5 = ac[0], a10 = ac[2];
+const j2 = st.find(b => b.product==='Jackery Explorer 2000 v2');
+const faq = [
+["How long will a power station run a window AC?", `A 2,042 Wh station runs an efficient 5,000 BTU window unit (about ${a5.w.toFixed(0)} W) for about ${hrs(j2,a5.w,1).toFixed(1)} hours with the compressor on nonstop, or about ${hrs(j2,a5.w,0.5).toFixed(1)} hours if it cycles on half the time. A 10,000 BTU unit (about ${a10.w.toFixed(0)} W) roughly halves that.`],
+["How many watts does a window air conditioner use?", "The Champion wattage chart lists 450–600 W running for a 5,000 BTU unit and 900–1,200 W for a 10,000 BTU unit. Newer ENERGY STAR units use less: cooling BTU per hour divided by the CEER rating gives the watts."],
+["Will a 1,000 Wh power station run a window AC?", `For a short time. A small 5,000 BTU unit would run about ${hrs(st[0],a5.w,1).toFixed(1)} hours nonstop on a 1,056 Wh station. The starting surge (900–1,200 W for 5,000 BTU on the Champion chart) is within the C1000's 2,400 W surge rating.`],
+["Is it better to cool one room?", "Yes. Cooling one small bedroom with a small unit, with the door closed and blinds drawn, is the most realistic use of a portable station in a summer outage."]
+];
+---
+<Base title="How Long Will a Power Station Run a Window AC? | HomeBackupCost" description="A 5,000 BTU window AC uses about 350 W on an efficient unit. Runtime by AC size and station, with ENERGY STAR CEER data and surge watts." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>How long will a power station run a window AC?</h1>
+<p class="lede"><strong>Short answer:</strong> a few hours to most of a night for a small unit. A 2,000 Wh station runs an efficient 5,000 BTU window AC about {hrs(j2,a5.w,1).toFixed(0)} hours nonstop, and longer when the compressor cycles off. Bigger units drain it fast. Figures as of 2026-11-02.</p>
+<p class="note">Your unit's label (watts, or amps × 115 V) beats any number below.</p>
+
+<h2>Step 1: AC watts</h2>
+<p><strong>Watts ≈ cooling BTU per hour ÷ CEER.</strong> CEER is the efficiency rating on the EnergyGuide label (BTU per watt-hour). Median values for ENERGY STAR certified 115 V window units:</p>
+<div class="tbl"><table><thead><tr><th>Size</th><th>Models</th><th>Median CEER</th><th>Watts while cooling</th></tr></thead><tbody>
+{ac.map(a => <tr><td>{a.btu.toLocaleString()} BTU</td><td>{a.n}</td><td>{a.ceer.toFixed(1)}</td><td>≈ {a.w.toFixed(0)} W</td></tr>)}
+</tbody></table></div>
+<p class="src">Source: U.S. EPA <a href="https://data.energystar.gov/resource/5xn2-dv4h.json">ENERGY STAR Certified Room Air Conditioners</a> list, window type, pulled 2026-11-02. Older units use more: the <a href="https://www.championpowerequipment.com/generator-wattage-chart/">Champion chart</a> lists 450–600 W running and 900–1,200 W starting for 5,000 BTU, and 900–1,200 W running and 1,800–2,400 W starting for 10,000 BTU (checked 2026-11-02).</p>
+
+<h2>Step 2: Runtime math</h2>
+<p><strong>Hours = battery Wh × 0.85 ÷ (AC watts × share of time the compressor runs)</strong>. <span class="badge est">Assumptions: 85% usable; 50% cycling is an example, hot days run closer to 100%</span></p>
+<div class="tbl"><table><thead><tr><th>Station (capacity, output, surge)</th>{[a5,a10].map(a => duty.map(d => <th>{a.btu.toLocaleString()} BTU, {d===1?'nonstop':'50% on'}</th>))}</tr></thead><tbody>
+{st.map(b => <tr><td>{b.product} ({(b.capacity_kwh*1000).toLocaleString()} Wh, {b.output_w.toLocaleString()} W, {b.surge_w.toLocaleString()} W surge)</td>{[a5,a10].map(a => duty.map(d => <td>≈ {hrs(b,a.w,d).toFixed(1)} h</td>))}</tr>)}
+</tbody></table></div>
+<p class="src">Capacities and ratings from our <a href="/portable-power-stations/">power station table</a> (October 2026). Example: {(j2.capacity_kwh*1000).toLocaleString()} Wh × 0.85 ÷ {a5.w.toFixed(0)} W = {hrs(j2,a5.w,1).toFixed(1)} hours.</p>
+
+<h2>Step 3: Check output and surge</h2>
+<p>The station's continuous output must cover the running watts, and its surge must cover the start. On the Champion chart, a 10,000 BTU unit can need up to 2,400 W to start, which is right at the C1000's 2,400 W surge rating, so a bigger station is the safer pick for that size. Inverter (variable-speed) window units ramp up gently and are easier on a battery.</p>
+
+<h2>Longer heat waves</h2>
+<p>Air conditioning is one of the hardest loads to carry on batteries alone. For days of outage, look at solar recharging (<a href="/solar-backup/">solar backup</a>), a generator (<a href="/power-station-vs-generator-cost/">power station vs generator cost</a>), or an installed battery (<a href="/whole-home-battery-cost/">whole-home battery cost</a>).</p>
+<p><a href="/calculator/">Add your AC and essentials in the calculator →</a> · <a href="/what-size-battery-generator/">Sizing guide</a></p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>

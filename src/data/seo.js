@@ -1,5 +1,8 @@
 // Search titles (<60 chars) and meta descriptions (<155). Numbers here must match the sourced figures on each page.
 export const SEO = {
+ '/how-long-will-a-power-station-run-a-chest-freezer/': ['How Long Will a Power Station Run a Chest Freezer?','A 1,000 Wh power station runs a medium ENERGY STAR chest freezer about 35 hours. Runtime by freezer size and station, with surge watts.'],
+ '/how-long-will-a-power-station-run-a-well-pump/': ['How Long Will a Power Station Run a Well Pump?','A 1/2 HP well pump draws 750-1,000 W and up to 2,000 W to start. Daily kWh by water use, 240 V stations, and runtime math.'],
+ '/how-long-will-a-power-station-run-a-window-ac/': ['How Long Will a Power Station Run a Window AC?','An efficient 5,000 BTU window AC uses about 350 W. Runtime by AC size and station, with ENERGY STAR CEER data and surge watts.'],
  '/how-long-will-a-power-station-run-a-refrigerator/': ['How Long Will a Power Station Run a Fridge?','A 1,000 Wh power station runs a typical ENERGY STAR fridge about 22 hours. Runtime math by fridge type and station size, with surge watts.'],
  '/how-long-will-a-power-station-run-a-sump-pump/': ['How Long Will a Power Station Run a Sump Pump?','A 1/3 HP sump pump draws 500-800 W and up to 1,600 W to start. Runtime by duty cycle and station size, with sourced wattages.'],
  '/how-long-will-a-power-station-run-a-space-heater/': ['How Long Will a Power Station Run a Space Heater?','A 1,500 W space heater drains a 2 kWh power station in about 1.2 hours. Runtime by station size and setting, plus better ways to stay warm.'],

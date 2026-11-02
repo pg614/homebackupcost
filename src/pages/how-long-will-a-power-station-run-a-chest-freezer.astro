@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { batteries } from '../data/site.js';
+const pick = ['Anker SOLIX C1000','Jackery Explorer 1000 v2','Jackery Explorer 2000 v2','EcoFlow DELTA Pro 3'];
+const st = pick.map(n => batteries.find(b => b.product === n)).filter(Boolean);
+// Median annual kWh of ENERGY STAR certified chest freezers by size (data.energystar.gov dataset 8t9c-g3tn, pulled 2026-11-02)
+const fz = [['Small (under 6 cu ft)',184,23],['Medium (6–12 cu ft)',225,22],['Large (12 cu ft and up)',346,4]].map(([k,y,n]) => ({ k, y, n, w: y*1000/8760 }));
+const hrs = (b,w) => b.capacity_kwh*1000*0.85/w;
+const fmt = h => h >= 48 ? `≈ ${(h/24).toFixed(1)} days` : `≈ ${Math.round(h)} h`;
+const j1 = st.find(b => b.product==='Jackery Explorer 1000 v2');
+const med = fz[1];
+const faq = [
+["How long will a 1,000 Wh power station run a chest freezer?", `About ${Math.round(hrs(j1,med.w))} hours (roughly ${(hrs(j1,med.w)/24).toFixed(1)} days) for a medium ENERGY STAR chest freezer rated 225 kWh/year, which averages about ${med.w.toFixed(0)} W. That assumes 85% of the rated capacity is usable and nothing else is plugged in. A hot garage or an older freezer shortens it.`],
+["How many watts does a chest freezer need to start?", "The Champion wattage chart lists a freezer at 100–500 W running and 500–1,000 W to start. The station's surge rating needs to cover the starting watts."],
+["Can I unplug the freezer and plug it back in to save battery?", "Yes. Ready.gov says a full freezer keeps its temperature for about 48 hours with the door closed, so running it in shifts works. Check it with a freezer thermometer and keep it at 0 °F or below."],
+["Does a chest freezer use less power than an upright?", "Usually. Chest freezers lose less cold air when opened, and the ENERGY STAR list shows medium chest models clustered around 225 kWh/year. Compare the yellow EnergyGuide label on your own unit."]
+];
+---
+<Base title="How Long Will a Power Station Run a Chest Freezer? | HomeBackupCost" description="A 1,000 Wh power station runs a medium ENERGY STAR chest freezer about 35 hours. Runtime by freezer size and station, with sourced kWh and surge watts." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>How long will a power station run a chest freezer?</h1>
+<p class="lede"><strong>Short answer:</strong> a 1,000 Wh station runs a medium efficient chest freezer for about {Math.round(hrs(j1,med.w))} hours, and a 2,000 Wh station roughly doubles that. Chest freezers sip power compared with fridges, so they're one of the easiest things to keep running. Figures as of 2026-11-02.</p>
+
+<h2>Step 1: Find your freezer's average watts</h2>
+<p>The yellow EnergyGuide label lists yearly kWh. <strong>Average watts = kWh per year × 1,000 ÷ 8,760 hours.</strong> Median values for ENERGY STAR certified chest freezers:</p>
+<div class="tbl"><table><thead><tr><th>Chest freezer size</th><th>Models</th><th>Median kWh/year</th><th>kWh/day</th><th>Average watts</th></tr></thead><tbody>
+{fz.map(f => <tr><td>{f.k}</td><td>{f.n}</td><td>{f.y}</td><td>{(f.y/365).toFixed(2)}</td><td>≈ {f.w.toFixed(0)} W</td></tr>)}
+</tbody></table></div>
+<p class="src">Source: U.S. EPA <a href="https://data.energystar.gov/resource/8t9c-g3tn.json">ENERGY STAR Certified Residential Freezers</a> list, chest-freezer product classes, pulled 2026-11-02 (49 models). These are certified test values, not metered household use. The large-size row has only 4 models. Older or non-certified freezers use more.</p>
+
+<h2>Step 2: Runtime by station</h2>
+<p><strong>Hours = battery Wh × 0.85 ÷ average watts</strong> <span class="badge est">Assumption: 85% usable</span></p>
+<div class="tbl"><table><thead><tr><th>Station (capacity, surge)</th>{fz.map(f => <th>{f.k} (≈{f.w.toFixed(0)} W)</th>)}</tr></thead><tbody>
+{st.map(b => <tr><td>{b.product} ({(b.capacity_kwh*1000).toLocaleString()} Wh, {b.surge_w.toLocaleString()} W surge)</td>{fz.map(f => <td>{fmt(hrs(b,f.w))}</td>)}</tr>)}
+</tbody></table></div>
+<p class="src">Capacities and surge ratings from our <a href="/portable-power-stations/">power station table</a> (October 2026). Example: {(j1.capacity_kwh*1000).toLocaleString()} Wh × 0.85 ÷ {med.w.toFixed(1)} W = {hrs(j1,med.w).toFixed(1)} hours.</p>
+
+<h2>Step 3: Check the starting surge</h2>
+<p>A freezer runs at 100–500 W and needs 500–1,000 W for a moment to start the compressor (<a href="https://www.championpowerequipment.com/generator-wattage-chart/">Champion chart</a>). All four stations above list surge ratings of 2,400 W or more.</p>
+
+<h2>Ways to stretch it</h2>
+<ul>
+<li>Keep it full and shut. Ready.gov says a full freezer holds its temperature for about 48 hours without power (<a href="https://www.ready.gov/power-outages">Ready.gov</a>), so you can run it a few hours, then unplug it.</li>
+<li>Fill empty space with jugs of water. Frozen mass holds cold longer.</li>
+<li>Move it out of a hot garage if you can. Freezers work harder in warm rooms.</li>
+<li>Recharge with solar during the day. See <a href="/solar-backup/">solar backup</a>.</li>
+</ul>
+<p>Running a fridge too? See <a href="/how-long-will-a-power-station-run-a-refrigerator/">how long a station runs a fridge</a>, then add both in the <a href="/calculator/">calculator →</a> · <a href="/72-hour-power-outage-plan/">72-hour plan</a></p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>

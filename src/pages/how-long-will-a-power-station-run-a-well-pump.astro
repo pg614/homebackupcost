@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { batteries } from '../data/site.js';
+const pick = ['Anker SOLIX F3800 Plus','EcoFlow DELTA Pro 3','Jackery Explorer 5000 Plus'];
+const st = pick.map(n => batteries.find(b => b.product === n)).filter(Boolean);
+const pumps = [['1/2 HP',875],['1 HP',1500]]; // midpoints of Champion running ranges
+const mins = [15,30,60];
+const usable = b => b.capacity_kwh*1000*0.85;
+const days = (b,w,m) => usable(b)/(w*m/60);
+const dp3 = st.find(b => b.product==='EcoFlow DELTA Pro 3');
+const faq = [
+["How long will a power station run a well pump?", `It depends on how much water you use, because the pump only runs while refilling the pressure tank. A 1/2 HP pump at about 875 W running 30 minutes a day uses about ${(875*0.5/1000).toFixed(2)} kWh a day, so a 4,096 Wh station could cover roughly ${days(dp3,875,30).toFixed(1)} days of pumping with nothing else plugged in.`],
+["Can a portable power station run a 240 V well pump?", "Only if it has 240 V output and enough surge. The EcoFlow DELTA Pro 3, Jackery Explorer 5000 Plus, and Anker SOLIX F3800 Plus all list 120/240 V output. Most smaller stations are 120 V only. A hardwired well pump needs a transfer switch or inlet installed by a licensed electrician."],
+["How many watts does a well pump need to start?", "The Champion wattage chart lists 1,500–2,000 W starting for a 1/2 HP well pump and 2,000–4,000 W for a 1 HP pump. Check your pump's nameplate or ask your well contractor, since deep submersible pumps can vary."],
+["How much water does a household use per day?", "The EPA's WaterSense program says the average American family uses more than 300 gallons a day at home. Cutting showers and laundry during an outage cuts pump runtime."]
+];
+---
+<Base title="How Long Will a Power Station Run a Well Pump? | HomeBackupCost" description="A 1/2 HP well pump draws 750-1,000 W and up to 2,000 W to start. Daily kWh by water use, 240 V stations, and runtime math with sourced figures." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>How long will a power station run a well pump?</h1>
+<p class="lede"><strong>Short answer:</strong> often several days, if the station can start the pump. A well pump only runs while it refills the pressure tank, so a 1/2 HP pump running 30 minutes a day uses well under 1 kWh. The hard part is the voltage and the starting surge, not the battery size. Figures as of 2026-11-02.</p>
+<p class="note">Many well pumps are 240 V and hardwired. Have a licensed electrician connect any backup source through a transfer switch or interlock. Never backfeed through an outlet.</p>
+
+<h2>Step 1: Pump watts</h2>
+<div class="tbl"><table><thead><tr><th>Pump</th><th>Running watts</th><th>Starting watts</th></tr></thead><tbody>
+<tr><td>1/2 HP</td><td>750–1,000 W</td><td>1,500–2,000 W</td></tr>
+<tr><td>1 HP</td><td>1,000–2,000 W</td><td>2,000–4,000 W</td></tr>
+</tbody></table></div>
+<p class="src">Source: <a href="https://www.championpowerequipment.com/generator-wattage-chart/">Champion wattage chart</a> (checked 2026-11-02). Your pump's nameplate is better.</p>
+
+<h2>Step 2: How long the pump runs each day</h2>
+<p>The EPA says the average American family uses more than 300 gallons of water a day at home (<a href="https://www.epa.gov/watersense/how-we-use-water">EPA WaterSense</a>). <strong>Pump minutes per day = gallons used ÷ pump gallons per minute.</strong> At an example 10 gallons per minute, 300 gallons is 30 minutes. Your pump's flow rate is on its paperwork or from your well contractor. <span class="badge est">10 gpm is an example</span></p>
+
+<h2>Step 3: Runtime math</h2>
+<p><strong>Days = battery Wh × 0.85 ÷ (pump watts × pump hours per day)</strong>. We use the middle of each Champion running range: 875 W and 1,500 W. <span class="badge est">Assumptions: 85% usable; nothing else on the battery</span></p>
+<div class="tbl"><table><thead><tr><th>Station (capacity, surge)</th>{pumps.map(([p]) => mins.map(m => <th>{p}, {m} min/day</th>))}</tr></thead><tbody>
+{st.map(b => <tr><td>{b.product} ({(b.capacity_kwh*1000).toLocaleString()} Wh, {b.surge_w.toLocaleString()} W surge)</td>{pumps.map(([,w]) => mins.map(m => <td>≈ {days(b,w,m).toFixed(1)} days</td>))}</tr>)}
+</tbody></table></div>
+<p class="src">Capacities and surge ratings from our <a href="/portable-power-stations/">power station table</a> (October 2026). Example: 4,096 Wh × 0.85 ÷ (875 W × 0.5 h) = {days(dp3,875,30).toFixed(1)} days. Real homes also run a fridge, lights, and more, so plan the whole load in the calculator.</p>
+
+<h2>Step 4: Voltage and surge</h2>
+<p>All three stations above list 120/240 V output: the <a href="https://us.ecoflow.com/products/delta-pro-3-portable-power-station">EcoFlow DELTA Pro 3</a>, <a href="https://www.jackery.com/products/explorer-5000-plus">Jackery Explorer 5000 Plus</a>, and <a href="https://www.ankersolix.com/products/f3800-plus">Anker SOLIX F3800 Plus</a> (manufacturer pages, checked 2026-11-02). Their surge ratings (6,000 W and up) cover the Champion starting ranges for both pump sizes. Smaller 120 V-only stations can't run a 240 V pump at all.</p>
+<p>Wiring options and costs: <a href="/transfer-switch-vs-interlock-kit/">transfer switch vs interlock kit</a>. Comparing a generator instead? See <a href="/power-station-vs-generator-cost/">power station vs generator cost</a> and <a href="/generator-safety/">generator safety</a>.</p>
+<p><a href="/calculator/">Add your well pump and essentials in the calculator →</a> · <a href="/how-long-will-a-power-station-run-a-sump-pump/">Sump pump runtime</a></p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>

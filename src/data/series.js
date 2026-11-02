@@ -12,4 +12,7 @@ export const SERIES = [
   { href:'/how-long-will-a-power-station-run-a-refrigerator/', title:'How long will a station run a fridge?', blurb:'ENERGY STAR kWh by fridge type and runtime for four station sizes.', icon:'🧊' },
   { href:'/how-long-will-a-power-station-run-a-sump-pump/', title:'How long will a station run a sump pump?', blurb:'Pump watts, surge, and runtime at 10%, 25%, and 50% duty.', icon:'💧' },
   { href:'/how-long-will-a-power-station-run-a-space-heater/', title:'How long will a station run a space heater?', blurb:'Why 1,500 W drains a battery fast, and better ways to stay warm.', icon:'🌡️' },
+  { href:'/how-long-will-a-power-station-run-a-chest-freezer/', title:'How long will a station run a chest freezer?', blurb:'ENERGY STAR kWh by freezer size and runtime for four stations.', icon:'❄️' },
+  { href:'/how-long-will-a-power-station-run-a-well-pump/', title:'How long will a station run a well pump?', blurb:'Pump watts, daily water use, and which stations have 240 V.', icon:'🚰' },
+  { href:'/how-long-will-a-power-station-run-a-window-ac/', title:'How long will a station run a window AC?', blurb:'Watts from CEER ratings and runtime nonstop or cycling.', icon:'🌬️' },
 ];
