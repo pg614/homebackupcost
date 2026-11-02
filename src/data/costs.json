@@ -12,11 +12,11 @@
  {
   "item": "Heat pump installed",
   "range": "avg $15,393 upfront; ducted avg $14,529; mini-split avg $25,957 (EnergySage marketplace)",
-  "source": "https://www.energysage.com/heat-pumps/heat-pump-installation/"
+  "source": "https://www.energysage.com/heat-pumps/costs-and-benefits-air-source-heat-pumps/"
  },
  {
   "item": "200A panel upgrade",
-  "range": "$1,800-$4,500; avg ~$2,500-$3,000 (secondary sources - mark estimate)",
+  "range": "$1,900-$4,500 typical total for 200-amp service incl. permit; midpoint ~$3,200 (HouseMath national estimate)",
   "source": "https://housemathguide.com/electrical/electrical-panel-upgrade-cost/"
  },
  {
