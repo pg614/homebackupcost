@@ -31,4 +31,4 @@ export const SEO = {
  '/404/': ['Page Not Found | HomeBackupCost','That page does not exist. Try the backup power calculator or the outage prep guides.'],
 };
 // Pages that get Article schema (guides). Everything else is a WebPage.
-export const NON_ARTICLE = ['/','/calculator/','/quotes/','/privacy/','/contact/','/404/','/rebates/'];
+export const NON_ARTICLE = ['/','/calculator/','/quotes/','/privacy/','/contact/','/404/','/rebates/','/news/'];

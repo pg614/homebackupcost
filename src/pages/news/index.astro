@@ -1,0 +1,9 @@
+---
+import Base from '../../layouts/Base.astro';
+import { NEWS } from '../../data/news.js';
+---
+<Base title="Backup Power News & Stories | HomeBackupCost" description="Timely, sourced stories on outages, storms, and emergency prep, and what they mean for backing up your home's power." h1Name="News">
+<h1>News &amp; stories</h1>
+<p class="lede">Timely stories on outages and emergency prep, checked against the original sources. No hype, just what it means for your home's power.</p>
+{NEWS.map(n => <div class="card" style="margin-bottom:12px"><h2 style="margin-top:0"><a href={n.href}>{n.title}</a></h2><p class="mute"><time datetime={n.date}>{n.date}</time></p><p>{n.blurb}</p></div>)}
+</Base>
