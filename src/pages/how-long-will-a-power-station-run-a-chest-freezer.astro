@@ -1,4 +1,6 @@
 ---
+import AffLink from '../components/AffLink.astro';
+import ProductLink from '../components/ProductLink.astro';
 import Base from '../layouts/Base.astro';
 import Newsletter from '../components/Newsletter.astro';
 import { batteries } from '../data/site.js';
@@ -31,7 +33,7 @@ const faq = [
 <h2>Step 2: Runtime by station</h2>
 <p><strong>Hours = battery Wh × 0.85 ÷ average watts</strong> <span class="badge est">Assumption: 85% usable</span></p>
 <div class="tbl"><table><thead><tr><th>Station (capacity, surge)</th>{fz.map(f => <th>{f.k} (≈{f.w.toFixed(0)} W)</th>)}</tr></thead><tbody>
-{st.map(b => <tr><td>{b.product} ({(b.capacity_kwh*1000).toLocaleString()} Wh, {b.surge_w.toLocaleString()} W surge)</td>{fz.map(f => <td>{fmt(hrs(b,f.w))}</td>)}</tr>)}
+{st.map(b => <tr><td><ProductLink product={b.product} button={false} /> ({(b.capacity_kwh*1000).toLocaleString()} Wh, {b.surge_w.toLocaleString()} W surge)<br/><AffLink product={b.product} /></td>{fz.map(f => <td>{fmt(hrs(b,f.w))}</td>)}</tr>)}
 </tbody></table></div>
 <p class="src">Capacities and surge ratings from our <a href="/portable-power-stations/">power station table</a> (October 2026). Example: {(j1.capacity_kwh*1000).toLocaleString()} Wh × 0.85 ÷ {med.w.toFixed(1)} W = {hrs(j1,med.w).toFixed(1)} hours.</p>
 

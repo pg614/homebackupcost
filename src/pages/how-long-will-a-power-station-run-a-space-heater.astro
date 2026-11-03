@@ -1,4 +1,6 @@
 ---
+import AffLink from '../components/AffLink.astro';
+import ProductLink from '../components/ProductLink.astro';
 import Base from '../layouts/Base.astro';
 import Newsletter from '../components/Newsletter.astro';
 import { batteries } from '../data/site.js';
@@ -20,7 +22,7 @@ const faq = [
 <h2>The math</h2>
 <p>Plug-in space heaters draw 750–1,500 W (<a href="https://www.championpowerequipment.com/generator-wattage-chart/">Champion chart</a>). <strong>Hours = battery Wh × 0.85 ÷ heater watts</strong> <span class="badge est">Assumption: 85% usable</span>. The 550 W column is an example of a small heater on its lowest setting; check your heater's label.</p>
 <div class="tbl"><table><thead><tr><th>Station (capacity, output)</th>{ws.map(w => <th>{w.toLocaleString()} W</th>)}</tr></thead><tbody>
-{st.map(b => <tr><td>{b.product} ({(b.capacity_kwh*1000).toLocaleString()} Wh, {b.output_w.toLocaleString()} W)</td>{ws.map(w => <td>≈ {(usable(b)/w).toFixed(1)} h</td>)}</tr>)}
+{st.map(b => <tr><td><ProductLink product={b.product} button={false} /> ({(b.capacity_kwh*1000).toLocaleString()} Wh, {b.output_w.toLocaleString()} W)<br/><AffLink product={b.product} /></td>{ws.map(w => <td>≈ {(usable(b)/w).toFixed(1)} h</td>)}</tr>)}
 </tbody></table></div>
 <p class="src">Capacities and output from our <a href="/portable-power-stations/">power station table</a> (October 2026). Example: 2,042 Wh × 0.85 ÷ 1,500 W = {(usable(j2)/1500).toFixed(2)} hours. All four stations can deliver 1,500 W continuously.</p>
 

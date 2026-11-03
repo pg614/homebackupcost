@@ -1,0 +1,8 @@
+---
+// Product name linked to the maker's page + a "Check price at <Brand>" button underneath.
+import { productLink } from '../data/product-links.js';
+const { product, button = true, bold = true, label } = Astro.props;
+const p = productLink(product);
+const attrs = p ? { href:p.url, target:'_blank', rel:'nofollow sponsored noopener', 'data-affiliate': p.affiliate ? 'live' : 'placeholder', 'data-program': p.brand, 'data-product': p.name } : null;
+---
+{p ? <>{bold ? <strong><a {...attrs}>{product}</a></strong> : <a {...attrs}>{product}</a>}{button && <><br/><a class="btn ghost buy" {...attrs}>{label || `Check price at ${p.brand}`} ↗</a></>}</> : (bold ? <strong>{product}</strong> : <span>{product}</span>)}

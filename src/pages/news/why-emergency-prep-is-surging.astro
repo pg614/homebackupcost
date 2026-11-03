@@ -1,4 +1,6 @@
 ---
+import ProductLink from '../../components/ProductLink.astro';
+import AffLink from '../../components/AffLink.astro';
 import Base from '../../layouts/Base.astro';
 import Newsletter from '../../components/Newsletter.astro';
 import batteries from '../../data/batteries.json';
@@ -33,9 +35,9 @@ const faq = [
 <p class="src">Prices are the lowest listed price in our <a href="/portable-power-stations/">power station table</a>, checked in late October 2026. Prices change often.</p>
 <div class="grid">
 <div class="card"><h3>$0: plan first</h3><p>Work out what you actually need to keep running. Phones, Wi-Fi, and six LED bulbs take about 3.1 kWh over 3 days; adding a refrigerator brings it to about 10.9 kWh (<a href="/72-hour-power-outage-plan/">72-hour plan</a>). Keep phones and power banks charged when storms are forecast.</p><p><a href="/calculator/">Run your numbers in the calculator →</a></p></div>
-<div class="card"><h3>About $500: stay connected</h3><ul>{t1.map(x => <li><a href={x.src}>{x.name}</a>: {x.kwh} kWh, {x.price}</li>)}</ul><p>Covers phones, Wi-Fi, and lights for about 2 days. Not enough for a fridge for long.</p></div>
-<div class="card"><h3>About $900: keep food cold for a day</h3><ul>{t2.map(x => <li><a href={x.src}>{x.name}</a>: {x.kwh} kWh, {x.price}</li>)}</ul><p>About 2 kWh. A 2.04 kWh station covers the "stay connected" level for about 2 days, or runs a fridge part-time. Add solar to stretch it. <a href="/solar-backup/">Solar backup →</a></p></div>
-<div class="card"><h3>$2,800–$4,200: most of a house's essentials</h3><ul>{t3.map(x => <li><a href={x.src}>{x.name}</a>: {x.kwh} kWh, {x.price}</li>)}</ul><p>Enough for fridge, lights, Wi-Fi, and a furnace blower for a day or more. Plug-in transfer hardware ({transfer?.range}) lets it feed home circuits.</p></div>
+<div class="card"><h3>About $500: stay connected</h3><ul>{t1.map(x => <li><ProductLink product={x.name} button={false} />: {x.kwh} kWh, {x.price} <a class="src" href={x.src}>source</a><br/><AffLink product={x.name} /></li>)}</ul><p>Covers phones, Wi-Fi, and lights for about 2 days. Not enough for a fridge for long.</p></div>
+<div class="card"><h3>About $900: keep food cold for a day</h3><ul>{t2.map(x => <li><ProductLink product={x.name} button={false} />: {x.kwh} kWh, {x.price} <a class="src" href={x.src}>source</a><br/><AffLink product={x.name} /></li>)}</ul><p>About 2 kWh. A 2.04 kWh station covers the "stay connected" level for about 2 days, or runs a fridge part-time. Add solar to stretch it. <a href="/solar-backup/">Solar backup →</a></p></div>
+<div class="card"><h3>$2,800–$4,200: most of a house's essentials</h3><ul>{t3.map(x => <li><ProductLink product={x.name} button={false} />: {x.kwh} kWh, {x.price} <a class="src" href={x.src}>source</a><br/><AffLink product={x.name} /></li>)}</ul><p>Enough for fridge, lights, Wi-Fi, and a furnace blower for a day or more. Plug-in transfer hardware ({transfer?.range}) lets it feed home circuits.</p></div>
 <div class="card"><h3>$10,000+: whole-home</h3><p>An installed ~13.5 kWh home battery runs {installed?.range} (<a href={installed?.source}>EnergySage</a>). Standby generators also live here. If you want one before winter, start quotes now; installers are booked up. <a href="/whole-home-battery-cost/">Battery costs →</a> · <a href="/standby-generator-installation-cost/">Standby generator costs →</a></p></div>
 </div>
 

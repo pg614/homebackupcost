@@ -1,4 +1,6 @@
 ---
+import AffLink from '../components/AffLink.astro';
+import ProductLink from '../components/ProductLink.astro';
 import Base from '../layouts/Base.astro';
 import Illustration from '../components/Illustration.astro';
 import Newsletter from '../components/Newsletter.astro';
@@ -27,9 +29,9 @@ const faq = [
 <p><strong>Watt-hours per night</strong> = device watts × hours of use. <strong>Nights per charge</strong> = battery Wh × 0.85 ÷ watt-hours per night <span class="badge est">Assumption: 85% usable</span>.</p>
 <div class="tbl"><table><thead><tr><th>Battery</th><th>At 56.1 W × 8 h (≈449 Wh/night)</th><th>At 30 W × 8 h (240 Wh/night)</th></tr></thead><tbody>
 <tr><td>Medistrom Pilot-24 Lite (95 Wh)</td><td>≈ 0.2 nights (about 1.4 h)</td><td>≈ 0.3 nights (about 2.7 h)</td></tr>
-<tr><td>Anker SOLIX C1000 (1,056 Wh)</td><td>≈ 2.0 nights</td><td>≈ 3.7 nights</td></tr>
-<tr><td>Jackery Explorer 1000 v2 (1,070 Wh)</td><td>≈ 2.0 nights</td><td>≈ 3.8 nights</td></tr>
-<tr><td>Jackery Explorer 2000 v2 (2,042 Wh)</td><td>≈ 3.9 nights</td><td>≈ 7.2 nights</td></tr>
+<tr><td><ProductLink product="Anker SOLIX C1000" button={false} /> (1,056 Wh)<br/><AffLink product="Anker SOLIX C1000" /></td><td>≈ 2.0 nights</td><td>≈ 3.7 nights</td></tr>
+<tr><td><ProductLink product="Jackery Explorer 1000 v2" button={false} /> (1,070 Wh)<br/><AffLink product="Jackery Explorer 1000 v2" /></td><td>≈ 2.0 nights</td><td>≈ 3.8 nights</td></tr>
+<tr><td><ProductLink product="Jackery Explorer 2000 v2" button={false} /> (2,042 Wh)<br/><AffLink product="Jackery Explorer 2000 v2" /></td><td>≈ 3.9 nights</td><td>≈ 7.2 nights</td></tr>
 </tbody></table></div>
 <p class="src">Capacities: <a href="https://www.medistrom.com/products-pilot24-lite.html">Medistrom</a>; <a href="https://homegridhq.com/compare/">HomeGridHQ</a> (October 2026). Medistrom quotes its own runtime with the humidifier and heated tube turned off, and a DC connection to the device avoids inverter losses. Compatibility depends on your machine: ResMed says it does not endorse third-party batteries for the AirSense 11 (<a href="https://shop.resmed.com.au/pages/airsense-11-pre-purchase-faqs">ResMed FAQ</a>).</p>
 <p><a href="/calculator/?preset=medical">Try the CPAP / medical preset in the calculator →</a></p>

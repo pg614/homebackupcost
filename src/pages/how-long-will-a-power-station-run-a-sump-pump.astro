@@ -1,4 +1,6 @@
 ---
+import AffLink from '../components/AffLink.astro';
+import ProductLink from '../components/ProductLink.astro';
 import Base from '../layouts/Base.astro';
 import Illustration from '../components/Illustration.astro';
 import Newsletter from '../components/Newsletter.astro';
@@ -32,7 +34,7 @@ const faq = [
 <h2>Step 2: Runtime math</h2>
 <p><strong>Hours = battery Wh × 0.85 ÷ (pump watts × share of time running)</strong>. We use 650 W, the middle of the 1/3 HP range. <span class="badge est">Assumptions: 85% usable; duty cycles are examples</span></p>
 <div class="tbl"><table><thead><tr><th>Station (capacity, surge)</th><th>Pumping time in the battery</th>{duty.map(d => <th>Runs {d*100}% of the time</th>)}</tr></thead><tbody>
-{st.map(b => <tr><td>{b.product} ({(b.capacity_kwh*1000).toLocaleString()} Wh, {b.surge_w.toLocaleString()} W surge)</td><td>≈ {(usable(b)/W*60).toFixed(0)} min</td>{duty.map(d => <td>≈ {h(b,d).toFixed(1)} h</td>)}</tr>)}
+{st.map(b => <tr><td><ProductLink product={b.product} button={false} /> ({(b.capacity_kwh*1000).toLocaleString()} Wh, {b.surge_w.toLocaleString()} W surge)<br/><AffLink product={b.product} /></td><td>≈ {(usable(b)/W*60).toFixed(0)} min</td>{duty.map(d => <td>≈ {h(b,d).toFixed(1)} h</td>)}</tr>)}
 </tbody></table></div>
 <p class="src">Capacities from our <a href="/portable-power-stations/">power station table</a> (October 2026). Example: 1,056 Wh × 0.85 ÷ (650 W × 0.25) = {h(c1,0.25).toFixed(1)} hours. Each start adds a short surge, so real runtime is a little lower.</p>
 <p>How often a pump runs varies a lot. One EcoFlow community member reported their pump running 50–200 times a day normally and more than 3,000 times on a very heavy rain day (<a href="https://www.reddit.com/r/Ecoflow_community/comments/1kawqg6/power_station_as_sump_pump_backup/">Reddit</a>). That's why we show a range.</p>

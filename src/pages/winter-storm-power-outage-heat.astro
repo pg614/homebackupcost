@@ -1,4 +1,6 @@
 ---
+import AffLink from '../components/AffLink.astro';
+import ProductLink from '../components/ProductLink.astro';
 import Base from '../layouts/Base.astro';
 import Illustration from '../components/Illustration.astro';
 import Newsletter from '../components/Newsletter.astro';
@@ -30,10 +32,10 @@ const faq = [
 <h2>3. Space heaters: what they really need</h2>
 <p>A plug-in space heater draws <strong>750–1,500 W</strong> (Champion). That's more than a furnace blower, for one room.</p>
 <div class="tbl"><table><thead><tr><th>Power station (capacity)</th><th>1,500 W heater</th><th>750 W heater</th><th>550 W furnace blower</th></tr></thead><tbody>
-<tr><td>Anker SOLIX C1000 (1.056 kWh)</td><td>≈0.6 h</td><td>≈1.2 h</td><td>≈1.6 h</td></tr>
-<tr><td>Jackery Explorer 2000 v2 (2.042 kWh)</td><td>≈1.2 h</td><td>≈2.3 h</td><td>≈3.2 h</td></tr>
-<tr><td>EcoFlow DELTA Pro 3 (4.096 kWh)</td><td>≈2.3 h</td><td>≈4.6 h</td><td>≈6.3 h</td></tr>
-<tr><td>Jackery Explorer 5000 Plus (5.04 kWh)</td><td>≈2.9 h</td><td>≈5.7 h</td><td>≈7.8 h</td></tr>
+<tr><td><ProductLink product="Anker SOLIX C1000" button={false} /> (1.056 kWh)<br/><AffLink product="Anker SOLIX C1000" /></td><td>≈0.6 h</td><td>≈1.2 h</td><td>≈1.6 h</td></tr>
+<tr><td><ProductLink product="Jackery Explorer 2000 v2" button={false} /> (2.042 kWh)<br/><AffLink product="Jackery Explorer 2000 v2" /></td><td>≈1.2 h</td><td>≈2.3 h</td><td>≈3.2 h</td></tr>
+<tr><td><ProductLink product="EcoFlow DELTA Pro 3" button={false} /> (4.096 kWh)<br/><AffLink product="EcoFlow DELTA Pro 3" /></td><td>≈2.3 h</td><td>≈4.6 h</td><td>≈6.3 h</td></tr>
+<tr><td><ProductLink product="Jackery Explorer 5000 Plus" button={false} /> (5.04 kWh)<br/><AffLink product="Jackery Explorer 5000 Plus" /></td><td>≈2.9 h</td><td>≈5.7 h</td><td>≈7.8 h</td></tr>
 </tbody></table></div>
 <p class="src">Runtime = capacity × 0.85 usable ÷ watts <span class="badge est">Assumption</span>. Capacities from <a href="https://homegridhq.com/compare/">HomeGridHQ</a> and <a href="https://homebatteryreport.com/guides/plug-in-vs-installed-battery-cost">Home Battery Report</a>, October 2026. Never leave a space heater running unattended, and plug it straight into the station or wall, not a power strip.</p>
 

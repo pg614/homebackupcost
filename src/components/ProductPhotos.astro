@@ -1,4 +1,5 @@
 ---
+import ProductLink from './ProductLink.astro';
 import { productImages } from '../data/product-images.js';
 const { products = Object.keys(productImages), title } = Astro.props;
 const items = products.map(p => [p, productImages[p]]).filter(([, v]) => v);
@@ -7,7 +8,7 @@ const items = products.map(p => [p, productImages[p]]).filter(([, v]) => v);
 {title && <h2>{title}</h2>}
 <div class="pp-grid">{items.map(([name, i]) => <figure class="pp-card">
 <img src={`/products/${i.file}-800.webp`} srcset={`/products/${i.file}-400.webp 400w, /products/${i.file}-800.webp 800w`} sizes="(max-width:720px) 100vw, 360px" width={i.w} height={i.h} loading="lazy" decoding="async" alt={i.alt} />
-<figcaption><strong>{name}</strong><span class="src">{i.credit}</span></figcaption>
+<figcaption><ProductLink product={name} /><span class="src">{i.credit}</span></figcaption>
 </figure>)}</div>
 </section>}
 <style>

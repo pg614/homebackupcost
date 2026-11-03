@@ -1,4 +1,5 @@
 ---
+import ProductLink from '../components/ProductLink.astro';
 import Base from '../layouts/Base.astro';
 import ProductPhotos from '../components/ProductPhotos.astro';
 import Newsletter from '../components/Newsletter.astro';
@@ -16,13 +17,13 @@ const schema = [{ '@context':'https://schema.org','@type':'ItemList', name:'Port
 <div class="tbl" style="margin-top:16px"><table>
 <thead><tr><th>Model</th><th>Type</th><th>Capacity</th><th>Output</th><th>Surge</th><th>Price</th><th>As of</th><th></th></tr></thead>
 <tbody>{portable.map(b => <tr>
-<td><strong>{b.product}</strong></td><td>{b.type}</td>
+<td><ProductLink product={b.product} /></td><td>{b.type}</td>
 <td>{b.capacity_kwh ? `${b.capacity_kwh} kWh` : <span class="est">not captured</span>}</td>
 <td>{b.output_w ? `${b.output_w.toLocaleString()} W` : <span class="est">—</span>}</td>
 <td>{b.surge_w ? `${b.surge_w.toLocaleString()} W` : <span class="est">—</span>}</td>
 <td>{b.price}<br/><a class="src" href={b.source_url} target="_blank" rel="noopener">source</a></td>
 <td class="src">{b.as_of}</td>
-<td><AffLink product={b.product} label="Check price" /></td></tr>)}</tbody>
+<td><AffLink product={b.product} label="Buy" /></td></tr>)}</tbody>
 </table></div>
 <p class="src">Several specs and prices come from third-party comparison sites (homegridhq.com, homebatteryreport.com, powerstations.reviews), as linked. Check the manufacturer's page before you buy. BLUETTI Apex 300 specs are still being verified.</p>
 <h2>Expansion batteries: add capacity later</h2>
@@ -30,7 +31,7 @@ const schema = [{ '@context':'https://schema.org','@type':'ItemList', name:'Port
 <div class="tbl"><table>
 <thead><tr><th>Base unit</th><th>Add-on battery</th><th>Per battery</th><th>Max add-ons</th><th>Max capacity (1 unit)</th><th>Battery price</th><th></th></tr></thead>
 <tbody>{expansions.map(e => { const b = batteries.find(x => x.product === e.base); return <tr>
-<td><strong>{e.base}</strong></td><td>{e.battery}</td><td>{e.capacity_kwh} kWh</td><td>{e.max_per_base}<br/><span class="src">{e.max_note}</span></td>
+<td><ProductLink product={e.base} button={false} /></td><td><ProductLink product={e.battery} bold={false} /></td><td>{e.capacity_kwh} kWh</td><td>{e.max_per_base}<br/><span class="src">{e.max_note}</span></td>
 <td>{(b.capacity_kwh + e.max_per_base * e.capacity_kwh).toFixed(2)} kWh</td>
 <td>{e.price_note}<br/><a class="src" href={e.source_url} target="_blank" rel="noopener">source</a> <span class="src">· {e.as_of}</span></td>
 <td><a class="btn ghost" href={e.product_url} target="_blank" rel="nofollow sponsored noopener" data-affiliate="placeholder" data-product={e.battery}>View ↗</a></td></tr>; })}</tbody>

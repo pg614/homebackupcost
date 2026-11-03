@@ -1,4 +1,5 @@
 ---
+import ProductLink from '../components/ProductLink.astro';
 import Base from '../layouts/Base.astro';
 import ProductPhotos from '../components/ProductPhotos.astro';
 import Newsletter from '../components/Newsletter.astro';
@@ -20,7 +21,7 @@ const faq = [
 <ProductPhotos products={['EcoFlow DELTA Pro 3','Jackery Explorer 5000 Plus']} />
 <h2>Side by side</h2>
 <div class="tbl"><table><thead><tr><th>Model</th><th>Capacity</th><th>Output</th><th>Surge</th><th>Price listed</th><th>Price per kWh</th></tr></thead><tbody>
-{rows.map(r => <tr><td><strong>{r.product}</strong></td><td>{(r.capacity_kwh*1000).toLocaleString()} Wh</td><td>{r.output_w.toLocaleString()} W</td><td>{r.surge_w ? r.surge_w.toLocaleString() + ' W' : '—'}</td><td>{r.price}<br/><a class="src" href={r.source_url}>source</a></td><td>{r.perkwh ? usd(r.perkwh) : '—'}</td></tr>)}
+{rows.map(r => <tr><td><ProductLink product={r.product} /></td><td>{(r.capacity_kwh*1000).toLocaleString()} Wh</td><td>{r.output_w.toLocaleString()} W</td><td>{r.surge_w ? r.surge_w.toLocaleString() + ' W' : '—'}</td><td>{r.price}<br/><a class="src" href={r.source_url}>source</a></td><td>{r.perkwh ? usd(r.perkwh) : '—'}</td></tr>)}
 </tbody></table></div>
 <p class="src">Price per kWh = first listed price ÷ capacity in kWh, e.g. {usd(dp3.p)} ÷ {dp3.capacity_kwh} kWh = {usd(dp3.perkwh)}. Sale prices where listed. As of {dp3.as_of}. Check the maker's site for today's price.</p>
 

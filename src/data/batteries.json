@@ -86,9 +86,9 @@
   "capacity_kwh": 1.07,
   "output_w": 1500,
   "surge_w": 3000,
-  "price": "$559",
+  "price": "$559 (jackery.com; Black in stock, Dune White sold out 11/3)",
   "source_url": "https://www.jackery.com/products/jackery-explorer-1000-v2",
-  "as_of": "2026-11-03 (brand site)"
+  "as_of": "2026-11-03"
  },
  {
   "product": "Goal Zero Yeti 1500X",
@@ -106,9 +106,9 @@
   "capacity_kwh": 0.768,
   "output_w": 800,
   "surge_w": 1600,
-  "price": "$599 MSRP",
-  "source_url": "https://www.sdge.com/sites/default/files/2026%20GAP%20QPL%20List%20FINAL_Online%20Only_Version2.1.pdf",
-  "as_of": "2026-10 (prices fluctuate; promos)"
+  "price": "$369 sale / $529 regular (us.ecoflow.com)",
+  "source_url": "https://us.ecoflow.com/products/river-2-pro-portable-power-station",
+  "as_of": "2026-11-03"
  },
  {
   "product": "Tesla Powerwall 3",

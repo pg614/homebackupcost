@@ -1,4 +1,6 @@
 ---
+import AffLink from '../components/AffLink.astro';
+import ProductLink from '../components/ProductLink.astro';
 import Base from '../layouts/Base.astro';
 import Newsletter from '../components/Newsletter.astro';
 import { batteries } from '../data/site.js';
@@ -34,12 +36,12 @@ const faq = [
 <h2>Step 3: Runtime math</h2>
 <p><strong>Days = battery Wh × 0.85 ÷ (pump watts × pump hours per day)</strong>. We use the middle of each Champion running range: 875 W and 1,500 W. <span class="badge est">Assumptions: 85% usable; nothing else on the battery</span></p>
 <div class="tbl"><table><thead><tr><th>Station (capacity, surge)</th>{pumps.map(([p]) => mins.map(m => <th>{p}, {m} min/day</th>))}</tr></thead><tbody>
-{st.map(b => <tr><td>{b.product} ({(b.capacity_kwh*1000).toLocaleString()} Wh, {b.surge_w.toLocaleString()} W surge)</td>{pumps.map(([,w]) => mins.map(m => <td>≈ {days(b,w,m).toFixed(1)} days</td>))}</tr>)}
+{st.map(b => <tr><td><ProductLink product={b.product} button={false} /> ({(b.capacity_kwh*1000).toLocaleString()} Wh, {b.surge_w.toLocaleString()} W surge)<br/><AffLink product={b.product} /></td>{pumps.map(([,w]) => mins.map(m => <td>≈ {days(b,w,m).toFixed(1)} days</td>))}</tr>)}
 </tbody></table></div>
 <p class="src">Capacities and surge ratings from our <a href="/portable-power-stations/">power station table</a> (October 2026). Example: 4,096 Wh × 0.85 ÷ (875 W × 0.5 h) = {days(dp3,875,30).toFixed(1)} days. Real homes also run a fridge, lights, and more, so plan the whole load in the calculator.</p>
 
 <h2>Step 4: Voltage and surge</h2>
-<p>All three stations above list 120/240 V output: the <a href="https://us.ecoflow.com/products/delta-pro-3-portable-power-station">EcoFlow DELTA Pro 3</a>, <a href="https://www.jackery.com/products/explorer-5000-plus">Jackery Explorer 5000 Plus</a>, and <a href="https://www.ankersolix.com/products/f3800-plus">Anker SOLIX F3800 Plus</a> (manufacturer pages, checked 2026-11-02). Their surge ratings (6,000 W and up) cover the Champion starting ranges for both pump sizes. Smaller 120 V-only stations can't run a 240 V pump at all.</p>
+<p>All three stations above list 120/240 V output: the <a href="https://us.ecoflow.com/products/delta-pro-3-portable-power-station" target="_blank" rel="nofollow sponsored noopener" data-affiliate="placeholder">EcoFlow DELTA Pro 3</a>, <a href="https://www.jackery.com/products/jackery-explorer-5000-plus" target="_blank" rel="nofollow sponsored noopener" data-affiliate="placeholder">Jackery Explorer 5000 Plus</a>, and <a href="https://www.ankersolix.com/products/f3800-plus" target="_blank" rel="nofollow sponsored noopener" data-affiliate="placeholder">Anker SOLIX F3800 Plus</a> (manufacturer pages, checked 2026-11-02). Their surge ratings (6,000 W and up) cover the Champion starting ranges for both pump sizes. Smaller 120 V-only stations can't run a 240 V pump at all.</p>
 <p>Wiring options and costs: <a href="/transfer-switch-vs-interlock-kit/">transfer switch vs interlock kit</a>. Comparing a generator instead? See <a href="/power-station-vs-generator-cost/">power station vs generator cost</a> and <a href="/generator-safety/">generator safety</a>.</p>
 <p><a href="/calculator/">Add your well pump and essentials in the calculator →</a> · <a href="/how-long-will-a-power-station-run-a-sump-pump/">Sump pump runtime</a></p>
 <h2>FAQ</h2>

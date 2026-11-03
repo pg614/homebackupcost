@@ -1,8 +1,9 @@
 ---
+import { PRODUCT_URLS } from '../data/product-links.js';
 import EmailReport from './EmailReport.astro';
 import { AS_OF, appliances, batteries, programs, national, expansions, STATE_NAMES, DEFAULT_HOURS, USABLE } from '../data/site.js';
 import solar from '../data/solar.json';
-const payload = { asOf: AS_OF, appliances: appliances.filter(a => a.running_w_max), batteries, programs, national, expansions, states: STATE_NAMES, hours: DEFAULT_HOURS, usable: USABLE, solar };
+const payload = { links: PRODUCT_URLS, asOf: AS_OF, appliances: appliances.filter(a => a.running_w_max), batteries, programs, national, expansions, states: STATE_NAMES, hours: DEFAULT_HOURS, usable: USABLE, solar };
 ---
 <div id="qc" class="qc card">
   <form id="qcStart" class="qc-start" novalidate>
@@ -74,12 +75,12 @@ $('#qcGo').addEventListener('click', () => {
   const m = matchBatteries(r, D.batteries, priceLow, D.expansions);
   const single = m.portable.filter(b => b.powerOk && b.fullCover && b.price != null).sort((a, b) => a.price - b.price)[0];
   const sys = m.systems[0];
-  const best = single && (!sys || single.price <= sys.totalPrice) ? { label: single.product, cap: single.capacity_kwh, price: single.price, url: single.source_url } : sys ? { label: `${sys.base.product} + ${sys.n} × ${sys.exp.battery}`, cap: sys.capacityKwh, price: sys.totalPrice, url: sys.exp.source_url } : null;
+  const best = single && (!sys || single.price <= sys.totalPrice) ? { buy: [single.product], label: single.product, cap: single.capacity_kwh, price: single.price, url: single.source_url } : sys ? { buy: [sys.base.product, sys.exp.battery], label: `${sys.base.product} + ${sys.n} × ${sys.exp.battery}`, cap: sys.capacityKwh, price: sys.totalPrice, url: sys.exp.source_url } : null;
   const s = solarNeeds(r.dailyKwh, r.kwh, D.solar.assumptions.peak_sun_hours, D.solar.assumptions.derate);
   const nat = D.national.find(n => n.state === st); const progs = D.programs.filter(p => p.state === st);
   const showInstalled = own === 'own' && inst;
   let html = `<h2 style="margin-top:8px">Your ballpark</h2><div class="qc-big">${r.kwh.toFixed(1)} kWh</div><p class="mute">of battery for ${h/24 === 1 ? '1 day' : (h/24) + ' days'}, with peaks around ${r.peakW.toLocaleString()} W. <span class="badge est">Estimate</span> This uses typical wattages and our 0.85 usable-capacity assumption.</p><div class="qc-res">`;
-  html += `<div><h3>Cheapest portable setup</h3>${best ? `<strong>${esc(best.label)}</strong><br>${best.cap.toFixed(2)} kWh · <strong>${money(best.price)}</strong><br><a class="src" href="${best.url}" target="_blank" rel="noopener">price source</a> <span class="src">(Oct 2026)</span>` : `<span class="mute">No single portable setup in our data covers this. Consider solar recharging, a generator, or an installed battery.</span>`}<p class="src">Or recharge with solar: about ${s.wattsToCoverDaily.toLocaleString()} W of panels refills one day of use <span class="badge est">Assumption: ${D.solar.assumptions.peak_sun_hours} sun-hours</span></p></div>`;
+  html += `<div><h3>Cheapest portable setup</h3>${best ? `<strong>${esc(best.label)}</strong><br>${best.cap.toFixed(2)} kWh · <strong>${money(best.price)}</strong><br><a class="src" href="${best.url}" target="_blank" rel="noopener">price source</a> <span class="src">(Oct 2026)</span>${best.buy.map(n => D.links[n]).filter(Boolean).map(L => `<br><a class="btn ghost buy" href="${L.url}" target="_blank" rel="nofollow sponsored noopener" data-affiliate="${L.affiliate?'live':'placeholder'}" data-program="${L.brand}" data-product="${L.name}">${esc(L.name)} at ${L.brand} ↗</a>`).join('')}` : `<span class="mute">No single portable setup in our data covers this. Consider solar recharging, a generator, or an installed battery.</span>`}<p class="src">Or recharge with solar: about ${s.wattsToCoverDaily.toLocaleString()} W of panels refills one day of use <span class="badge est">Assumption: ${D.solar.assumptions.peak_sun_hours} sun-hours</span></p></div>`;
   if (showInstalled) html += `<div><h3>Whole-home battery</h3>${m.installed.map(b => `${b.units} × ${esc(b.product)}: <strong>${money(b.costLow)}–${money(b.costHigh)}</strong> installed`).join('<br>')}<p class="src"><span class="badge est">Estimate</span> At EnergySage's $1,130–$1,159/kWh.</p></div>`;
   else html += `<div><h3>Renting or no install?</h3><p class="mute">Plug-in power stations need no wiring, which makes them the usual pick for renters. Ask your landlord before connecting anything to the home's wiring.</p></div>`;
   html += `<div><h3>Generator alternative</h3>At least <strong>${m.generator.runningW.toLocaleString()} running W</strong> / ${m.generator.startingW.toLocaleString()} starting W.<p class="src">We don't list generator prices yet because we haven't verified them.</p></div>`;

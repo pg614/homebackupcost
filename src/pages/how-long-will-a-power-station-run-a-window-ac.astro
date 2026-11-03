@@ -1,4 +1,6 @@
 ---
+import AffLink from '../components/AffLink.astro';
+import ProductLink from '../components/ProductLink.astro';
 import Base from '../layouts/Base.astro';
 import Newsletter from '../components/Newsletter.astro';
 import { batteries } from '../data/site.js';
@@ -32,7 +34,7 @@ const faq = [
 <h2>Step 2: Runtime math</h2>
 <p><strong>Hours = battery Wh × 0.85 ÷ (AC watts × share of time the compressor runs)</strong>. <span class="badge est">Assumptions: 85% usable; 50% cycling is an example, hot days run closer to 100%</span></p>
 <div class="tbl"><table><thead><tr><th>Station (capacity, output, surge)</th>{[a5,a10].map(a => duty.map(d => <th>{a.btu.toLocaleString()} BTU, {d===1?'nonstop':'50% on'}</th>))}</tr></thead><tbody>
-{st.map(b => <tr><td>{b.product} ({(b.capacity_kwh*1000).toLocaleString()} Wh, {b.output_w.toLocaleString()} W, {b.surge_w.toLocaleString()} W surge)</td>{[a5,a10].map(a => duty.map(d => <td>≈ {hrs(b,a.w,d).toFixed(1)} h</td>))}</tr>)}
+{st.map(b => <tr><td><ProductLink product={b.product} button={false} /> ({(b.capacity_kwh*1000).toLocaleString()} Wh, {b.output_w.toLocaleString()} W, {b.surge_w.toLocaleString()} W surge)<br/><AffLink product={b.product} /></td>{[a5,a10].map(a => duty.map(d => <td>≈ {hrs(b,a.w,d).toFixed(1)} h</td>))}</tr>)}
 </tbody></table></div>
 <p class="src">Capacities and ratings from our <a href="/portable-power-stations/">power station table</a> (October 2026). Example: {(j2.capacity_kwh*1000).toLocaleString()} Wh × 0.85 ÷ {a5.w.toFixed(0)} W = {hrs(j2,a5.w,1).toFixed(1)} hours.</p>
 

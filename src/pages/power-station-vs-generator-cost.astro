@@ -1,4 +1,5 @@
 ---
+import { PRODUCT_URLS } from '../data/product-links.js';
 import Base from '../layouts/Base.astro';
 import ProductPhotos from '../components/ProductPhotos.astro';
 import Newsletter from '../components/Newsletter.astro';
@@ -12,7 +13,7 @@ const gens = [
  { id:'eu7000', name:'Honda EU7000iS (inverter, gasoline)', rated:5500, price:4899, fuel:'gas', curve:[[0.25,5.1/16],[0.5,5.1/8],[1,5.1/6.4]], db:'52–58 dBA (1/4 to rated load)', co:'Check model listing', src:'https://powerequipment.honda.com/generators/models/eu7000is', psrc:'https://powerequipment.honda.com/generators/models/eu7000is' },
  { id:'gen22', name:'Generac 22 kW standby (propane)', rated:22000, price:8000, priceHigh:16000, fuel:'propane', curve:[[0.5,2.53],[1,3.90]], db:'67 dBA at 23 ft, normal load', co:'Permanently installed outdoors', src:'https://www.generac.com/residential-products/standby-generators/22kW-Standby-Generator-With-Whole-House-Switch-WiFi-Enabled-7043/', psrc:'/standby-generator-installation-cost/' },
 ];
-const D = { stations, gens, gas:4.269, propane:2.730, psh:solar.assumptions.peak_sun_hours, derate:solar.assumptions.derate };
+const D = { links: PRODUCT_URLS, stations, gens, gas:4.269, propane:2.730, psh:solar.assumptions.peak_sun_hours, derate:solar.assumptions.derate };
 const faq = [
 ["Is a power station or a generator cheaper for a long outage?", "For short outages, a power station often costs less overall and has no fuel. For multi-day outages with heavy loads, a generator usually costs less upfront per kWh delivered, but you pay for fuel every day. The calculator shows both for your load, days, and fuel price."],
 ["How much gas does a generator use per day?", "It depends on load. Honda rates the EU2200i at 8.1 hours on 0.95 gallons at 1/4 load (about 2.8 gal/day running nonstop) and the EU7000iS at 16 hours on 5.1 gallons at 1/4 load (about 7.7 gal/day)."],
@@ -46,7 +47,7 @@ var s=D.stations.find(function(x){return x.name===$('st').value}),np=+$('np').va
 var use=s.kwh*0.85,net=kwhDay-solarDay,last=net<=0?Infinity:use/net,stCost=s.price+(p?np*p.price:0);
 var r='<div class="tbl"><table><thead><tr><th>Option</th><th>Upfront</th><th>Fuel for '+d+' days</th><th>Total</th><th>Noise</th><th>CO / exhaust</th></tr></thead><tbody>';
 var ok=s.out>=w, lastTxt=last===Infinity?'covers daily use in good sun':(last>=d?'lasts all '+d+' days':'lasts ≈'+(last<1?(last*24).toFixed(1)+' h':last.toFixed(1)+' days')+' of '+d+' days');
-r+='<tr><td><strong><a href="'+s.src+'" target="_blank" rel="noopener">'+s.name+'</a></strong>'+(np&&p?' + '+np+' × '+p.panel:'')+'<br><span class="src">'+s.kwh+' kWh, '+lastTxt+(ok?'':' · output too low for this load')+(np&&!p?' · no matched panel in our data':'')+'</span></td><td>'+m(stCost)+'</td><td>$0</td><td><strong>'+m(stCost)+'</strong></td><td>No engine (fans only)</td><td>None</td></tr>';
+var L=D.links[s.name];r+='<tr><td><strong><a href="'+(L?L.url:s.src)+'" target="_blank" rel="'+(L?'nofollow sponsored noopener':'noopener')+'"'+(L?' data-program="'+L.brand+'" data-affiliate="placeholder"':'')+'>'+s.name+'</a></strong>'+(L&&L.url?'<br><a class="btn ghost buy" href="'+L.url+'" target="_blank" rel="nofollow sponsored noopener" data-affiliate="'+(L.affiliate?'live':'placeholder')+'" data-program="'+L.brand+'" data-product="'+L.name+'">Check price at '+L.brand+' ↗</a>':'')+(np&&p?' + '+np+' × '+p.panel:'')+'<br><span class="src">'+s.kwh+' kWh, '+lastTxt+(ok?'':' · output too low for this load')+(np&&!p?' · no matched panel in our data':'')+'</span></td><td>'+m(stCost)+'</td><td>$0</td><td><strong>'+m(stCost)+'</strong></td><td>No engine (fans only)</td><td>None</td></tr>';
 D.gens.forEach(function(g){var f=w/g.rated;if(f>1){r+='<tr><td>'+g.name+'</td><td colspan="5" class="bad">Load is above its '+g.rated.toLocaleString()+' W rating</td></tr>';return;}
 var gal=gph(g.curve,f)*h,price=g.fuel==='gas'?gas:lp,fuel=gal*d*price,up=g.priceHigh?m(g.price)+'–'+m(g.priceHigh)+' installed':m(g.price),tot=g.priceHigh?m(g.price+fuel)+'–'+m(g.priceHigh+fuel):m(g.price+fuel);
 r+='<tr><td><strong><a href="'+g.src+'" target="_blank" rel="noopener">'+g.name+'</a></strong><br><span class="src">≈'+gal.toFixed(1)+' gal/day '+(g.fuel==='gas'?'gasoline':'propane')+' at '+Math.round(f*100)+'% load'+(f<g.curve[0][0]?' (spec starts at '+Math.round(g.curve[0][0]*100)+'%, so this is an upper estimate)':'')+'</span></td><td>'+up+'<br><a class="src" href="'+(g.psrc[0]==='/'&&location.pathname.indexOf('/homebackupcost/')===0?'/homebackupcost':'')+g.psrc+'">price source</a></td><td>'+m(fuel)+'<br><span class="src">'+(gal*d).toFixed(0)+' gal</span></td><td><strong>'+tot+'</strong></td><td>'+g.db+'</td><td>Makes CO. Outdoors only, 20+ ft from windows, doors, garages. '+g.co+'</td></tr>';});

@@ -1,4 +1,5 @@
 ---
+import ProductLink from '../components/ProductLink.astro';
 import Base from '../layouts/Base.astro';
 import ProductPhotos from '../components/ProductPhotos.astro';
 import Newsletter from '../components/Newsletter.astro';
@@ -19,7 +20,7 @@ const schema = [{ '@context':'https://schema.org','@type':'FAQPage', mainEntity:
 <ProductPhotos />
 <h2>Installed batteries in our data</h2>
 <div class="tbl"><table><thead><tr><th>Battery</th><th>Capacity</th><th>Output</th><th>Surge</th><th>Price listed</th><th></th></tr></thead><tbody>
-{inst.map(b => <tr><td><strong>{b.product}</strong></td><td>{b.capacity_kwh} kWh</td><td>{b.output_w.toLocaleString()} W</td><td>{b.surge_w.toLocaleString()} W</td><td>{b.price}<br/><a class="src" href={b.source_url}>source</a> <span class="src">({b.as_of})</span></td><td><AffLink product={b.product} label="Maker's page" /></td></tr>)}
+{inst.map(b => <tr><td><ProductLink product={b.product} /></td><td>{b.capacity_kwh} kWh</td><td>{b.output_w.toLocaleString()} W</td><td>{b.surge_w.toLocaleString()} W</td><td>{b.price}<br/><a class="src" href={b.source_url}>source</a> <span class="src">({b.as_of})</span></td><td><AffLink product={b.product} label="Maker's page" /></td></tr>)}
 </tbody></table></div>
 <h2>All cost data</h2>
 <div class="tbl"><table><thead><tr><th>Item</th><th>Cost</th><th>Source</th></tr></thead><tbody>
@@ -27,7 +28,7 @@ const schema = [{ '@context':'https://schema.org','@type':'FAQPage', mainEntity:
 </tbody></table></div>
 <p class="src">As of 2026-10-25. Heat pump and panel costs are included because a battery project often comes with a panel upgrade.</p>
 <h2>Installed battery or a big portable?</h2>
-<p>A large portable station plus a transfer kit can back up selected circuits for less money. For example, an EcoFlow DELTA Pro 3 ($2,799 sale) plus a Smart Home Panel 2 (from $1,499 at ecoflow.com, Nov 3, 2026) comes to $4,298 before electrician labor, which we don't have sourced data for. An installed battery switches over automatically and runs more circuits. <a href="/portable-power-stations/">Compare portables →</a></p>
+<p>A large portable station plus a transfer kit can back up selected circuits for less money. For example, an <ProductLink product="EcoFlow DELTA Pro 3" bold={false} button={false} /> ($2,799 sale) plus a Smart Home Panel 2 (from $1,499 at ecoflow.com, Nov 3, 2026) comes to $4,298 before electrician labor, which we don't have sourced data for. An installed battery switches over automatically and runs more circuits. <a href="/portable-power-stations/">Compare portables →</a></p>
 <p class="note"><strong>Get quotes:</strong> an installer-quote button (EnergySage) will go here once a partnership is approved. <span data-affiliate="placeholder" data-affiliate-brand="EnergySage">Placeholder — not active.</span></p>
 <p>In Ohio? See <a href="/ohio-home-battery-cost/">home battery cost in Ohio</a> ($16,900 average for 13 kWh, EnergySage).</p>
 <h2>FAQ</h2>
