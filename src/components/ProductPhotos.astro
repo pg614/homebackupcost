@@ -1,0 +1,18 @@
+---
+import { productImages } from '../data/product-images.js';
+const { products = Object.keys(productImages), title } = Astro.props;
+const items = products.map(p => [p, productImages[p]]).filter(([, v]) => v);
+---
+{items.length > 0 && <section class="pp">
+{title && <h2>{title}</h2>}
+<div class="pp-grid">{items.map(([name, i]) => <figure class="pp-card">
+<img src={`/products/${i.file}-800.webp`} srcset={`/products/${i.file}-400.webp 400w, /products/${i.file}-800.webp 800w`} sizes="(max-width:720px) 100vw, 360px" width={i.w} height={i.h} loading="lazy" decoding="async" alt={i.alt} />
+<figcaption><strong>{name}</strong><span class="src">{i.credit}</span></figcaption>
+</figure>)}</div>
+</section>}
+<style>
+.pp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin:12px 0 18px}
+.pp-card{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.pp-card img{display:block;width:100%;height:180px;object-fit:cover;background:#fff}
+.pp-card figcaption{padding:8px 10px;display:flex;flex-direction:column;gap:2px}
+</style>

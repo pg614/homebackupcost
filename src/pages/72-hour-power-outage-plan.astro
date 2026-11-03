@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Illustration from '../components/Illustration.astro';
 import Newsletter from '../components/Newsletter.astro';
 const faq = [
 ["Why plan for 72 hours?", "Three days is the common planning window. The UK's October 2026 campaign asks households to prepare for up to three days of disruption, and says France, Ireland, and the Netherlands use the same window. FDA's medical device outage booklet asks whether you have supplies for a minimum of 3 days."],
@@ -10,6 +11,7 @@ const faq = [
 <Base title="72-Hour Power Outage Plan: A 3-Day Backup Power Checklist | HomeBackupCost" description="A simple 3-day power outage plan: what to keep running, how much battery it takes (3–11 kWh), food and medicine timing, and safety, based on Ready.gov, FDA, and UK guidance." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
 <h1>Your 72-hour power outage plan</h1>
 <p class="lede">A simple, three-day plan for keeping the essentials running. Figures as of 2026-10-28.</p>
+<Illustration name="storm-house" alt="Illustration of a farmhouse with lit windows and a glowing home battery during a thunderstorm while neighboring houses are dark" eager />
 <p>Three days is the standard planning window. On October 22, 2026, the UK government asked households to be ready for up to three days of disruption, a window it says France, Ireland, and the Netherlands also use (<a href="https://www.gov.uk/government/news/households-encouraged-to-take-small-simple-steps-to-stay-prepared-in-an-emergency">GOV.UK</a>). Ready.gov advises supplies to last "several days" (<a href="https://www.ready.gov/kit">Ready.gov</a>).</p>
 
 <h2>Step 1: List what needs power</h2>

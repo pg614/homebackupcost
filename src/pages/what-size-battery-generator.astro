@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Illustration from '../components/Illustration.astro';
 import Newsletter from '../components/Newsletter.astro';
 import { appliances } from '../data/site.js';
 import { calculate } from '../data/calc.js';
@@ -12,6 +13,7 @@ const schema = [{ '@context':'https://schema.org','@type':'FAQPage', mainEntity:
 <Base title="What Size Battery or Generator Do I Need? Watts & kWh Explained | HomeBackupCost" description="How to size a backup battery or generator: running vs. starting watts, kWh for an outage, a sourced appliance wattage table, and worked examples." schema={schema}>
 <h1>What size battery or generator do I need?</h1>
 <p class="lede">You need two numbers: <strong>watts</strong>, meaning how much power runs at once, and <strong>kWh</strong>, meaning how much energy you use over the outage.</p>
+<Illustration name="porch-family" alt="Illustration of a family on their front porch with a portable power station running lights, a fan, and phone chargers" eager />
 <div class="grid">
 <div class="card"><h3>Watts = size</h3><p>Add up the running watts of everything on at once, then add the biggest start-up surge. Fridges, pumps, and AC compressors briefly pull 2–3× their running watts when they start.</p></div>
 <div class="card"><h3>kWh = how long</h3><p>Watts × hours ÷ 1,000. A 400 W load for 5 hours uses 2 kWh. Batteries are rated in kWh. Generators run as long as they have fuel.</p></div>

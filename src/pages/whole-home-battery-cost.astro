@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import ProductPhotos from '../components/ProductPhotos.astro';
 import Newsletter from '../components/Newsletter.astro';
 import AffLink from '../components/AffLink.astro';
 import { batteries, costs } from '../data/site.js';
@@ -15,6 +16,7 @@ const schema = [{ '@context':'https://schema.org','@type':'FAQPage', mainEntity:
 <div class="card"><div class="mute">Per kWh installed</div><div style="font-size:2.2rem;font-weight:800;color:var(--volt)">$1,130–$1,159</div><div class="src"><a href="https://www.energysage.com/energy-storage/how-much-do-batteries-cost/">EnergySage</a> · as of 2026-10-25</div></div>
 <div class="card"><div class="mute">Federal tax credit</div><div style="font-size:2.2rem;font-weight:800;color:var(--bad)">Ended</div><div class="src">For installs after 12/31/2025 · <a href="/federal-tax-credits-ended/">details</a></div></div>
 </div>
+<ProductPhotos />
 <h2>Installed batteries in our data</h2>
 <div class="tbl"><table><thead><tr><th>Battery</th><th>Capacity</th><th>Output</th><th>Surge</th><th>Price listed</th><th></th></tr></thead><tbody>
 {inst.map(b => <tr><td><strong>{b.product}</strong></td><td>{b.capacity_kwh} kWh</td><td>{b.output_w.toLocaleString()} W</td><td>{b.surge_w.toLocaleString()} W</td><td>{b.price}<br/><a class="src" href={b.source_url}>source</a> <span class="src">({b.as_of})</span></td><td><AffLink product={b.product} label="Maker's page" /></td></tr>)}

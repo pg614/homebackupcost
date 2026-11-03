@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import ProductPhotos from '../components/ProductPhotos.astro';
 import Newsletter from '../components/Newsletter.astro';
 import AffLink from '../components/AffLink.astro';
 import { batteries, priceLow, affiliates, expansions } from '../data/site.js';
@@ -11,6 +12,7 @@ const schema = [{ '@context':'https://schema.org','@type':'ItemList', name:'Port
 <h1>Portable power stations compared</h1>
 <p class="lede">Plug-in batteries you can buy and roll out during an outage. Specs and prices come from the linked sources; prices were captured in October 2026 and change often with sales.</p>
 <p class="note"><strong>Affiliate links:</strong> the "Check price" buttons are placeholders that go to the brand's own site. We have no affiliate accounts yet. If that changes, we may earn a commission, as explained in our <a href="/affiliate-disclosure/">disclosure</a>.</p>
+<ProductPhotos />
 <div class="tbl" style="margin-top:16px"><table>
 <thead><tr><th>Model</th><th>Type</th><th>Capacity</th><th>Output</th><th>Surge</th><th>Price</th><th>As of</th><th></th></tr></thead>
 <tbody>{portable.map(b => <tr>

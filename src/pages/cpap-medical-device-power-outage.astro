@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Illustration from '../components/Illustration.astro';
 import Newsletter from '../components/Newsletter.astro';
 const faq = [
 ["How much power does a CPAP use?", "It depends on the machine and settings. ResMed lists the AirSense 11 at 56.1 W typical and 73.2 W peak. The Champion wattage chart lists CPAPs at about 30–60 W without heat and 60–120 W with a heated humidifier. Check the label or manual for your own device."],
@@ -11,6 +12,7 @@ const faq = [
 <Base title="CPAP and Medical Devices in a Power Outage: Battery Sizing | HomeBackupCost" description="How to keep a CPAP or other powered medical device running in an outage: sourced CPAP wattages, battery runtime math, FDA's planning steps, and why to use your device label." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
 <h1>CPAP and medical devices in a power outage</h1>
 <p class="lede">How to size backup power for a CPAP or other powered medical device, using your device's own numbers. Figures as of 2026-10-28.</p>
+<Illustration name="cpap-bedside" alt="Illustration of a man sleeping with a CPAP mask, the machine powered by a small battery on the nightstand while a storm passes outside" eager />
 <p class="note"><strong>Check your device label first.</strong> Every number below is an example from a published source. Your device's label or manual is the number to plan around. Talk to your doctor or equipment supplier before changing settings or connecting a battery, inverter, or generator. If a device is life-sustaining, plan with your provider and let your utility know.</p>
 
 <h2>Step 1: Find your device's watts</h2>

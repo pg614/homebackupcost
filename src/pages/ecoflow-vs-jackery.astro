@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import ProductPhotos from '../components/ProductPhotos.astro';
 import Newsletter from '../components/Newsletter.astro';
 import { batteries } from '../data/site.js';
 const rows = batteries.filter(b => /^(EcoFlow|Jackery)/.test(b.product)).map(b => { const m = b.price.match(/\$([\d,]+)/); const p = m ? +m[1].replace(/,/g,'') : null; return { ...b, p, perkwh: p ? p / b.capacity_kwh : null }; }).sort((a,b) => a.capacity_kwh - b.capacity_kwh);
@@ -16,6 +17,7 @@ const faq = [
 <h1>EcoFlow vs Jackery for home backup</h1>
 <p class="lede"><strong>Short answer:</strong> there's no overall winner. Jackery's mid-size units cost the least per kWh of the two brands' models in our data, while EcoFlow offers the biggest single unit. At the large end, the {j5.product} ({usd(j5.perkwh)}/kWh) and {dp3.product} ({usd(dp3.perkwh)}/kWh) are close. Prices as of October 2026; they change with sales.</p>
 
+<ProductPhotos products={['EcoFlow DELTA Pro 3','Jackery Explorer 5000 Plus']} />
 <h2>Side by side</h2>
 <div class="tbl"><table><thead><tr><th>Model</th><th>Capacity</th><th>Output</th><th>Surge</th><th>Price listed</th><th>Price per kWh</th></tr></thead><tbody>
 {rows.map(r => <tr><td><strong>{r.product}</strong></td><td>{(r.capacity_kwh*1000).toLocaleString()} Wh</td><td>{r.output_w.toLocaleString()} W</td><td>{r.surge_w ? r.surge_w.toLocaleString() + ' W' : '—'}</td><td>{r.price}<br/><a class="src" href={r.source_url}>source</a></td><td>{r.perkwh ? usd(r.perkwh) : '—'}</td></tr>)}

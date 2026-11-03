@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Illustration from '../components/Illustration.astro';
 import Newsletter from '../components/Newsletter.astro';
 import { batteries } from '../data/site.js';
 const pick = ['Anker SOLIX C1000','Jackery Explorer 1000 v2','Jackery Explorer 2000 v2','EcoFlow DELTA Pro 3'];
@@ -19,6 +20,7 @@ const faq = [
 <Base title="How Long Will a Power Station Run a Refrigerator? | HomeBackupCost" description="A 1,000 Wh power station runs a typical ENERGY STAR fridge about 22 hours. Runtime math by fridge type and station size, with sourced kWh and surge watts." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
 <h1>How long will a power station run a refrigerator?</h1>
 <p class="lede"><strong>Short answer:</strong> a 1,000 Wh station runs a typical efficient top-freezer fridge for about {Math.round(hrs(j1,top.w))} hours, and a 2,000 Wh station roughly doubles that. Bigger side-by-side fridges use about 75% more power, so expect less. Figures as of 2026-11-02.</p>
+<Illustration name="fridge-outage" alt="Illustration of a parent taking milk from a refrigerator that keeps running on a portable power station during a power outage, candles on the kitchen table" eager />
 
 <h2>Step 1: Find your fridge's average watts</h2>
 <p>The yellow EnergyGuide label lists yearly kWh. <strong>Average watts = kWh per year × 1,000 ÷ 8,760 hours.</strong> Median ENERGY STAR certified values by type:</p>

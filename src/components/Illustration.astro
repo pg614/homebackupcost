@@ -1,0 +1,14 @@
+---
+const { name, alt, eager = false } = Astro.props;
+const src = (m) => ({ src: `/illustrations/${name}-${m}-1024.webp`, srcset: `/illustrations/${name}-${m}-640.webp 640w, /illustrations/${name}-${m}-1024.webp 1024w` });
+const L = src('light'), D = src('dark');
+---
+<figure class="illo">
+<img class="illo-light" src={L.src} srcset={L.srcset} sizes="(max-width:900px) 100vw, 860px" width="1024" height="576" loading={eager ? 'eager' : 'lazy'} decoding="async" alt={alt} />
+<img class="illo-dark" src={D.src} srcset={D.srcset} sizes="(max-width:900px) 100vw, 860px" width="1024" height="576" loading={eager ? 'eager' : 'lazy'} decoding="async" alt={alt} />
+</figure>
+<style>
+.illo{margin:14px 0 18px;border-radius:14px;overflow:hidden;border:1px solid var(--line);aspect-ratio:16/9}
+.illo img{width:100%;height:100%;object-fit:cover;display:none}
+:global(:root[data-theme=light]) .illo .illo-light,:global(:root:not([data-theme=light])) .illo .illo-dark{display:block}
+</style>

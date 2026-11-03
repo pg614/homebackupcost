@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import ProductPhotos from '../components/ProductPhotos.astro';
 import Newsletter from '../components/Newsletter.astro';
 import batteries from '../data/batteries.json';
 import solar from '../data/solar.json';
@@ -52,6 +53,7 @@ r+='<tr><td><strong><a href="'+g.src+'" target="_blank" rel="noopener">'+g.name+
 r+='</tbody></table></div>';$('out').innerHTML=r;}
 document.getElementById('pvg').addEventListener('input',run);run();})();
 </script>
+<ProductPhotos />
 <h2>How the math works</h2>
 <ul>
 <li><strong>Fuel</strong> = gallons per hour at your load × hours per day × days × fuel price. Gallons per hour come from manufacturer runtime specs (<a href="https://powerequipment.honda.com/generators/models/eu2200i">Honda EU2200i</a>: 3.2 h at rated load, 8.1 h at 1/4 load on 0.95 gal; <a href="https://powerequipment.honda.com/generators/models/eu7000is">Honda EU7000iS</a>: 6.4/8/16 h at rated/half/quarter load on 5.1 gal; <a href="https://www.generac.com/residential-products/standby-generators/22kW-Standby-Generator-With-Whole-House-Switch-WiFi-Enabled-7043/">Generac 22 kW</a>: 2.53/3.90 gal/h propane at half/full load). Between points we interpolate <span class="badge est">Estimate</span>.</li>

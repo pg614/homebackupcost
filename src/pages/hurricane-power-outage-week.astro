@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Illustration from '../components/Illustration.astro';
 import Newsletter from '../components/Newsletter.astro';
 const faq = [
 ["How much backup power do I need for a week without power after a hurricane?", "Our hurricane scenario (fridge, freezer, ceiling fan, sump pump, Wi-Fi, lights, phones) uses about 9 kWh a day, or about 74 kWh for 7 days with the 0.85 usable factor. That's more than any single portable station holds, so most people pair a battery with solar or a generator."],
@@ -10,6 +11,7 @@ const faq = [
 <Base title="Hurricane Power Outage: Backup Power for a Week Without Power | HomeBackupCost" description="How to plan backup power for a week-long outage after a hurricane: about 74 kWh for essentials, generator fuel per day, solar recharge, and safety from Ready.gov." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
 <h1>Hurricane outages: planning for a week without power</h1>
 <p class="lede">What it takes to keep food cold, air moving, and phones charged for 7 days after a storm. Figures as of 2026-10-28.</p>
+<Illustration name="porch-family" alt="Illustration of a family on their front porch after a storm, a portable power station running string lights, a fan, and phone chargers" eager />
 <p>The Atlantic hurricane season runs June 1–November 30, and Ready.gov notes you may not have access to supplies "for days or even weeks" after a hurricane (<a href="https://www.ready.gov/hurricanes">Ready.gov Hurricanes</a>, updated 10/16/2026). A week is a sensible planning target for coastal and near-coastal homes.</p>
 
 <h2>What a week of essentials takes</h2>
