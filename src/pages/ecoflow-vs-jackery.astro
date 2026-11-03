@@ -9,7 +9,7 @@ const j5 = rows.find(r => r.product === 'Jackery Explorer 5000 Plus');
 const faq = [
 ["Is EcoFlow or Jackery better for home backup?", "Neither wins across the board. In our October 2026 price data, the Jackery Explorer 2000 v2 and 1000 v2 are the cheapest per kWh of the EcoFlow and Jackery models we track, while EcoFlow's DELTA Pro Ultra has the most capacity in one unit (6.1 kWh, expandable). Pick by the capacity, output, and transfer setup you need."],
 ["Which one can run more of my house?", `The Jackery Explorer 5000 Plus and EcoFlow DELTA Pro Ultra both list 7,200 W output. The EcoFlow DELTA Pro 3 lists 4,000 W. Running watts limit what can be on at once; kWh limits how long.`],
-["Can either connect to my home's panel?", "Yes, with extra hardware: EcoFlow Smart Home Panel 2 ($1,599) and Jackery Smart Transfer Switch ($1,299 list), per homebatteryreport.com (October 2026). An electrician installs them."]
+["Can either connect to my home's panel?", "Yes, with extra hardware: EcoFlow Smart Home Panel 2 (from $1,499 at ecoflow.com, Nov 3, 2026) and Jackery Smart Transfer Switch ($1,299 list), per homebatteryreport.com (October 2026). An electrician installs them."]
 ];
 ---
 <Base title="EcoFlow vs Jackery for Home Backup: Price per kWh | HomeBackupCost" description="EcoFlow vs Jackery power stations side by side: capacity, output, surge, dated prices and cost per kWh, plus transfer switch costs for home backup." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
@@ -24,10 +24,10 @@ const faq = [
 
 <h2>Adding a home connection</h2>
 <div class="tbl"><table><thead><tr><th>Hardware</th><th>Price</th></tr></thead><tbody>
-<tr><td>EcoFlow Smart Home Panel 2</td><td>$1,599</td></tr>
+<tr><td>EcoFlow Smart Home Panel 2</td><td>from $1,499 (<a href="https://us.ecoflow.com/products/smart-home-panel-2">ecoflow.com</a>, Nov 3, 2026)</td></tr>
 <tr><td>Jackery Smart Transfer Switch</td><td>$1,299 list</td></tr>
 </tbody></table></div>
-<p class="src">Source: <a href="https://homebatteryreport.com/guides/plug-in-vs-installed-battery-cost">homebatteryreport.com</a> (October 2026). Electrician labor is extra; we don't have sourced labor figures. Example: {dp3.product} ({usd(dp3.p)}) + Smart Home Panel 2 ($1,599) = {usd(dp3.p + 1599)} before labor. {j5.product} ({usd(j5.p)}) + Smart Transfer Switch ($1,299) = {usd(j5.p + 1299)} before labor.</p>
+<p class="src">Source: <a href="https://homebatteryreport.com/guides/plug-in-vs-installed-battery-cost">homebatteryreport.com</a> (October 2026). Electrician labor is extra; we don't have sourced labor figures. Example: {dp3.product} ({usd(dp3.p)}) + Smart Home Panel 2 (from $1,499) = {usd(dp3.p + 1499)} before labor. {j5.product} ({usd(j5.p)}) + Smart Transfer Switch ($1,299) = {usd(j5.p + 1299)} before labor.</p>
 
 <h2>How to choose</h2>
 <ul>

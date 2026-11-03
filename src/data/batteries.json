@@ -76,9 +76,9 @@
   "capacity_kwh": 1.056,
   "output_w": 1800,
   "surge_w": 2400,
-  "price": "$470",
-  "source_url": "https://homegridhq.com/compare/",
-  "as_of": "2026-10 (prices fluctuate; promos)"
+  "price": "$499.99",
+  "source_url": "https://www.anker.com/products/a1761",
+  "as_of": "2026-11-03 (brand site)"
  },
  {
   "product": "Jackery Explorer 1000 v2",
@@ -86,9 +86,9 @@
   "capacity_kwh": 1.07,
   "output_w": 1500,
   "surge_w": 3000,
-  "price": "$499",
-  "source_url": "https://homegridhq.com/compare/",
-  "as_of": "2026-10 (prices fluctuate; promos)"
+  "price": "$559",
+  "source_url": "https://www.jackery.com/products/jackery-explorer-1000-v2",
+  "as_of": "2026-11-03 (brand site)"
  },
  {
   "product": "Goal Zero Yeti 1500X",
