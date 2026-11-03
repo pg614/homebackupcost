@@ -7,7 +7,7 @@
   "surge_w": 10800,
   "price": "$4,199 sale / $5,799 list; expands to 90 kWh",
   "source_url": "https://us.ecoflow.com/collections/home-backup-battery",
-  "as_of": "2026-11-02"
+  "as_of": "2026-11-03"
  },
  {
   "product": "EcoFlow DELTA Pro 3",
@@ -15,9 +15,9 @@
   "capacity_kwh": 4.096,
   "output_w": 4000,
   "surge_w": 6000,
-  "price": "$2,799 sale / $3,699 list",
-  "source_url": "https://homebatteryreport.com/guides/plug-in-vs-installed-battery-cost",
-  "as_of": "2026-10 (prices fluctuate; promos)"
+  "price": "$2,799 sale / $3,299 regular (us.ecoflow.com)",
+  "source_url": "https://us.ecoflow.com/products/delta-pro-3-portable-power-station",
+  "as_of": "2026-11-03"
  },
  {
   "product": "Anker SOLIX F3800 Plus",
@@ -25,9 +25,9 @@
   "capacity_kwh": 3.84,
   "output_w": 6000,
   "surge_w": 9000,
-  "price": "$2,599.99 after Anker's auto-applied $400 coupon / $2,999.99 list (ankersolix.com; sold out 11/2)",
+  "price": "$2,599.99 after Anker's auto-applied $400 coupon / $2,999.99 list (ankersolix.com; still sold out 11/3)",
   "source_url": "https://www.ankersolix.com/collections/f3800-plus",
-  "as_of": "2026-11-02"
+  "as_of": "2026-11-03"
  },
  {
   "product": "Jackery Explorer 5000 Plus",
@@ -35,9 +35,9 @@
   "capacity_kwh": 5.04,
   "output_w": 7200,
   "surge_w": 14400,
-  "price": "$3,149 sale / $3,499 list",
-  "source_url": "https://homebatteryreport.com/guides/plug-in-vs-installed-battery-cost",
-  "as_of": "2026-10 (prices fluctuate; promos)"
+  "price": "$3,499 (jackery.com; standalone unit shown sold out 11/3; earlier $3,149 sale no longer listed)",
+  "source_url": "https://www.jackery.com/products/jackery-explorer-5000-plus-10kwh",
+  "as_of": "2026-11-03"
  },
  {
   "product": "BLUETTI Apex 300",
@@ -107,7 +107,7 @@
   "output_w": 800,
   "surge_w": 1600,
   "price": "$599 MSRP",
-  "source_url": "https://marketplace.sdge.com/sites/default/files/2026GAP_QPL%20List_MBL_Online%20Only_Version2.pdf",
+  "source_url": "https://www.sdge.com/sites/default/files/2026%20GAP%20QPL%20List%20FINAL_Online%20Only_Version2.1.pdf",
   "as_of": "2026-10 (prices fluctuate; promos)"
  },
  {

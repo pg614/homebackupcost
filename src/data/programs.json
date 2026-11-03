@@ -9,7 +9,7 @@
   "status": "ENDED - property placed in service after 12/31/2025 ineligible",
   "how_to_apply": "n/a (prior-year returns only)",
   "source_url": "https://www.irs.gov/newsroom/faqs-for-modification-of-sections-25c-25d-25e-30c-30d-45l-45w-and-179d-under-public-law-119-21-139-stat-72-july-4-2025-commonly-known-as-the-one-big-beautiful-bill-obbb",
-  "as_of": "2026-11-02"
+  "as_of": "2026-11-03"
  },
  {
   "state": "US",
@@ -21,7 +21,7 @@
   "status": "ENDED - installation completed after 12/31/2025 ineligible",
   "how_to_apply": "n/a",
   "source_url": "https://www.irs.gov/newsroom/faqs-for-modification-of-sections-25c-25d-25e-30c-30d-45l-45w-and-179d-under-public-law-119-21-139-stat-72-july-4-2025-commonly-known-as-the-one-big-beautiful-bill-obbb",
-  "as_of": "2026-11-02"
+  "as_of": "2026-11-03"
  },
  {
   "state": "OH",
@@ -33,7 +33,7 @@
   "status": "NOT LAUNCHED - no expected launch date",
   "how_to_apply": "none yet",
   "source_url": "https://nationalhousingtrust.org/sites/default/files/documents/DOE-Rebates-State-Funding-Tracker-3-26.pdf",
-  "as_of": "2026-11-02"
+  "as_of": "2026-11-03"
  },
  {
   "state": "OH",
@@ -45,7 +45,7 @@
   "status": "PAUSED for 2026 (third-party report; verify with AEP)",
   "how_to_apply": "AEP Ohio",
   "source_url": "https://fixfirsthome.com/programs/aep-ohio-help-and-power-rewards/",
-  "as_of": "2026-11-02"
+  "as_of": "2026-11-03"
  },
  {
   "state": "OH",
@@ -54,10 +54,10 @@
   "equipment": "smart thermostat",
   "amounts": "$75",
   "income_tiers": "none",
-  "status": "live; new enrollment temporarily unavailable while AEP updates its portal (AEP expects it back by 11/2/2026)",
+  "status": "live; new enrollment still unavailable on 11/3/2026 (AEP had expected its portal back by 11/2/2026; \"save your spot\" sign-up shown)",
   "how_to_apply": "aepohio.com",
   "source_url": "https://www.aepohio.com/savings/home/money-saving-programs/power-rewards/",
-  "as_of": "2026-11-02"
+  "as_of": "2026-11-03"
  },
  {
   "state": "MI",
@@ -69,7 +69,7 @@
   "status": "live (temporarily suspending new income-qualified apps in Detroit, Warren, Grand Rapids, Lansing, Kalamazoo - verify)",
   "how_to_apply": "CLEAResult 855-510-7080",
   "source_url": "https://www.michigan.gov/egle/about/organization/materials-management/energy/rfps-loans/home-energy-rebate-programs",
-  "as_of": "2026-11-02"
+  "as_of": "2026-11-03"
  },
  {
   "state": "MI",
@@ -81,7 +81,7 @@
   "status": "live",
   "how_to_apply": "CLEAResult",
   "source_url": "https://www.naseo.org/topics/home-energy-rebates",
-  "as_of": "2026-11-02"
+  "as_of": "2026-11-03"
  },
  {
   "state": "MI",
@@ -93,7 +93,7 @@
   "status": "live (2026 chart)",
   "how_to_apply": "michiganrebates.com",
   "source_url": "https://michiganrebates.com/sites/default/files/2026-01/57562_DTE_HVAC_IncentiveChart_MichiganRebates.com_Electric_v2_Web_Release.pdf",
-  "as_of": "2026-11-02"
+  "as_of": "2026-11-03"
  },
  {
   "state": "MI",
@@ -105,7 +105,7 @@
   "status": "live (2026 measures)",
   "how_to_apply": "consumersenergy.com",
   "source_url": "https://www.consumersenergy.com/-/media/CE/Documents/residential/save-money-and-energy/rebates/hvac/res-programs.pdf",
-  "as_of": "2026-11-02"
+  "as_of": "2026-11-03"
  },
  {
   "state": "NY",
@@ -117,7 +117,7 @@
   "status": "live (limited measures)",
   "how_to_apply": "NYSERDA EmPower+",
   "source_url": "https://www.naseo.org/topics/home-energy-rebates",
-  "as_of": "2026-11-02"
+  "as_of": "2026-11-03"
  },
  {
   "state": "NY",
@@ -129,7 +129,7 @@
   "status": "live 2026",
   "how_to_apply": "participating contractor",
   "source_url": "https://www.coned.com/en/save-money/rebates-incentives-tax-credits/rebates-incentives-tax-credits-for-residential-customers/electric-heating-and-cooling-technology-for-renters-homeowners/save-on-a-central-air-source-heat-pump",
-  "as_of": "2026-11-02"
+  "as_of": "2026-11-03"
  },
  {
   "state": "NC",
@@ -141,7 +141,7 @@
   "status": "live statewide",
   "how_to_apply": "energysavernc.org contractor",
   "source_url": "https://www.energysavernc.org/wp-content/uploads/2026/04/NHH-941_Program_Requirements_ENG_FINAL_DIGI_260331.pdf",
-  "as_of": "2026-11-02"
+  "as_of": "2026-11-03"
  },
  {
   "state": "NC",
@@ -153,7 +153,7 @@
   "status": "live",
   "how_to_apply": "energysavernc.org",
   "source_url": "https://www.naseo.org/topics/home-energy-rebates",
-  "as_of": "2026-11-02"
+  "as_of": "2026-11-03"
  },
  {
   "state": "NC",
@@ -165,7 +165,7 @@
   "status": "live (unverified primary)",
   "how_to_apply": "Duke contractor",
   "source_url": "https://www.airtechnc.com/rebates",
-  "as_of": "2026-11-02"
+  "as_of": "2026-11-03"
  },
  {
   "state": "CA",
@@ -177,7 +177,7 @@
   "status": "EXHAUSTED - SF fully reserved 2/24/2026, waitlist closed 7/17/2026; MF reserved 9/1/2026",
   "how_to_apply": "closed",
   "source_url": "https://techcleanca.com/incentives/heehrarebates/",
-  "as_of": "2026-11-02"
+  "as_of": "2026-11-03"
  },
  {
   "state": "CA",
@@ -189,7 +189,7 @@
   "status": "CLOSED",
   "how_to_apply": "closed",
   "source_url": "https://www.selfgenca.com/home/program%5Fmetrics/",
-  "as_of": "2026-11-02"
+  "as_of": "2026-11-03"
  },
  {
   "state": "CA",
@@ -201,7 +201,7 @@
   "status": "CLOSED",
   "how_to_apply": "closed",
   "source_url": "https://sgipsd.org/budget",
-  "as_of": "2026-11-02"
+  "as_of": "2026-11-03"
  },
  {
   "state": "CA",
@@ -213,7 +213,7 @@
   "status": "waitlist at SCE; partial availability per tracker",
   "how_to_apply": "SGIP developer",
   "source_url": "https://www.sce.com/clean-energy-efficiency/solar-generating-your-own-power/billing-incentives/self-generation-incentive",
-  "as_of": "2026-11-02"
+  "as_of": "2026-11-03"
  },
  {
   "state": "CA",
@@ -222,10 +222,10 @@
   "equipment": "portable batteries 290-1,000 Wh; CARB generators",
   "amounts": "up to $300 (+$200 CARE/FERA)",
   "income_tiers": "HFTD/HFRA/EPSS address",
-  "status": "live, ~125 rebates left as of 10/15/2026; apply by 12/31/2026",
+  "status": "live; open through 12/31/2026, first-come first-served (PG&E no longer posts a remaining count; it showed ~125 left as of 10/15/2026); bundled batteries accepted from 10/28/2026",
   "how_to_apply": "pge.com",
   "source_url": "https://www.pge.com/en/outages-and-safety/outage-preparedness-and-support/general-outage-resources/generator-and-battery-rebate-program.html",
-  "as_of": "2026-11-02"
+  "as_of": "2026-11-03"
  },
  {
   "state": "CA",
@@ -237,7 +237,7 @@
   "status": "live; coupons expire 12/31/2026",
   "how_to_apply": "sdge.com",
   "source_url": "https://sdge.com/generator-assistance-program",
-  "as_of": "2026-11-02"
+  "as_of": "2026-11-03"
  },
  {
   "state": "CA",
@@ -249,7 +249,7 @@
   "status": "live",
   "how_to_apply": "sce.com",
   "source_url": "https://www.sce.com/outages-safety/outage-preparedness/backup-power-solutions",
-  "as_of": "2026-11-02"
+  "as_of": "2026-11-03"
  },
  {
   "state": "IL",
@@ -261,18 +261,18 @@
   "status": "NOT LAUNCHED - DOE has not processed application",
   "how_to_apply": "none yet",
   "source_url": "https://epa.illinois.gov/topics/energy/residential/energy-rebates.html",
-  "as_of": "2026-11-02"
+  "as_of": "2026-11-03"
  },
  {
   "state": "IL",
   "program": "ComEd heat pump instant discounts",
   "administrator": "ComEd",
   "equipment": "ducted ASHP; mini-splits",
-  "amounts": "ducted $900-$2,000; ductless $500-$1,000",
+  "amounts": "ducted ASHP up to $2,000; ductless mini-split up to $1,000 (+$75 with ENERGY STAR smart thermostat)",
   "income_tiers": "none",
   "status": "live",
   "how_to_apply": "ComEd-trained contractor",
-  "source_url": "https://www.comed.com/ways-to-save/for-your-home/rebates-discounts/heating-cooling-discounts",
-  "as_of": "2026-10-25"
+  "source_url": "https://azure-na-assets.contentstack.com/v3/assets/blt3ebb3fed6084be2a/bltb8206206cff6f9c9/6a72470d1e5d0f7838754cb1/2026_HHC_Offering_Overview_August.pdf",
+  "as_of": "2026-11-03"
  }
 ]
