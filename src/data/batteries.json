@@ -5,9 +5,9 @@
   "capacity_kwh": 6.144,
   "output_w": 7200,
   "surge_w": 10800,
-  "price": "$4,199 sale / $5,799 list; expands to 90 kWh",
+  "price": "$4,199 sale / $5,799 list (us.ecoflow.com; all versions shown sold out 11/4); expands to 90 kWh",
   "source_url": "https://us.ecoflow.com/collections/home-backup-battery",
-  "as_of": "2026-11-03"
+  "as_of": "2026-11-04"
  },
  {
   "product": "EcoFlow DELTA Pro 3",
@@ -17,7 +17,7 @@
   "surge_w": 6000,
   "price": "$2,799 sale / $3,299 regular (us.ecoflow.com)",
   "source_url": "https://us.ecoflow.com/products/delta-pro-3-portable-power-station",
-  "as_of": "2026-11-03"
+  "as_of": "2026-11-04"
  },
  {
   "product": "Anker SOLIX F3800 Plus",
@@ -25,9 +25,9 @@
   "capacity_kwh": 3.84,
   "output_w": 6000,
   "surge_w": 9000,
-  "price": "$2,599.99 after Anker's auto-applied $400 coupon / $2,999.99 list (ankersolix.com; still sold out 11/3)",
+  "price": "$2,599.99 after Anker's auto-applied $400 coupon / $2,999.99 list (ankersolix.com; still sold out 11/4)",
   "source_url": "https://www.ankersolix.com/collections/f3800-plus",
-  "as_of": "2026-11-03"
+  "as_of": "2026-11-04"
  },
  {
   "product": "Jackery Explorer 5000 Plus",
@@ -35,9 +35,9 @@
   "capacity_kwh": 5.04,
   "output_w": 7200,
   "surge_w": 14400,
-  "price": "$3,499 (jackery.com; standalone unit shown sold out 11/3; earlier $3,149 sale no longer listed)",
+  "price": "$3,499 (jackery.com; standalone unit shown sold out 11/4; earlier $3,149 sale no longer listed)",
   "source_url": "https://www.jackery.com/products/jackery-explorer-5000-plus-10kwh",
-  "as_of": "2026-11-03"
+  "as_of": "2026-11-04"
  },
  {
   "product": "BLUETTI Apex 300",
@@ -45,9 +45,9 @@
   "capacity_kwh": 2.7648,
   "output_w": 3840,
   "surge_w": null,
-  "price": "$1,499 sale / $1,699 list (surge rating not captured - verify)",
-  "source_url": "https://homebatteryreport.com/guides/plug-in-vs-installed-battery-cost",
-  "as_of": "2026-10 (prices fluctuate; promos)",
+  "price": "$1,499 sale / $1,699 list (bluettipower.com; surge rating not captured - verify)",
+  "source_url": "https://www.bluettipower.com/products/apex-300-home-battery-backup",
+  "as_of": "2026-11-04",
   "spec_note": "2,764.8 Wh / 3,840 W per BLUETTI Apex series listing (shop-us.bluettipower.com), 2026-10-25"
  },
  {
@@ -66,9 +66,9 @@
   "capacity_kwh": 2.073,
   "output_w": 2600,
   "surge_w": 3900,
-  "price": "$899",
-  "source_url": "https://homegridhq.com/compare/",
-  "as_of": "2026-10 (prices fluctuate; promos)"
+  "price": "$899 (bluettipower.com)",
+  "source_url": "https://www.bluettipower.com/products/elite-200-v2-portable-power-station",
+  "as_of": "2026-11-04"
  },
  {
   "product": "Anker SOLIX C1000",
@@ -78,7 +78,7 @@
   "surge_w": 2400,
   "price": "$499.99",
   "source_url": "https://www.anker.com/products/a1761",
-  "as_of": "2026-11-03 (brand site)"
+  "as_of": "2026-11-04 (brand site)"
  },
  {
   "product": "Jackery Explorer 1000 v2",
@@ -86,9 +86,9 @@
   "capacity_kwh": 1.07,
   "output_w": 1500,
   "surge_w": 3000,
-  "price": "$559 (jackery.com; Black in stock, Dune White sold out 11/3)",
+  "price": "$559 (jackery.com; shown sold out in both colors 11/4)",
   "source_url": "https://www.jackery.com/products/jackery-explorer-1000-v2",
-  "as_of": "2026-11-03"
+  "as_of": "2026-11-04"
  },
  {
   "product": "Goal Zero Yeti 1500X",
@@ -96,9 +96,9 @@
   "capacity_kwh": 1.516,
   "output_w": 2000,
   "surge_w": 3500,
-  "price": "$1,125",
-  "source_url": "https://homegridhq.com/compare/",
-  "as_of": "2026-10 (prices fluctuate; promos)"
+  "price": "$1,124.89 sale / $1,499.95 list (goalzero.com; shown sold out 11/4)",
+  "source_url": "https://goalzero.com/products/goal-zero-yeti-1500x-portable-power-station",
+  "as_of": "2026-11-04"
  },
  {
   "product": "EcoFlow RIVER 2 Pro",
@@ -108,7 +108,7 @@
   "surge_w": 1600,
   "price": "$369 sale / $529 regular (us.ecoflow.com)",
   "source_url": "https://us.ecoflow.com/products/river-2-pro-portable-power-station",
-  "as_of": "2026-11-03"
+  "as_of": "2026-11-04"
  },
  {
   "product": "Tesla Powerwall 3",

@@ -1,5 +1,5 @@
 // ONE place for every product's outbound "buy" link.
-// `brand_url` = the maker's own product page (verified 200 + correct model, 2026-11-03).
+// `brand_url` = the maker's own product page (verified 200 + correct model, 2026-11-04).
 // When a CJ / affiliate program approves us, put the tracking URL in `aff_url` — every
 // table, card, button and calculator on the site switches automatically.
 export const PRODUCT_LINKS = {
