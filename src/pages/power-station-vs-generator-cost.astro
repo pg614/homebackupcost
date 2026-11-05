@@ -13,7 +13,7 @@ const gens = [
  { id:'eu7000', name:'Honda EU7000iS (inverter, gasoline)', rated:5500, price:4899, fuel:'gas', curve:[[0.25,5.1/16],[0.5,5.1/8],[1,5.1/6.4]], db:'52–58 dBA (1/4 to rated load)', co:'Check model listing', src:'https://powerequipment.honda.com/generators/models/eu7000is', psrc:'https://powerequipment.honda.com/generators/models/eu7000is' },
  { id:'gen22', name:'Generac 22 kW standby (propane)', rated:22000, price:8000, priceHigh:16000, fuel:'propane', curve:[[0.5,2.53],[1,3.90]], db:'67 dBA at 23 ft, normal load', co:'Permanently installed outdoors', src:'https://www.generac.com/residential-products/standby-generators/22kW-Standby-Generator-With-Whole-House-Switch-WiFi-Enabled-7043/', psrc:'/standby-generator-installation-cost/' },
 ];
-const D = { links: PRODUCT_URLS, stations, gens, gas:4.153, propane:2.730, psh:solar.assumptions.peak_sun_hours, derate:solar.assumptions.derate };
+const D = { links: PRODUCT_URLS, stations, gens, gas:4.153, propane:2.820, psh:solar.assumptions.peak_sun_hours, derate:solar.assumptions.derate };
 const faq = [
 ["Is a power station or a generator cheaper for a long outage?", "For short outages, a power station often costs less overall and has no fuel. For multi-day outages with heavy loads, a generator usually costs less upfront per kWh delivered, but you pay for fuel every day. The calculator shows both for your load, days, and fuel price."],
 ["How much gas does a generator use per day?", "It depends on load. Honda rates the EU2200i at 8.1 hours on 0.95 gallons at 1/4 load (about 2.8 gal/day running nonstop) and the EU7000iS at 16 hours on 5.1 gallons at 1/4 load (about 7.7 gal/day)."],
@@ -30,11 +30,11 @@ const faq = [
 <label>Hours per day<br><input type="number" id="h" value="24" min="1" max="24" /></label>
 <label>Outage days<br><input type="number" id="d" value="3" min="1" max="90" /></label>
 <label>Gasoline $/gal<br><input type="number" id="gas" step="0.01" value="4.153" /></label>
-<label>Propane $/gal<br><input type="number" id="lp" step="0.01" value="2.730" /></label>
+<label>Propane $/gal<br><input type="number" id="lp" step="0.01" value="2.820" /></label>
 <label>Power station<br><select id="st">{stations.map(s => <option value={s.name} selected={s.name==='Jackery Explorer 5000 Plus'}>{s.name}</option>)}</select></label>
 <label>Solar panels for the station<br><input type="number" id="np" value="0" min="0" max="12" /></label>
 </div>
-<p class="src">Defaults: 450 W is an example essentials load; get yours from the <a href="/calculator/">calculator</a> (kWh/day × 1,000 ÷ 24). Fuel prices: EIA U.S. average regular gasoline $4.153/gal, week of 11/2/2026 (<a href="https://www.eia.gov/petroleum/gasdiesel/">EIA</a>); residential propane $2.730/gal excluding taxes, 10/26/2026 (<a href="https://www.eia.gov/petroleum/heatingoilpropane/">EIA</a>). Enter your local prices.</p>
+<p class="src">Defaults: 450 W is an example essentials load; get yours from the <a href="/calculator/">calculator</a> (kWh/day × 1,000 ÷ 24). Fuel prices: EIA U.S. average regular gasoline $4.153/gal, week of 11/2/2026 (<a href="https://www.eia.gov/petroleum/gasdiesel/">EIA</a>); residential propane $2.820/gal excluding taxes, 11/2/2026 (<a href="https://www.eia.gov/petroleum/heatingoilpropane/">EIA</a>). Enter your local prices.</p>
 <div id="out" aria-live="polite"></div>
 </section>
 <script type="application/json" id="pvgData" set:html={JSON.stringify(D)}></script>

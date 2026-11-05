@@ -10,7 +10,7 @@
   "source_url": "https://us.ecoflow.com/products/delta-pro-ultra-x-smart-extra-battery",
   "spec_source_url": "https://us.ecoflow.com/products/delta-pro-ultra",
   "product_url": "https://us.ecoflow.com/products/delta-pro-ultra-x-smart-extra-battery",
-  "as_of": "2026-11-04"
+  "as_of": "2026-11-05"
  },
  {
   "base": "EcoFlow DELTA Pro 3",
@@ -19,11 +19,11 @@
   "max_per_base": 2,
   "max_note": "EcoFlow lists one DELTA Pro 3 as expandable to 12 kWh (base + 2 extra batteries). The 48 kWh series figure needs multiple units.",
   "price": 1899,
-  "price_note": "$1,899 (standard and members-only versions shown sold out 11/4)",
+  "price_note": "$1,899 (standard and members-only versions shown sold out 11/5)",
   "source_url": "https://us.ecoflow.com/products/delta-pro-3-extra-battery",
   "spec_source_url": "https://us.ecoflow.com/products/delta-pro-3-extra-battery",
   "product_url": "https://us.ecoflow.com/products/delta-pro-3-extra-battery",
-  "as_of": "2026-11-04"
+  "as_of": "2026-11-05"
  },
  {
   "base": "Anker SOLIX F3800 Plus",
@@ -32,11 +32,11 @@
   "max_per_base": 6,
   "max_note": "Up to 6 per F3800 Plus (26.88 kWh); 12 with two units and a Double Power Hub.",
   "price": 1799.99,
-  "price_note": "$1,799.99 with Anker's auto-applied $200 code / $1,999.99 regular",
+  "price_note": "$1,799.99 with Anker's auto-applied $200 code (WSTDQ4ZA27) / $1,999.99 regular",
   "source_url": "https://www.ankersolix.com/products/bp3800-expansion-battery",
   "spec_source_url": "https://www.ankersolix.com/products/bp3800-expansion-battery",
   "product_url": "https://www.ankersolix.com/products/bp3800-expansion-battery",
-  "as_of": "2026-11-04"
+  "as_of": "2026-11-05"
  },
  {
   "base": "Jackery Explorer 5000 Plus",
@@ -49,7 +49,7 @@
   "source_url": "https://www.jackery.com/products/jackery-battery-pack-5000-plus",
   "spec_source_url": "https://www.jackery.com/products/jackery-battery-pack-5000-plus",
   "product_url": "https://www.jackery.com/products/jackery-battery-pack-5000-plus",
-  "as_of": "2026-11-04"
+  "as_of": "2026-11-05"
  },
  {
   "base": "BLUETTI Apex 300",
@@ -57,11 +57,11 @@
   "capacity_kwh": 2.7648,
   "max_per_base": 6,
   "max_note": "Up to 6 per Apex 300 (19.35 kWh) per BLUETTI's expansion guide.",
-  "price": 1199,
-  "price_note": "$1,199 (earlier $1,099 sale ended 11/4)",
+  "price": 1099,
+  "price_note": "$1,099 sale / $1,199 list (sale returned 11/5)",
   "source_url": "https://www.bluettipower.com/products/b300k",
   "spec_source_url": "https://checkout.bluettipower.co.uk/collections/expansion-battery",
   "product_url": "https://www.bluettipower.com/products/b300k",
-  "as_of": "2026-11-04"
+  "as_of": "2026-11-05"
  }
 ]
