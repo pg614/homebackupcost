@@ -6,7 +6,7 @@ import Illustration from '../components/Illustration.astro';
 import Newsletter from '../components/Newsletter.astro';
 const faq = [
 ["How much power does a CPAP use?", "It depends on the machine and settings. ResMed lists the AirSense 11 at 56.1 W typical and 73.2 W peak. The Champion wattage chart lists CPAPs at about 30–60 W without heat and 60–120 W with a heated humidifier. Check the label or manual for your own device."],
-["How long will a power station run my CPAP?", "Divide usable battery watt-hours by your device's watts. At ResMed's 56.1 W typical figure, an 8-hour night is about 450 Wh, so a 1,070 Wh station (Jackery Explorer 1000 v2) with 85% usable covers about 2 nights. Turning off the humidifier and heated tube usually cuts use a lot."],
+["How long will a power station run my CPAP?", "Divide usable battery watt-hours by your device's watts. At ResMed's 56.1 W typical figure, an 8-hour night is about 449 Wh, so a 1,024 Wh station (Jackery Explorer 1000 v2) with 85% usable covers about 1.9 nights. Turning off the humidifier and heated tube usually cuts use a lot."],
 ["Can I plug my CPAP into any battery?", "Ask your device maker first. FDA advises finding out from the manufacturer whether your device can run on batteries or a generator. ResMed says it does not endorse third-party batteries for the AirSense 11."],
 ["What about oxygen concentrators and other devices?", "We don't publish wattages for oxygen concentrators or other life-sustaining equipment, because they vary widely by model. Use the watts on the device label and plan with your medical provider and equipment supplier."]
 ];
@@ -29,11 +29,11 @@ const faq = [
 <p><strong>Watt-hours per night</strong> = device watts × hours of use. <strong>Nights per charge</strong> = battery Wh × 0.85 ÷ watt-hours per night <span class="badge est">Assumption: 85% usable</span>.</p>
 <div class="tbl"><table><thead><tr><th>Battery</th><th>At 56.1 W × 8 h (≈449 Wh/night)</th><th>At 30 W × 8 h (240 Wh/night)</th></tr></thead><tbody>
 <tr><td>Medistrom Pilot-24 Lite (95 Wh)</td><td>≈ 0.2 nights (about 1.4 h)</td><td>≈ 0.3 nights (about 2.7 h)</td></tr>
-<tr><td><ProductLink product="Anker SOLIX C1000" button={false} /> (1,056 Wh)<br/><AffLink product="Anker SOLIX C1000" /></td><td>≈ 2.0 nights</td><td>≈ 3.7 nights</td></tr>
-<tr><td><ProductLink product="Jackery Explorer 1000 v2" button={false} /> (1,070 Wh)<br/><AffLink product="Jackery Explorer 1000 v2" /></td><td>≈ 2.0 nights</td><td>≈ 3.8 nights</td></tr>
+<tr><td><ProductLink product="Anker SOLIX C1000X" button={false} /> (1,056 Wh)<br/><AffLink product="Anker SOLIX C1000X" /></td><td>≈ 2.0 nights</td><td>≈ 3.7 nights</td></tr>
+<tr><td><ProductLink product="Jackery Explorer 1000 v2" button={false} /> (1,024 Wh)<br/><AffLink product="Jackery Explorer 1000 v2" /></td><td>≈ 1.9 nights</td><td>≈ 3.6 nights</td></tr>
 <tr><td><ProductLink product="Jackery Explorer 2000 v2" button={false} /> (2,042 Wh)<br/><AffLink product="Jackery Explorer 2000 v2" /></td><td>≈ 3.9 nights</td><td>≈ 7.2 nights</td></tr>
 </tbody></table></div>
-<p class="src">Capacities: <a href="https://www.medistrom.com/products-pilot24-lite.html">Medistrom</a>; <a href="https://homegridhq.com/compare/">HomeGridHQ</a> (October 2026). Medistrom quotes its own runtime with the humidifier and heated tube turned off, and a DC connection to the device avoids inverter losses. Compatibility depends on your machine: ResMed says it does not endorse third-party batteries for the AirSense 11 (<a href="https://shop.resmed.com.au/pages/airsense-11-pre-purchase-faqs">ResMed FAQ</a>).</p>
+<p class="src">Capacities: <a href="https://www.medistrom.com/products-pilot24-lite.html">Medistrom</a>; <a href="https://www.jackery.com/products/jackery-explorer-1000-v2">Jackery</a> (Explorer 1000 v2, 1,024 Wh, checked 2026-11-07); <a href="https://www.ankersolix.com/products/a1761111">Anker</a> (C1000X, 1,056 Wh). Medistrom quotes its own runtime with the humidifier and heated tube turned off, and a DC connection to the device avoids inverter losses. Compatibility depends on your machine: ResMed says it does not endorse third-party batteries for the AirSense 11 (<a href="https://shop.resmed.com.au/pages/airsense-11-pre-purchase-faqs">ResMed FAQ</a>).</p>
 <p><a href="/calculator/?preset=medical">Try the CPAP / medical preset in the calculator →</a></p>
 
 <h2>Step 3: Make a plan with FDA's checklist</h2>

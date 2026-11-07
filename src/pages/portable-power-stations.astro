@@ -11,7 +11,7 @@ const schema = [{ '@context':'https://schema.org','@type':'ItemList', name:'Port
 ---
 <Base title="Portable Power Stations Compared: Capacity, Watts & Prices (2026) | HomeBackupCost" description="Side-by-side specs for EcoFlow, Anker SOLIX, Jackery, Bluetti, and Goal Zero power stations: kWh, output watts, surge, and prices with as-of dates." schema={schema}>
 <h1>Portable power stations compared</h1>
-<p class="lede">Plug-in batteries you can buy and roll out during an outage. Specs and prices come from the linked sources; prices were captured in October 2026 and change often with sales.</p>
+<p class="lede">Plug-in batteries you can buy and roll out during an outage. Specs and prices come from the linked sources; prices were rechecked on November 7, 2026 and change often with sales.</p>
 <p class="note"><strong>Affiliate links:</strong> the "Check price" buttons are placeholders that go to the brand's own site. We have no affiliate accounts yet. If that changes, we may earn a commission, as explained in our <a href="/affiliate-disclosure/">disclosure</a>.</p>
 <ProductPhotos />
 <div class="tbl" style="margin-top:16px"><table>
@@ -25,7 +25,7 @@ const schema = [{ '@context':'https://schema.org','@type':'ItemList', name:'Port
 <td class="src">{b.as_of}</td>
 <td><AffLink product={b.product} label="Buy" /></td></tr>)}</tbody>
 </table></div>
-<p class="src">Several specs and prices come from third-party comparison sites (homegridhq.com, homebatteryreport.com, powerstations.reviews), as linked. Check the manufacturer's page before you buy. BLUETTI Apex 300 specs are still being verified.</p>
+<p class="src">Installed-battery prices come from a comparison site where the brand page shows no public price, as linked. Check the manufacturer's page before you buy. BLUETTI lists the Apex 300 at 2,764.8 Wh, 3,840 W continuous, and 7,680 W lifting power.</p>
 <h2>Expansion batteries: add capacity later</h2>
 <p>Expandable stations accept the maker's add-on batteries. Adding batteries increases kWh (how long it lasts), not watts (how much runs at once).</p>
 <div class="tbl"><table>
@@ -36,13 +36,13 @@ const schema = [{ '@context':'https://schema.org','@type':'ItemList', name:'Port
 <td>{e.price_note}<br/><a class="src" href={e.source_url} target="_blank" rel="noopener">source</a> <span class="src">· {e.as_of}</span></td>
 <td><a class="btn ghost" href={e.product_url} target="_blank" rel="nofollow sponsored noopener" data-affiliate="placeholder" data-product={e.battery}>View ↗</a></td></tr>; })}</tbody>
 </table></div>
-<p class="src">Capacities, limits, and prices come from the brand pages linked above. For the BLUETTI B300K's max of 6 per Apex 300, we used BLUETTI's expansion guide, and the Apex 300's 2,764.8 Wh / 3,840 W specs come from BLUETTI's Apex listing; its surge rating is not captured yet. Brands also sell bundles (for example a BLUETTI 2×B300K bundle at $2,049) that can cost less than separate batteries. We have no verified data on Goal Zero Yeti 1500X expansion, so it isn't listed.</p>
+<p class="src">Capacities, limits, and prices come from the brand pages linked above. BLUETTI's Apex 300 page lists up to 6×B300K (19,353.6 Wh with the base unit) and calls 7,680 W "lifting power." Brands also sell bundles that can cost less than separate batteries. We have no verified data on Goal Zero Yeti 1500X expansion, so it isn't listed.</p>
 <h2>How to choose</h2>
 <ul>
 <li><strong>Output watts</strong> must cover everything running at once, and <strong>surge watts</strong> must handle motor start-up (fridges, pumps, furnace fans). <a href="/what-size-battery-generator/">Sizing guide →</a></li>
 <li><strong>Capacity (kWh)</strong> sets how long it lasts. A 1 kWh unit running a 100 W load lasts roughly 8.5 hours after the 0.85 usable factor <span class="badge est">Assumption</span>.</li>
 <li><strong>Expandable</strong> units (marked "portable/expandable") accept add-on batteries. The EcoFlow DELTA Pro Ultra lists expansion up to 90 kWh.</li>
-<li>To power hardwired circuits like a furnace or well pump, you need transfer hardware installed by an electrician. Listed prices: EcoFlow Smart Home Panel 2 from $1,499 (ecoflow.com, Nov 3, 2026), Anker Smart Home Power Kit $1,499 list, Jackery Smart Transfer Switch $1,299 list (<a href="https://homebatteryreport.com/guides/plug-in-vs-installed-battery-cost">source</a>).</li>
+<li>To power hardwired circuits like a furnace or well pump, you need transfer hardware installed by an electrician. Listed prices on November 7, 2026: EcoFlow Smart Home Panel 2 $1,499 and sold out (<a href="https://us.ecoflow.com/products/smart-home-panel-2">ecoflow.com</a>), Anker Smart Home Power Kit $1,299.99 with code WSTDQ4ZA24 / $1,799.99 before code (<a href="https://www.ankersolix.com/products/smart-home-power-kit">ankersolix.com</a>), Jackery Smart Transfer Switch $1,159 sale / $1,299 list (<a href="https://www.jackery.com/products/jackery-smart-transfer-switch">jackery.com</a>).</li>
 <li><strong>Rebates:</strong> there is no federal credit for portable stations. Some California utilities (PG&amp;E, SDG&amp;E, SCE) offer rebates in wildfire areas. <a href="/rebates/ca/">California details →</a></li>
 </ul>
 <p><a class="btn" href="/calculator/">Find the right size with the calculator</a></p>

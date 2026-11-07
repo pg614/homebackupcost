@@ -10,7 +10,7 @@
   "source_url": "https://us.ecoflow.com/products/delta-pro-ultra-x-smart-extra-battery",
   "spec_source_url": "https://us.ecoflow.com/products/delta-pro-ultra",
   "product_url": "https://us.ecoflow.com/products/delta-pro-ultra-x-smart-extra-battery",
-  "as_of": "2026-11-05"
+  "as_of": "2026-11-07"
  },
  {
   "base": "EcoFlow DELTA Pro 3",
@@ -19,11 +19,11 @@
   "max_per_base": 2,
   "max_note": "EcoFlow lists one DELTA Pro 3 as expandable to 12 kWh (base + 2 extra batteries). The 48 kWh series figure needs multiple units.",
   "price": 1899,
-  "price_note": "$1,899 (standard and members-only versions shown sold out 11/5)",
+  "price_note": "$1,899 (standard and members-only versions shown sold out 11/7)",
   "source_url": "https://us.ecoflow.com/products/delta-pro-3-extra-battery",
   "spec_source_url": "https://us.ecoflow.com/products/delta-pro-3-extra-battery",
   "product_url": "https://us.ecoflow.com/products/delta-pro-3-extra-battery",
-  "as_of": "2026-11-05"
+  "as_of": "2026-11-07"
  },
  {
   "base": "Anker SOLIX F3800 Plus",
@@ -36,7 +36,7 @@
   "source_url": "https://www.ankersolix.com/products/bp3800-expansion-battery",
   "spec_source_url": "https://www.ankersolix.com/products/bp3800-expansion-battery",
   "product_url": "https://www.ankersolix.com/products/bp3800-expansion-battery",
-  "as_of": "2026-11-05"
+  "as_of": "2026-11-07"
  },
  {
   "base": "Jackery Explorer 5000 Plus",
@@ -49,7 +49,7 @@
   "source_url": "https://www.jackery.com/products/jackery-battery-pack-5000-plus",
   "spec_source_url": "https://www.jackery.com/products/jackery-battery-pack-5000-plus",
   "product_url": "https://www.jackery.com/products/jackery-battery-pack-5000-plus",
-  "as_of": "2026-11-05"
+  "as_of": "2026-11-07"
  },
  {
   "base": "BLUETTI Apex 300",
@@ -58,10 +58,10 @@
   "max_per_base": 6,
   "max_note": "Up to 6 per Apex 300 (19.35 kWh) per BLUETTI's expansion guide.",
   "price": 1099,
-  "price_note": "$1,099 sale / $1,199 list (sale returned 11/5)",
+  "price_note": "$1,099 sale / $1,199 list (in stock)",
   "source_url": "https://www.bluettipower.com/products/b300k",
-  "spec_source_url": "https://checkout.bluettipower.co.uk/collections/expansion-battery",
+  "spec_source_url": "https://www.bluettipower.com/products/apex-300-home-battery-backup",
   "product_url": "https://www.bluettipower.com/products/b300k",
-  "as_of": "2026-11-05"
+  "as_of": "2026-11-07"
  }
 ]

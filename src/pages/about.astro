@@ -32,11 +32,11 @@ const sources = [
 <li><span class="badge est">Assumption</span> <strong>Default hours per day</strong>, for example 8 h for a fridge (compressor on about 1/3 of the time), 8 h for a furnace fan, and 4.8 h for a sump pump (20% runtime in wet weather). Users can edit all of these.</li>
 <li><strong>Peak watts</strong> = the sum of maximum running watts + the single largest start-up surge.</li>
 <li><strong>Installed cost</strong> = capacity × EnergySage's $1,130–$1,159 per kWh.</li>
-<li><strong>Power station prices</strong> are the lowest (sale) price listed in our sources for October 2026.</li>
+<li><strong>Power station prices</strong> are the lowest (sale) price listed in our sources, rechecked 2026-11-07. A price keeps its earlier date when that check could not confirm it.</li>
 </ul>
 <h2 id="sources">Sources</h2>
 <div class="tbl"><table><thead><tr><th>Data</th><th>Source</th></tr></thead><tbody>{sources.map(([d,n,u]) => <tr><td>{d}</td><td><a href={u}>{n}</a></td></tr>)}</tbody></table></div>
-<p class="src">Last full data review: 2026-10-25. Found an error? See <a href="/contact/">Contact</a> for how to report it.</p>
+<p class="src">Price, stock, rebate, and fuel figures were rechecked 2026-11-07. A figure keeps its earlier date when its source could not be confirmed that day. Found an error? See <a href="/contact/">Contact</a> for how to report it.</p>
 <h2>Known gaps</h2>
-<ul><li>EV Level 2 charging and medical devices: no verified wattage yet. Use your device's nameplate.</li><li>BLUETTI Apex 300 specs are not captured yet.</li><li>No generator prices yet.</li><li>Specs for expansion batteries are not included.</li><li>Rebate details are verified for six states so far; other states show NASEO status only.</li></ul>
+<ul><li>EV Level 2 charging and medical devices: no verified wattage yet. Use your device's nameplate.</li><li>No generator prices yet.</li><li>Specs for expansion batteries are not included.</li><li>Rebate details are verified for six states so far; other states show NASEO status only.</li></ul>
 </Base>

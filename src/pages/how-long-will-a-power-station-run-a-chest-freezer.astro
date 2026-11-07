@@ -4,7 +4,7 @@ import ProductLink from '../components/ProductLink.astro';
 import Base from '../layouts/Base.astro';
 import Newsletter from '../components/Newsletter.astro';
 import { batteries } from '../data/site.js';
-const pick = ['Anker SOLIX C1000','Jackery Explorer 1000 v2','Jackery Explorer 2000 v2','EcoFlow DELTA Pro 3'];
+const pick = ['Anker SOLIX C1000X','Jackery Explorer 1000 v2','Jackery Explorer 2000 v2','EcoFlow DELTA Pro 3'];
 const st = pick.map(n => batteries.find(b => b.product === n)).filter(Boolean);
 // Median annual kWh of ENERGY STAR certified chest freezers by size (data.energystar.gov dataset 8t9c-g3tn, pulled 2026-11-02)
 const fz = [['Small (under 6 cu ft)',184,23],['Medium (6–12 cu ft)',225,22],['Large (12 cu ft and up)',346,4]].map(([k,y,n]) => ({ k, y, n, w: y*1000/8760 }));
@@ -35,7 +35,7 @@ const faq = [
 <div class="tbl"><table><thead><tr><th>Station (capacity, surge)</th>{fz.map(f => <th>{f.k} (≈{f.w.toFixed(0)} W)</th>)}</tr></thead><tbody>
 {st.map(b => <tr><td><ProductLink product={b.product} button={false} /> ({(b.capacity_kwh*1000).toLocaleString()} Wh, {b.surge_w.toLocaleString()} W surge)<br/><AffLink product={b.product} /></td>{fz.map(f => <td>{fmt(hrs(b,f.w))}</td>)}</tr>)}
 </tbody></table></div>
-<p class="src">Capacities and surge ratings from our <a href="/portable-power-stations/">power station table</a> (October 2026). Example: {(j1.capacity_kwh*1000).toLocaleString()} Wh × 0.85 ÷ {med.w.toFixed(1)} W = {hrs(j1,med.w).toFixed(1)} hours.</p>
+<p class="src">Capacities and surge ratings from our <a href="/portable-power-stations/">power station table</a> (November 7, 2026). Example: {(j1.capacity_kwh*1000).toLocaleString()} Wh × 0.85 ÷ {med.w.toFixed(1)} W = {hrs(j1,med.w).toFixed(1)} hours.</p>
 
 <h2>Step 3: Check the starting surge</h2>
 <p>A freezer runs at 100–500 W and needs 500–1,000 W for a moment to start the compressor (<a href="https://www.championpowerequipment.com/generator-wattage-chart/">Champion chart</a>). All four stations above list surge ratings of 2,400 W or more.</p>
