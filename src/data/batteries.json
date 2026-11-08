@@ -7,7 +7,7 @@
   "surge_w": 10800,
   "price": "$4,199 sale / $5,799 list (us.ecoflow.com; sold out, page says Coming Back in January 2027); expands to 90 kWh",
   "source_url": "https://us.ecoflow.com/products/delta-pro-ultra",
-  "as_of": "2026-11-07"
+  "as_of": "2026-11-08"
  },
  {
   "product": "EcoFlow DELTA Pro 3",
@@ -15,9 +15,9 @@
   "capacity_kwh": 4.096,
   "output_w": 4000,
   "surge_w": 6000,
-  "price": "$2,799 sale / $3,299 regular (us.ecoflow.com; standalone and listed bundles unavailable 11/7; the $3,399 two-panel option is labeled coming soon)",
+  "price": "$2,799 sale / $3,299 regular (us.ecoflow.com; standalone and listed bundles shown sold out 11/8; the $3,399 two-panel option remains listed)",
   "source_url": "https://us.ecoflow.com/products/delta-pro-3-portable-power-station",
-  "as_of": "2026-11-07"
+  "as_of": "2026-11-08"
  },
  {
   "product": "Anker SOLIX F3800 Plus",
@@ -25,9 +25,9 @@
   "capacity_kwh": 3.84,
   "output_w": 6000,
   "surge_w": 9000,
-  "price": "$2,599.99 with code WSTDQ4ZA26 ($400 off) / $2,999.99 before code (ankersolix.com; sold out 11/7)",
+  "price": "$2,599.99 with code WSTDQ4ZA26 ($400 off) / $2,999.99 before code (ankersolix.com; sold out 11/8)",
   "source_url": "https://www.ankersolix.com/products/f3800-plus",
-  "as_of": "2026-11-07"
+  "as_of": "2026-11-08"
  },
  {
   "product": "Jackery Explorer 5000 Plus",
@@ -35,9 +35,9 @@
   "capacity_kwh": 5.04,
   "output_w": 7200,
   "surge_w": 14400,
-  "price": "$3,499 (jackery.com; standalone unit sold out 11/7; Explorer 5000 Plus + Battery Pack bundle $5,899 sale / $6,199 list in stock)",
+  "price": "$3,499 (jackery.com; standalone unit sold out 11/8; Explorer 5000 Plus + Battery Pack bundle $5,899 sale / $6,199 list in stock)",
   "source_url": "https://www.jackery.com/products/jackery-explorer-5000-plus",
-  "as_of": "2026-11-07"
+  "as_of": "2026-11-08"
  },
  {
   "product": "BLUETTI Apex 300",
@@ -47,8 +47,8 @@
   "surge_w": 7680,
   "price": "$1,499 sale / $1,699 list (bluettipower.com; in stock; ships from early December)",
   "source_url": "https://www.bluettipower.com/products/apex-300-home-battery-backup",
-  "as_of": "2026-11-07",
-  "spec_note": "2,764.8 Wh / 3,840 W continuous / 7,680 W lifting power per BLUETTI product page, 2026-11-07"
+  "as_of": "2026-11-08",
+  "spec_note": "2,764.8 Wh / 3,840 W continuous / 7,680 W lifting power per BLUETTI product page, 2026-11-08"
  },
  {
   "product": "Jackery Explorer 2000 v2",
@@ -56,9 +56,9 @@
   "capacity_kwh": 2.042,
   "output_w": 2200,
   "surge_w": 4400,
-  "price": "$999 (jackery.com; the $999 options are the 5m extension-cable and 12V car-charging-cable bundles, both marked available 11/7; the page description also says the product shown is not available for purchase)",
+  "price": "$999 (jackery.com; the $999 options are the 5m extension-cable and 12V car-charging-cable bundles, both marked available 11/8; the page description also says the product shown is not available for purchase)",
   "source_url": "https://www.jackery.com/products/explorer-2000-v2-series",
-  "as_of": "2026-11-07",
+  "as_of": "2026-11-08",
   "spec_note": "2,042 Wh and 2,200 W output are on the series page. A 4,400 W surge was not on that page on 2026-11-07; the earlier surge value is unchanged."
  },
  {
@@ -69,7 +69,7 @@
   "surge_w": 3900,
   "price": "$899 (bluettipower.com; in stock)",
   "source_url": "https://www.bluettipower.com/products/elite-200-v2-portable-power-station",
-  "as_of": "2026-11-07"
+  "as_of": "2026-11-08"
  },
  {
   "product": "Anker SOLIX C1000X",
@@ -79,7 +79,7 @@
   "surge_w": 2400,
   "price": "$499.99 with code WSTDQ4NSAX ($100 off) / $599.99 before code (ankersolix.com; in stock; anker.com/products/a1761 redirects to the C1000X page)",
   "source_url": "https://www.ankersolix.com/products/a1761111",
-  "as_of": "2026-11-07"
+  "as_of": "2026-11-08"
  },
  {
   "product": "Jackery Explorer 1000 v2",
@@ -87,9 +87,9 @@
   "capacity_kwh": 1.024,
   "output_w": 1500,
   "surge_w": 3000,
-  "price": "$509\u2013$559 (jackery.com; Dune White $509 sale / $589 list, Black $559; both colors sold out 11/7)",
+  "price": "$509–$559 (jackery.com; Dune White $509 sale / $589 list, Black $559; both colors sold out 11/8)",
   "source_url": "https://www.jackery.com/products/jackery-explorer-1000-v2",
-  "as_of": "2026-11-07",
+  "as_of": "2026-11-08",
   "spec_note": "The Explorer 1000 v2 spec block lists 1,024 Wh (20Ah/51.2V), 1,500 W rated, and 3,000 W surge. The same kits page also shows 1,070 Wh (30.4Ah/35.2V) in a different spec block that is not labeled Explorer 1000 v2."
  },
  {
@@ -98,9 +98,9 @@
   "capacity_kwh": 1.516,
   "output_w": 2000,
   "surge_w": 3500,
-  "price": "$1,124.89 sale / $1,499.95 list (goalzero.com; sold out / page tag says No Longer Available 11/7)",
+  "price": "$1,124.89 sale / $1,499.95 list (goalzero.com; sold out / page tag says No Longer Available 11/8)",
   "source_url": "https://goalzero.com/products/goal-zero-yeti-1500x-portable-power-station",
-  "as_of": "2026-11-07"
+  "as_of": "2026-11-08"
  },
  {
   "product": "EcoFlow RIVER 2 Pro",
@@ -108,9 +108,9 @@
   "capacity_kwh": 0.768,
   "output_w": 800,
   "surge_w": 1600,
-  "price": "$369 sale / $529 regular (us.ecoflow.com; base unit in stock 11/7)",
+  "price": "$369 sale / $529 regular (us.ecoflow.com; base unit in stock 11/8)",
   "source_url": "https://us.ecoflow.com/products/river-2-pro-portable-power-station",
-  "as_of": "2026-11-07"
+  "as_of": "2026-11-08"
  },
  {
   "product": "Tesla Powerwall 3",
@@ -120,7 +120,7 @@
   "surge_w": 22000,
   "price": "$9,300 (equipment, per comparison site; tesla.com/powerwall shows no public $)",
   "source_url": "https://homegridhq.com/compare/",
-  "as_of": "2026-11-05"
+  "as_of": "2026-11-08"
  },
  {
   "product": "FranklinWH aPower 2",
@@ -128,8 +128,8 @@
   "capacity_kwh": 15.0,
   "output_w": 10000,
   "surge_w": 20000,
-  "price": "$10,500 (homegridhq.com; franklinwh.com product page showed no public $ on 11/7)",
+  "price": "$10,500 (homegridhq.com; franklinwh.com product page showed no public $ on 11/8)",
   "source_url": "https://homegridhq.com/compare/",
-  "as_of": "2026-11-07"
+  "as_of": "2026-11-08"
  }
 ]
