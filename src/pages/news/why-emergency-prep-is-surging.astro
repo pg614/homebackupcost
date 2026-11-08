@@ -9,14 +9,14 @@ import { priceLow } from '../../data/site.js';
 const b = (n) => batteries.find(x => x.product === n);
 const usd = (v) => '$' + v.toLocaleString('en-US', { maximumFractionDigits: 0 });
 const row = (n) => { const x = b(n); return x ? { name:x.product, kwh:x.capacity_kwh.toFixed(2), price:usd(priceLow(x.price)), src:x.source_url } : null; };
-const t1 = ['Anker SOLIX C1000','Jackery Explorer 1000 v2'].map(row).filter(Boolean);
+const t1 = ['Anker SOLIX C1000X','Jackery Explorer 1000 v2'].map(row).filter(Boolean);
 const t2 = ['Jackery Explorer 2000 v2','Bluetti Elite 200 v2'].map(row).filter(Boolean);
 const t3 = ['EcoFlow DELTA Pro 3','Jackery Explorer 5000 Plus','EcoFlow DELTA Pro Ultra'].map(row).filter(Boolean);
 const installed = costs.find(c => c.item.startsWith('Installed home battery'));
 const transfer = costs.find(c => c.item.startsWith('Plug-in transfer'));
 const faq = [
 ["Is there a specific threat behind the emergency prep push?", "No. The UK government, the officials behind the European campaigns, and the Pentagon all describe their guidance as precautionary planning for storms, cyberattacks, and other disruptions, not a response to a specific threat."],
-["What's the cheapest useful backup power for an outage?", "A roughly 1 kWh portable power station (about $470–$499 as of late October 2026 in our price table) keeps phones, Wi-Fi, and LED lights going for about 2 days. It won't run a refrigerator for long."],
+["What's the cheapest useful backup power for an outage?", "A roughly 1 kWh portable power station (about $500–$509 as of November 7, 2026 in our price table) keeps phones, Wi-Fi, and LED lights going for about 2 days. It won't run a refrigerator for long."],
 ["Should I buy a standby generator before winter?", "If you want one, get quotes now. A Pittsburgh installer told WESA on Oct. 27, 2026 that a call in November for a generator before Christmas is 'not going to happen' because demand is so high."]
 ];
 ---
@@ -32,7 +32,7 @@ const faq = [
 <p>None of the officials involved point to a specific threat. Their message is the same one Ready.gov has given for years: have enough food, water, and supplies to get by for several days (<a href="https://www.ready.gov/kit">Ready.gov</a>). Power is the part most people haven't planned for.</p>
 
 <h2>What to actually buy or do, by budget</h2>
-<p class="src">Prices are the lowest listed price in our <a href="/portable-power-stations/">power station table</a>, checked in late October 2026. Prices change often.</p>
+<p class="src">Prices are the lowest listed price in our <a href="/portable-power-stations/">power station table</a>, checked November 7, 2026. Prices change often.</p>
 <div class="grid">
 <div class="card"><h3>$0: plan first</h3><p>Work out what you actually need to keep running. Phones, Wi-Fi, and six LED bulbs take about 3.1 kWh over 3 days; adding a refrigerator brings it to about 10.9 kWh (<a href="/72-hour-power-outage-plan/">72-hour plan</a>). Keep phones and power banks charged when storms are forecast.</p><p><a href="/calculator/">Run your numbers in the calculator →</a></p></div>
 <div class="card"><h3>About $500: stay connected</h3><ul>{t1.map(x => <li><ProductLink product={x.name} button={false} />: {x.kwh} kWh, {x.price} <a class="src" href={x.src}>source</a><br/><AffLink product={x.name} /></li>)}</ul><p>Covers phones, Wi-Fi, and lights for about 2 days. Not enough for a fridge for long.</p></div>

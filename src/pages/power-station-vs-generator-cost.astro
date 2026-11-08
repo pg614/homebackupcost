@@ -23,7 +23,7 @@ const faq = [
 ---
 <Base title="Power Station vs Generator Cost Calculator: Upfront + Fuel for Your Outage | HomeBackupCost" description="Compare a portable power station with a gas or propane generator for your outage: upfront price, fuel gallons per day × days × local fuel price, plus noise and carbon monoxide tradeoffs." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) },{ '@context':'https://schema.org','@type':'WebApplication', name:'Power Station vs Generator Cost Calculator', applicationCategory:'UtilitiesApplication', operatingSystem:'Any', offers:{ '@type':'Offer', price:'0', priceCurrency:'USD' } }]}>
 <h1>Power station vs generator: total cost for your outage</h1>
-<p class="lede">Upfront price plus fuel (gallons per day × days × your fuel price), with the noise and carbon monoxide tradeoffs side by side. Prices as of October 2026.</p>
+<p class="lede">Upfront price plus fuel (gallons per day × days × your fuel price), with the noise and carbon monoxide tradeoffs side by side. Prices rechecked November 7, 2026.</p>
 <section class="card" id="pvg">
 <div class="grid">
 <label>Average load (watts)<br><input type="number" id="w" value="450" min="10" max="20000" /></label>
@@ -34,7 +34,7 @@ const faq = [
 <label>Power station<br><select id="st">{stations.map(s => <option value={s.name} selected={s.name==='Jackery Explorer 5000 Plus'}>{s.name}</option>)}</select></label>
 <label>Solar panels for the station<br><input type="number" id="np" value="0" min="0" max="12" /></label>
 </div>
-<p class="src">Defaults: 450 W is an example essentials load; get yours from the <a href="/calculator/">calculator</a> (kWh/day × 1,000 ÷ 24). Fuel prices: EIA U.S. average regular gasoline $4.153/gal, week of 11/2/2026 (<a href="https://www.eia.gov/petroleum/gasdiesel/">EIA</a>); residential propane $2.820/gal excluding taxes, 11/2/2026 (<a href="https://www.eia.gov/petroleum/heatingoilpropane/">EIA</a>). Enter your local prices.</p>
+<p class="src">Defaults: 450 W is an example essentials load; get yours from the <a href="/calculator/">calculator</a> (kWh/day × 1,000 ÷ 24). Fuel prices rechecked November 7, 2026: EIA U.S. average regular gasoline $4.153/gal for the week of 11/2/2026, still the latest week on the gasoline page (<a href="https://www.eia.gov/petroleum/gasdiesel/">EIA</a>); residential propane $2.820/gal excluding taxes for the week of 11/2/2026, released 11/4/2026, with the next release listed as 11/12/2026 (<a href="https://www.eia.gov/petroleum/heatingoilpropane/">EIA heating oil and propane</a>; <a href="https://www.eia.gov/dnav/pet/pet_pri_wfr_a_EPLLPA_PRS_dpgal_w.htm">residential propane series</a>). Enter your local prices.</p>
 <div id="out" aria-live="polite"></div>
 </section>
 <script type="application/json" id="pvgData" set:html={JSON.stringify(D)}></script>
@@ -58,7 +58,7 @@ document.getElementById('pvg').addEventListener('input',run);run();})();
 <h2>How the math works</h2>
 <ul>
 <li><strong>Fuel</strong> = gallons per hour at your load × hours per day × days × fuel price. Gallons per hour come from manufacturer runtime specs (<a href="https://powerequipment.honda.com/generators/models/eu2200i">Honda EU2200i</a>: 3.2 h at rated load, 8.1 h at 1/4 load on 0.95 gal; <a href="https://powerequipment.honda.com/generators/models/eu7000is">Honda EU7000iS</a>: 6.4/8/16 h at rated/half/quarter load on 5.1 gal; <a href="https://www.generac.com/residential-products/standby-generators/22kW-Standby-Generator-With-Whole-House-Switch-WiFi-Enabled-7043/">Generac 22 kW</a>: 2.53/3.90 gal/h propane at half/full load). Between points we interpolate <span class="badge est">Estimate</span>.</li>
-<li><strong>Prices:</strong> Honda EU2200i $1,199 MSRP and EU7000iS $4,899 MSRP; standby $8,000–$16,000 installed (<a href="/standby-generator-installation-cost/">standby guide</a>); power stations and panels from our <a href="/portable-power-stations/">October 2026 price data</a>. Prices change often.</li>
+<li><strong>Prices:</strong> Honda EU2200i $1,199 MSRP and EU7000iS $4,899 MSRP; standby $8,000–$16,000 installed (<a href="/standby-generator-installation-cost/">standby guide</a>); power stations and panels from our <a href="/portable-power-stations/">November 7, 2026 price data</a>. Prices change often.</li>
 <li><strong>Power station runtime</strong> = capacity × 0.85 usable ÷ (daily use − solar). <span class="badge est">Assumption</span> Solar at {D.psh} peak sun hours and {Math.round(D.derate*100)}% output.</li>
 <li>Not included: oil changes, extension cords, transfer equipment, propane tank rental, tax, or the value of your time refueling.</li>
 </ul>

@@ -4,7 +4,7 @@ const A = JSON.parse(fs.readFileSync('src/data/appliances.json')); const B = JSO
 const pl = (s) => { const m = String(s||'').match(/\$([\d,]+(?:\.\d+)?)/); return m ? parseFloat(m[1].replace(/,/g,'')) : null; };
 const it = (n, hours, qty=1) => { const a = A.find(x=>x.appliance===n); return { name:n, runMin:a.running_w_min, runMax:a.running_w_max, startMax:a.starting_w_max, qty, hours }; };
 const cases = {
- 'Fridge+furnace fan+Wi-Fi, 24h': [[it('Refrigerator',8),it('Furnace fan 1/2 HP',8),it('Router/modem (Wi-Fi)',24)],24, {kwh:8.19, peak:2020, sys:['BLUETTI Apex 300',2,3657]}],
+ 'Fridge+furnace fan+Wi-Fi, 24h': [[it('Refrigerator',8),it('Furnace fan 1/2 HP',8),it('Router/modem (Wi-Fi)',24)],24, {kwh:8.19, peak:2020, sys:['BLUETTI Apex 300',2,3697]}],
  'CPAP heated+Wi-Fi+charger, 24h': [[it('CPAP heated humidifier',8),it('Router/modem (Wi-Fi)',24),it('Phone/laptop charger',3)],24,{kwh:1.48,peak:240}],
  'Fridge+sump 1/3HP+Wi-Fi+6 LED, 72h': [[it('Refrigerator',8),it('Sump pump 1/3 HP',4.8),it('Router/modem (Wi-Fi)',24),it('LED bulb (each)',5,6)],72,{kwh:21.26,peak:2110}],
 };

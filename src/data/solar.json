@@ -10,30 +10,30 @@
    "panel": "EcoFlow 400W Portable Solar Panel",
    "watts": 400,
    "price": 699,
-   "price_note": "$699 (shown out of stock 11/5)",
+   "price_note": "$699 (shown out of stock 11/7)",
    "fits": [
     "EcoFlow DELTA Pro 3",
     "EcoFlow DELTA Pro Ultra"
    ],
-   "compat_note": "EcoFlow sells it in a DELTA Pro 3 Solar Generator (PV400W) kit ($3,299 sale / $3,999 regular; kit shown \"coming soon\" 11/3).",
+   "compat_note": "EcoFlow lists a DELTA Pro 3 + 400W Solar Panel kit at $3,299 sale / $3,999 regular; that variant was unavailable on 11/7.",
    "product_url": "https://us.ecoflow.com/products/400w-portable-solar-panel",
    "source_url": "https://us.ecoflow.com/products/400w-portable-solar-panel",
-   "as_of": "2026-11-05"
+   "as_of": "2026-11-07"
   },
   {
    "brand": "Anker",
    "panel": "Anker SOLIX PS400 Bifacial Portable Solar Panel",
    "watts": 400,
    "price": 799.99,
-   "price_note": "$799.99 (was $699.99)",
+   "price_note": "$799.99 (in stock; the page does not show a $699.99 compare-at price)",
    "fits": [
     "Anker SOLIX F3800 Plus",
-    "Anker SOLIX C1000"
+    "Anker SOLIX C1000X"
    ],
    "compat_note": "Anker brand panel; check the connector/voltage limits for your station.",
    "product_url": "https://www.ankersolix.com/products/ps400-bifacial-portable-solar-panel",
    "source_url": "https://www.ankersolix.com/products/ps400-bifacial-portable-solar-panel",
-   "as_of": "2026-11-05"
+   "as_of": "2026-11-07"
   },
   {
    "brand": "Jackery",
@@ -49,14 +49,14 @@
    "compat_note": "Jackery's panel for its Explorer stations (Jackery offers a 5000 Plus kit with 2 x SolarSaga 500 X).",
    "product_url": "https://www.jackery.com/products/solarsaga-200w-solar-panel",
    "source_url": "https://www.jackery.com/products/solarsaga-200w-solar-panel",
-   "as_of": "2026-11-05"
+   "as_of": "2026-11-07"
   },
   {
    "brand": "BLUETTI",
    "panel": "BLUETTI PV350 Solar Panel",
    "watts": 350,
    "price": 649,
-   "price_note": "$649",
+   "price_note": "$649 (preorder)",
    "fits": [
     "BLUETTI Apex 300",
     "Bluetti Elite 200 v2"
@@ -64,21 +64,21 @@
    "compat_note": "BLUETTI lists the PV350 as compatible with the Apex 300 and Elite 200 V2.",
    "product_url": "https://www.bluettipower.com/products/350w-solar-panel",
    "source_url": "https://www.bluettipower.com/collections/solar-panels",
-   "as_of": "2026-11-05"
+   "as_of": "2026-11-07"
   },
   {
    "brand": "Goal Zero",
    "panel": "Goal Zero Nomad 200",
    "watts": 200,
    "price": 599.95,
-   "price_note": "$599.95 (shown out of stock 11/5)",
+   "price_note": "$599.95 (shown out of stock 11/7)",
    "fits": [
     "Goal Zero Yeti 1500X"
    ],
    "compat_note": "Goal Zero brand panel.",
    "product_url": "https://goalzero.com/products/nomad-200-solar-panel",
    "source_url": "https://goalzero.com/products/nomad-200-solar-panel",
-   "as_of": "2026-11-05"
+   "as_of": "2026-11-07"
   }
  ],
  "max_solar_input_w": {

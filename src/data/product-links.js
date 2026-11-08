@@ -7,7 +7,7 @@ export const PRODUCT_LINKS = {
   'EcoFlow DELTA Pro 3':            { brand:'EcoFlow', brand_url:'https://us.ecoflow.com/products/delta-pro-3-portable-power-station', aff_url:'' },
   'EcoFlow RIVER 2 Pro':            { brand:'EcoFlow', brand_url:'https://us.ecoflow.com/products/river-2-pro-portable-power-station', aff_url:'' },
   'Anker SOLIX F3800 Plus':         { brand:'Anker SOLIX', brand_url:'https://www.ankersolix.com/products/f3800-plus', aff_url:'' },
-  'Anker SOLIX C1000':              { brand:'Anker SOLIX', brand_url:'https://www.anker.com/products/a1761', aff_url:'' },
+  'Anker SOLIX C1000X':             { brand:'Anker SOLIX', brand_url:'https://www.anker.com/products/a1761', aff_url:'' },
   'Jackery Explorer 5000 Plus':     { brand:'Jackery', brand_url:'https://www.jackery.com/products/jackery-explorer-5000-plus', aff_url:'' },
   'Jackery Explorer 2000 v2':       { brand:'Jackery', brand_url:'https://www.jackery.com/products/explorer-2000-v2-series', aff_url:'' },
   'Jackery Explorer 1000 v2':       { brand:'Jackery', brand_url:'https://www.jackery.com/products/jackery-explorer-1000-v2', aff_url:'' },
