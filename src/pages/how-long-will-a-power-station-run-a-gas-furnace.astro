@@ -1,0 +1,48 @@
+---
+import AffLink from '../components/AffLink.astro';
+import ProductLink from '../components/ProductLink.astro';
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { batteries } from '../data/site.js';
+const pick = ['Anker SOLIX C1000X','Jackery Explorer 2000 v2','EcoFlow DELTA Pro 3','Anker SOLIX F3800 Plus'];
+const st = pick.map(n => batteries.find(b => b.product === n)).filter(Boolean);
+// Champion Power Equipment wattage chart, furnace fan 1/2 HP: 300-800 W running, 1,600 W starting (checked 2026-11-09)
+const watts = [300, 550, 800];
+const hrs = (b,w) => b.capacity_kwh*1000*0.85/w;
+const j2 = st.find(b => b.product==='Jackery Explorer 2000 v2');
+const dp3 = st.find(b => b.product==='EcoFlow DELTA Pro 3');
+const day = 550*12/1000;
+const faq = [
+["How long will a power station run a gas furnace?", `A 2,042 Wh station runs a typical 550 W furnace blower for about ${hrs(j2,550).toFixed(1)} hours of blower time. If the blower runs 12 hours a day, that is about ${day.toFixed(1)} kWh per day, so one 2 kWh station covers well under one day.`],
+["Why does a gas furnace need electricity?", "The blower fan, control board, and igniter run on electricity, so most modern gas furnaces will not heat when the power is out, even though the fuel is gas."],
+["How many watts does a furnace blower use?", "The Champion wattage chart lists 300–800 W running and up to 1,600 W to start for a 1/2 HP furnace fan. Your furnace's label or manual has the exact figure."],
+["Can I just plug my furnace into a power station?", "Only if it is set up for it. Most furnaces are hardwired, so the safe routes are a listed transfer switch or interlock installed by a licensed electrician, or a plug-in furnace circuit. Never backfeed through an outlet."],
+["Is it safe to run a station indoors during a winter outage?", "A battery station makes no exhaust, unlike a generator. Never run a gas generator indoors or near a window. See our generator safety page for the CDC and Ready.gov rules."]
+];
+---
+<Base title="How Long Will a Power Station Run a Gas Furnace?" description="A gas furnace blower uses 300-800 W and up to 1,600 W to start. Runtime on a 2 kWh power station, daily kWh, and how to connect it safely." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>How long will a power station run a gas furnace?</h1>
+<p class="lede"><strong>Short answer:</strong> about {hrs(j2,550).toFixed(0)} hours of blower time on a 2,000 Wh station, which is less than a day at 12 hours of blower run time. A gas furnace only needs the blower, controls, and igniter, about 550 W on average, but it still adds up to roughly {day.toFixed(1)} kWh a day. Figures as of 2026-11-09.</p>
+<p class="note">Your furnace's label (watts, or amps × 120 V) beats any number below.</p>
+
+<h2>Step 1: Furnace watts</h2>
+<p>A gas furnace burns gas for heat, but the blower fan, control board, and igniter need electricity. The <a href="https://www.championpowerequipment.com/generator-wattage-chart/">Champion Power Equipment wattage chart</a> lists a 1/2 HP furnace fan at <strong>300–800 W running</strong> and <strong>1,600 W starting</strong> (checked 2026-11-09). We use 550 W, the midpoint, as the example.</p>
+
+<h2>Step 2: Runtime math</h2>
+<p><strong>Hours = battery Wh × 0.85 ÷ furnace watts.</strong> <span class="badge est">Assumption: 85% usable. Hours are blower-on hours, not clock hours</span></p>
+<div class="tbl"><table><thead><tr><th>Station (capacity, output, surge)</th>{watts.map(w => <th>{w} W blower</th>)}</tr></thead><tbody>
+{st.map(b => <tr><td><ProductLink product={b.product} button={false} /> ({(b.capacity_kwh*1000).toLocaleString()} Wh, {b.output_w.toLocaleString()} W, {b.surge_w.toLocaleString()} W surge)<br/><AffLink product={b.product} /></td>{watts.map(w => <td>≈ {hrs(b,w).toFixed(1)} h</td>)}</tr>)}
+</tbody></table></div>
+<p class="src">Capacities and ratings from our <a href="/portable-power-stations/">power station table</a> (November 9, 2026). Example: {(j2.capacity_kwh*1000).toLocaleString()} Wh × 0.85 ÷ 550 W = {hrs(j2,550).toFixed(1)} hours.</p>
+
+<h2>Step 3: A day and a night</h2>
+<p><span class="badge est">Estimate</span> If the blower runs 12 hours a day, 550 W × 12 h = <strong>{day.toFixed(1)} kWh per day</strong>. After the 0.85 usable factor that is {(day/0.85).toFixed(1)} kWh of battery per day. The {dp3.product} ({(dp3.capacity_kwh*1000).toLocaleString()} Wh) covers about {(dp3.capacity_kwh*0.85/day).toFixed(1)} days of that, a 2 kWh station about {(j2.capacity_kwh*0.85/day).toFixed(1)} days. Run the blower fewer hours, and it stretches.</p>
+
+<h2>Step 4: Connect it safely</h2>
+<p>Most furnaces are hardwired. The safe options are a listed transfer switch or interlock kit installed by a licensed electrician, or a furnace circuit built for a plug-in. The station's output must also cover the 1,600 W start on the Champion chart: the 1,800 W C1000X is just above it, and larger units have more headroom. <a href="/transfer-switch-vs-interlock-kit/">Transfer switch vs interlock →</a></p>
+<p>For longer winter outages see <a href="/winter-storm-power-outage-heat/">keeping the heat on for 3 days</a>, solar recharging in <a href="/solar-backup/">solar backup</a>, or <a href="/power-station-vs-generator-cost/">power station vs generator cost</a>. A plug-in space heater is a worse use of stored energy (<a href="/how-long-will-a-power-station-run-a-space-heater/">space heater runtime</a>).</p>
+<p><a href="/calculator/">Add your furnace and essentials in the calculator →</a> · <a href="/what-size-battery-generator/">Sizing guide</a></p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>

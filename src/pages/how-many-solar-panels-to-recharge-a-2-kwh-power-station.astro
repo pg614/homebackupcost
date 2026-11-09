@@ -1,0 +1,57 @@
+---
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+import ProductLink from '../components/ProductLink.astro';
+import solar from '../data/solar.json';
+import { batteries } from '../data/site.js';
+const A = solar.assumptions;
+const j2 = batteries.find(b => b.product === 'Jackery Explorer 2000 v2');
+const wh = j2.capacity_kwh*1000;
+const sun = [3, A.peak_sun_hours, 5];
+const perDay = (w,s) => w*s*A.derate;
+const panels = ['Jackery SolarSaga 200W Solar Panel','EcoFlow 400W Portable Solar Panel','BLUETTI PV350 Solar Panel','Anker SOLIX PS400 Bifacial Portable Solar Panel'].map(n => solar.panels.find(p => p.panel === n)).filter(Boolean);
+const watts = [200, 400, 800];
+const need4 = wh/(A.peak_sun_hours*A.derate);
+const faq = [
+["How many solar panels does it take to recharge a 2 kWh power station?", `With ${A.peak_sun_hours} peak sun hours and ${Math.round(A.derate*100)}% real-world output, about ${need4.toFixed(0)} W of panels refill a 2,042 Wh station from empty in one day. That is roughly 4 panels of 200 W or 2 of 400 W. One 200 W panel takes about ${(wh/perDay(200,A.peak_sun_hours)).toFixed(1)} days.`],
+["How long does a 400 W panel take to charge a 2 kWh station?", `About ${(wh/perDay(400,A.peak_sun_hours)).toFixed(1)} days at ${A.peak_sun_hours} peak sun hours, since 400 W × ${A.peak_sun_hours} h × ${A.derate} = ${perDay(400,A.peak_sun_hours)} Wh a day. Cloudy days can cut that a lot.`],
+["What are peak sun hours?", "The number of hours a day when sunlight equals 1,000 W per square meter. Our 4-hour value is an assumption; winter and clouds lower it. Use NREL's PVWatts for your address."],
+["Can my station take that much solar?", "Every station has a maximum solar input in watts. Check the maker's spec for your model before buying panels; panels beyond that limit add nothing."],
+["Is solar recharging enough for a long outage?", "For a few devices, yes. For a fridge and furnace blower, a 2 kWh station and a few panels will fall short. See the longer-outage options below."]
+];
+---
+<Base title="How Many Solar Panels to Recharge a 2 kWh Power Station?" description="About 680 W of panels refill a 2 kWh power station in one day at 4 sun hours. Recharge time for 200 W, 400 W and 800 W, with panel prices." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>How many solar panels does it take to recharge a 2 kWh power station?</h1>
+<p class="lede"><strong>Short answer:</strong> about {need4.toFixed(0)} W of panels, such as 4 × 200 W or 2 × 400 W, to refill a 2,042 Wh station from empty in one sunny day. A single 200 W panel takes about {(wh/perDay(200,A.peak_sun_hours)).toFixed(1)} days. Based on our assumption of {A.peak_sun_hours} peak sun hours; panel prices as of 2026-11-09.</p>
+<p class="note"><span class="badge est">Assumption</span> {A.peak_sun_hours} peak sun hours a day and {Math.round(A.derate*100)}% real-world panel output (angle, heat, dust, charging losses). Winter and clouds can be much lower. Get your address's value from NREL's <a href="https://pvwatts.nlr.gov/">PVWatts</a>.</p>
+
+<h2>Step 1: Energy per panel per day</h2>
+<p><strong>Wh per day = panel watts × peak sun hours × {A.derate}.</strong></p>
+<div class="tbl"><table><thead><tr><th>Panel array</th>{sun.map(s => <th>{s} sun hours</th>)}</tr></thead><tbody>
+{watts.map(w => <tr><td>{w} W</td>{sun.map(s => <td>{perDay(w,s).toFixed(0)} Wh/day</td>)}</tr>)}
+</tbody></table></div>
+
+<h2>Step 2: Days to fill {wh.toLocaleString()} Wh</h2>
+<p><strong>Days = {wh.toLocaleString()} Wh ÷ Wh per day.</strong> The station is the <a href="/portable-power-stations/">Jackery Explorer 2000 v2</a> at {wh.toLocaleString()} Wh; any 2 kWh station is close.</p>
+<div class="tbl"><table><thead><tr><th>Panel array</th>{sun.map(s => <th>{s} sun hours</th>)}</tr></thead><tbody>
+{watts.map(w => <tr><td>{w} W</td>{sun.map(s => <td>≈ {(wh/perDay(w,s)).toFixed(1)} days</td>)}</tr>)}
+</tbody></table></div>
+<p class="src">Example: {wh.toLocaleString()} ÷ (400 × {A.peak_sun_hours} × {A.derate}) = {wh.toLocaleString()} ÷ {perDay(400,A.peak_sun_hours)} = {(wh/perDay(400,A.peak_sun_hours)).toFixed(1)} days. Capacity from our power station table (November 9, 2026).</p>
+
+<h2>Step 3: Panels we track</h2>
+<div class="tbl"><table><thead><tr><th>Panel</th><th>Watts</th><th>Price</th><th>Fits</th><th>Wh/day at {A.peak_sun_hours} h</th></tr></thead><tbody>
+{panels.map(p => <tr><td><strong><a href={p.product_url} target="_blank" rel="nofollow sponsored noopener" data-affiliate="placeholder" data-program={p.brand} data-product={p.panel}>{p.panel}</a></strong><br/><a class="btn ghost buy" href={p.product_url} target="_blank" rel="nofollow sponsored noopener" data-affiliate="placeholder" data-program={p.brand} data-product={p.panel}>Check price at {p.brand} ↗</a></td><td>{p.watts} W</td><td>{p.price_note}</td><td>{p.fits.join(', ')}</td><td>{perDay(p.watts,A.peak_sun_hours).toFixed(0)}</td></tr>)}
+</tbody></table></div>
+<p class="src">Prices from each brand's own site as of {panels[0].as_of}; compatibility per each maker. Panels are only useful up to your station's maximum solar input: check the station's spec page.</p>
+
+<h2>Step 4: Check the match</h2>
+<ul>
+<li><strong>Solar input limit:</strong> the station caps how many watts it accepts.</li>
+<li><strong>Voltage and connector:</strong> brand panels are the simplest match.</li>
+<li><strong>What you run:</strong> a TV and router are a small load (<a href="/how-long-will-a-power-station-run-a-tv-and-wifi/">TV and Wi-Fi runtime</a>); a furnace blower uses far more (<a href="/how-long-will-a-power-station-run-a-gas-furnace/">gas furnace runtime</a>).</li>
+</ul>
+<p>For bigger setups see <a href="/solar-backup/">solar backup</a> and <a href="/build-your-own-home-power-plant/">build your own home power plant</a>. <a href="/calculator/">Calculator →</a></p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>

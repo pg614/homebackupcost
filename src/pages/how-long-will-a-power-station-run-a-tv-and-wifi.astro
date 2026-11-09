@@ -1,0 +1,53 @@
+---
+import AffLink from '../components/AffLink.astro';
+import ProductLink from '../components/ProductLink.astro';
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { batteries } from '../data/site.js';
+const pick = ['EcoFlow RIVER 2 Pro','Anker SOLIX C1000X','Jackery Explorer 2000 v2','Bluetti Elite 200 v2'];
+const st = pick.map(n => batteries.find(b => b.product === n)).filter(Boolean);
+// Champion wattage chart (checked 2026-11-09): TV 32-55in 80-400 W; router/modem 10-20 W. Router uses the 15 W midpoint.
+const ROUTER = 15;
+const tvs = [[80,'Small/efficient TV'],[240,'Midpoint'],[400,'Large TV, high end']].map(([w,l]) => ({ w, l, total: w+ROUTER }));
+const hrs = (b,w) => b.capacity_kwh*1000*0.85/w;
+const j2 = st.find(b => b.product==='Jackery Explorer 2000 v2');
+const r2 = st.find(b => b.product==='EcoFlow RIVER 2 Pro');
+const mid = tvs[1];
+const faq = [
+["How long will a power station run a TV and Wi-Fi?", `A 2,042 Wh station runs a midpoint 240 W TV plus a 15 W router (${mid.total} W) for about ${hrs(j2,mid.total).toFixed(1)} hours. A small 80 W TV plus router lasts about ${hrs(j2,tvs[0].total).toFixed(0)} hours.`],
+["How many watts does a TV use?", "The Champion wattage chart lists 80–400 W for a 32–55 inch TV. The label or manual has your TV's number, and settings like brightness change it."],
+["How many watts does a Wi-Fi router use?", "The Champion chart lists 10–20 W for a router or modem. Running 24 hours at 15 W is about 0.36 kWh a day."],
+["Can a small power station run a router all day?", `Yes. A ${(r2.capacity_kwh*1000).toLocaleString()} Wh station runs a 15 W router for about ${hrs(r2,ROUTER).toFixed(0)} hours (${(hrs(r2,ROUTER)/24).toFixed(1)} days) on its own, if nothing else is plugged in.`],
+["Will Wi-Fi work if the neighborhood is out?", "Not always. Your router needs power, and so do your internet provider's local lines. A cable or fiber line can still go down in a wide outage, so a phone hotspot is a useful backup."]
+];
+---
+<Base title="How Long Will a Power Station Run a TV and Wi-Fi?" description="A TV uses 80-400 W and a router 10-20 W. Runtime for a TV plus Wi-Fi on 1 kWh and 2 kWh power stations, with the math shown." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>How long will a power station run a TV and Wi-Fi?</h1>
+<p class="lede"><strong>Short answer:</strong> about {hrs(j2,mid.total).toFixed(0)} hours on a 2,000 Wh station for a midpoint TV plus router, and about {hrs(j2,tvs[0].total).toFixed(0)} hours with a small efficient TV. The router alone is cheap: about 15 W. The TV is the load that matters. Figures as of 2026-11-09.</p>
+<p class="note">Your TV's label (watts) beats any number below.</p>
+
+<h2>Step 1: TV and router watts</h2>
+<p>The <a href="https://www.championpowerequipment.com/generator-wattage-chart/">Champion Power Equipment wattage chart</a> lists a 32–55 inch TV at <strong>80–400 W</strong> and a router/modem at <strong>10–20 W</strong> (checked 2026-11-09). We use 15 W for the router.</p>
+<div class="tbl"><table><thead><tr><th>Case</th><th>TV</th><th>Router</th><th>Total</th></tr></thead><tbody>
+{tvs.map(t => <tr><td>{t.l}</td><td>{t.w} W</td><td>{ROUTER} W</td><td>{t.total} W</td></tr>)}
+</tbody></table></div>
+
+<h2>Step 2: Runtime math</h2>
+<p><strong>Hours = battery Wh × 0.85 ÷ total watts.</strong> <span class="badge est">Assumption: 85% usable</span></p>
+<div class="tbl"><table><thead><tr><th>Station (capacity)</th>{tvs.map(t => <th>{t.total} W</th>)}<th>Router only (15 W)</th></tr></thead><tbody>
+{st.map(b => <tr><td><ProductLink product={b.product} button={false} /> ({(b.capacity_kwh*1000).toLocaleString()} Wh)<br/><AffLink product={b.product} /></td>{tvs.map(t => <td>≈ {hrs(b,t.total).toFixed(1)} h</td>)}<td>≈ {hrs(b,ROUTER).toFixed(0)} h</td></tr>)}
+</tbody></table></div>
+<p class="src">Capacities from our <a href="/portable-power-stations/">power station table</a> (November 9, 2026). Example: {(j2.capacity_kwh*1000).toLocaleString()} Wh × 0.85 ÷ {mid.total} W = {hrs(j2,mid.total).toFixed(1)} hours.</p>
+
+<h2>Step 3: Stretch it</h2>
+<ul>
+<li><strong>Router on, TV off</strong> most of the day. At 15 W, the router uses about {(ROUTER*24/1000).toFixed(2)} kWh in 24 hours.</li>
+<li><strong>Watch 3 hours a day</strong>: {mid.total} W × 3 h = {(mid.total*3/1000).toFixed(2)} kWh a day with the midpoint TV, so a 2 kWh station lasts about {(j2.capacity_kwh*0.85/(mid.total*3/1000+ROUTER*21/1000)).toFixed(1)} days (router running the other 21 hours).</li>
+<li><strong>Add solar</strong> to recharge: <a href="/how-many-solar-panels-to-recharge-a-2-kwh-power-station/">solar panels for a 2 kWh station</a>.</li>
+</ul>
+<p>The TV and router are small next to a fridge or furnace (<a href="/how-long-will-a-power-station-run-a-refrigerator/">fridge runtime</a>). For a full 3-day plan, see the <a href="/72-hour-power-outage-plan/">72-hour power outage plan</a>.</p>
+<p><a href="/calculator/">Add your TV, Wi-Fi and essentials in the calculator →</a> · <a href="/what-size-battery-generator/">Sizing guide</a></p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>

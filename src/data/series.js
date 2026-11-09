@@ -15,4 +15,7 @@ export const SERIES = [
   { href:'/how-long-will-a-power-station-run-a-chest-freezer/', title:'How long will a station run a chest freezer?', blurb:'ENERGY STAR kWh by freezer size and runtime for four stations.', icon:'❄️' },
   { href:'/how-long-will-a-power-station-run-a-well-pump/', title:'How long will a station run a well pump?', blurb:'Pump watts, daily water use, and which stations have 240 V.', icon:'🚰' },
   { href:'/how-long-will-a-power-station-run-a-window-ac/', title:'How long will a station run a window AC?', blurb:'Watts from CEER ratings and runtime nonstop or cycling.', icon:'🌬️' },
+  { href:'/how-long-will-a-power-station-run-a-gas-furnace/', title:'How long will a station run a gas furnace?', blurb:'Blower watts, daily kWh, and how to connect it safely.', icon:'🔥' },
+  { href:'/how-long-will-a-power-station-run-a-tv-and-wifi/', title:'How long will a station run a TV and Wi-Fi?', blurb:'TV and router watts with runtime on four stations.', icon:'📺' },
+  { href:'/how-many-solar-panels-to-recharge-a-2-kwh-power-station/', title:'How many solar panels to recharge a 2 kWh station?', blurb:'Panel watts, sun hours, and days to fill 2,042 Wh.', icon:'☀️' },
 ];

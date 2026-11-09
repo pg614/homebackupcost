@@ -1,5 +1,8 @@
 // Search titles (<60 chars) and meta descriptions (<155). Numbers here must match the sourced figures on each page.
 export const SEO = {
+ '/how-many-solar-panels-to-recharge-a-2-kwh-power-station/': ['How Many Solar Panels to Recharge a 2 kWh Power Station?','About 680 W of panels refill a 2 kWh power station in one day at 4 sun hours. Recharge time for 200 W, 400 W and 800 W, with panel prices.'],
+ '/how-long-will-a-power-station-run-a-tv-and-wifi/': ['How Long Will a Power Station Run a TV and Wi-Fi?','A TV uses 80-400 W and a router 10-20 W. Runtime for a TV plus Wi-Fi on 1 kWh and 2 kWh power stations, with the math shown.'],
+ '/how-long-will-a-power-station-run-a-gas-furnace/': ['How Long Will a Power Station Run a Gas Furnace?','A gas furnace blower uses 300-800 W and up to 1,600 W to start. Runtime on a 2 kWh power station, daily kWh, and how to connect it safely.'],
  '/how-long-will-a-power-station-run-a-chest-freezer/': ['How Long Will a Power Station Run a Chest Freezer?','A 1,000 Wh power station runs a medium ENERGY STAR chest freezer about 35 hours. Runtime by freezer size and station, with surge watts.'],
  '/how-long-will-a-power-station-run-a-well-pump/': ['How Long Will a Power Station Run a Well Pump?','A 1/2 HP well pump draws 750-1,000 W and up to 2,000 W to start. Daily kWh by water use, 240 V stations, and runtime math.'],
  '/how-long-will-a-power-station-run-a-window-ac/': ['How Long Will a Power Station Run a Window AC?','An efficient 5,000 BTU window AC uses about 350 W. Runtime by AC size and station, with ENERGY STAR CEER data and surge watts.'],
