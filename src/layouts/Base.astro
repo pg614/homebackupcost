@@ -39,7 +39,8 @@ const nav = [['/calculator/','Calculator'],['/solar-backup/','Solar'],['/quotes/
 <!doctype html>
 <html lang="en">
 <head>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q7EBVLRBWD" is:inline></script>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<script is:inline>(function(){try{var t=localStorage.getItem('hbc-theme');if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}document.documentElement.setAttribute('data-theme',t);if(location.pathname==='/'||location.pathname==='/index.html'){var light=t==='light';var mobile=light?'/hero/light-v3-m640.avif 640w, /hero/light-v3-m750.avif 750w, /hero/light-v3-m960.avif 960w':'/hero/dark-v2-m640.avif 640w, /hero/dark-v2-m750.avif 750w, /hero/dark-v2-m960.avif 960w';var desk=light?'/hero/light-v2-640.avif 640w, /hero/light-v2-960.avif 960w, /hero/light-v2-1280.avif 1280w':'/hero/dark-v2-640.avif 640w, /hero/dark-v2-960.avif 960w, /hero/dark-v2-1280.avif 1280w';document.write('<link rel="preload" as="image" type="image/avif" fetchpriority="high" media="(max-width: 720px)" imagesrcset="'+mobile+'" imagesizes="100vw"><link rel="preload" as="image" type="image/avif" fetchpriority="high" media="(min-width: 721px)" imagesrcset="'+desk+'" imagesizes="100vw">');}}catch(e){}})();</script>
 <script is:inline>
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
 gtag('js',new Date());gtag('config','G-Q7EBVLRBWD');
@@ -47,9 +48,10 @@ document.addEventListener('submit',function(e){var f=e.target;if(!f||!f.closest)
 var loc=b.classList.contains('nl-compact')?'footer':(location.pathname==='/'?'home':'guide');gtag('event','newsletter_signup',{form_location:loc});},true);
 document.addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[data-affiliate],a[rel~="sponsored"]');if(!a)return;
 gtag('event','affiliate_click',{link_url:a.href,program:a.getAttribute('data-program')||a.getAttribute('data-affiliate')||a.hostname,page_path:location.pathname,transport_type:'beacon'});},true);
+function loadGA(){if(loadGA.done)return;loadGA.done=1;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q7EBVLRBWD';document.head.appendChild(s);}
+window.addEventListener('load',function(){setTimeout(loadGA,0);});
 </script>
 
-<meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{title}</title><meta name="description" content={description} />
 {path !== "/404/" && <link rel="canonical" href={canonical} />}
 {path === '/404/' && <meta name="robots" content="noindex" />}
@@ -60,7 +62,6 @@ gtag('event','affiliate_click',{link_url:a.href,program:a.getAttribute('data-pro
 {isArticle && <meta property="article:modified_time" content={modified} />}
 <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
 <meta name="theme-color" content="#0b1020" media="(prefers-color-scheme: dark)" /><meta name="theme-color" content="#f6f8fc" media="(prefers-color-scheme: light)" />
-<script is:inline>(function(){try{var t=localStorage.getItem('hbc-theme');if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 {allSchema.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
 <style is:global>
