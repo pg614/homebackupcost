@@ -35,12 +35,12 @@ const stations = batteries.filter(b => !b.type.startsWith('installed') && b.capa
 </div>))}
 </div>
 <p class="src">Wattage ranges: <a href="https://www.championpowerequipment.com/generator-wattage-chart/" target="_blank" rel="noopener">Champion Power Equipment wattage chart</a> (as of {AS_OF}). <span class="badge est">Assumption</span> Default "h/day" values are our estimates of how long each appliance actually draws power (e.g. a fridge compressor runs about 1/3 of the time = 8 h/day). Edit them to match your home. Not listed yet (no verified figures): {unsourced.map(u => u.appliance).join('; ')}. For medical devices, use the watts on your device's label.</p>
-<h2>2. For how long?</h2>
-<div class="dur"><input type="range" id="dur" min="1" max="168" value="24" /><output id="durOut">24 hours</output></div>
+<h2 id="dur-label">2. For how long?</h2>
+<div class="dur"><input type="range" id="dur" min="1" max="168" value="24" aria-labelledby="dur-label" /><output id="durOut" for="dur">24 hours</output></div>
 <div class="presets" id="durBtns"><button type="button" data-h="8">8 h</button><button type="button" data-h="24">1 day</button><button type="button" data-h="72">3 days</button><button type="button" data-h="168">1 week</button></div>
-<h2>3. Your state <span class="mute" style="font-size:.9rem;font-weight:400">(for rebates)</span></h2>
+<h2 id="state-label">3. Your state <span class="mute" style="font-size:.9rem;font-weight:400">(for rebates)</span></h2>
 <label style="display:flex;gap:8px;align-items:center;margin:8px 0"><input type="checkbox" id="solarOn" /> Recharge with solar</label>
-<select id="state"><option value="">Choose a state…</option>{states.map(([k,v]) => <option value={k}>{v}</option>)}</select>
+<select id="state" aria-labelledby="state-label"><option value="">Choose a state…</option>{states.map(([k,v]) => <option value={k}>{v}</option>)}</select>
 </div>
 <div class="out" aria-live="polite">
 <div class="kpis">
