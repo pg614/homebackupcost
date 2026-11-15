@@ -1,17 +1,20 @@
 ---
 import AffLink from '../components/AffLink.astro';
 import ProductLink from '../components/ProductLink.astro';
+import ProductPhotos from '../components/ProductPhotos.astro';
 import Base from '../layouts/Base.astro';
 import Newsletter from '../components/Newsletter.astro';
 import { batteries } from '../data/site.js';
 const pick = ['EcoFlow RIVER 2 Pro','Anker SOLIX C1000X','Jackery Explorer 2000 v2','Bluetti Elite 200 v2'];
+const shots = ['BLUETTI Apex 300','EcoFlow DELTA Pro 3','Anker SOLIX F3800 Plus','Jackery Explorer 5000 Plus'];
 const st = pick.map(n => batteries.find(b => b.product === n)).filter(Boolean);
-// Champion wattage chart (checked 2026-11-09): TV 32-55in 80-400 W; router/modem 10-20 W. Router uses the 15 W midpoint.
+// Champion wattage chart (checked 2026-11-14): TV 32-55in 80-400 W; router/modem 10-20 W. Router uses the 15 W midpoint.
 const ROUTER = 15;
 const tvs = [[80,'Small/efficient TV'],[240,'Midpoint'],[400,'Large TV, high end']].map(([w,l]) => ({ w, l, total: w+ROUTER }));
 const hrs = (b,w) => b.capacity_kwh*1000*0.85/w;
 const j2 = st.find(b => b.product==='Jackery Explorer 2000 v2');
 const r2 = st.find(b => b.product==='EcoFlow RIVER 2 Pro');
+const shot = shots.map(n => batteries.find(b => b.product === n)).filter(Boolean);
 const mid = tvs[1];
 const faq = [
 ["How long will a power station run a TV and Wi-Fi?", `A 2,042 Wh station runs a midpoint 240 W TV plus a 15 W router (${mid.total} W) for about ${hrs(j2,mid.total).toFixed(1)} hours. A small 80 W TV plus router lasts about ${hrs(j2,tvs[0].total).toFixed(0)} hours.`],
@@ -23,11 +26,11 @@ const faq = [
 ---
 <Base title="How Long Will a Power Station Run a TV and Wi-Fi?" description="A TV uses 80-400 W and a router 10-20 W. Runtime for a TV plus Wi-Fi on 1 kWh and 2 kWh power stations, with the math shown." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
 <h1>How long will a power station run a TV and Wi-Fi?</h1>
-<p class="lede"><strong>Short answer:</strong> about {hrs(j2,mid.total).toFixed(0)} hours on a 2,000 Wh station for a midpoint TV plus router, and about {hrs(j2,tvs[0].total).toFixed(0)} hours with a small efficient TV. The router alone is cheap: about 15 W. The TV is the load that matters. Figures as of 2026-11-09.</p>
+<p class="lede"><strong>Short answer:</strong> about {hrs(j2,mid.total).toFixed(0)} hours on a 2,000 Wh station for a midpoint TV plus router, and about {hrs(j2,tvs[0].total).toFixed(0)} hours with a small efficient TV. The router alone is cheap: about 15 W. The TV is the load that matters. Figures as of 2026-11-14.</p>
 <p class="note">Your TV's label (watts) beats any number below.</p>
 
 <h2>Step 1: TV and router watts</h2>
-<p>The <a href="https://www.championpowerequipment.com/generator-wattage-chart/">Champion Power Equipment wattage chart</a> lists a 32–55 inch TV at <strong>80–400 W</strong> and a router/modem at <strong>10–20 W</strong> (checked 2026-11-09). We use 15 W for the router.</p>
+<p>The <a href="https://www.championpowerequipment.com/generator-wattage-chart/">Champion Power Equipment wattage chart</a> lists a 32–55 inch TV at <strong>80–400 W</strong> and a router/modem at <strong>10–20 W</strong> (checked 2026-11-14). We use 15 W for the router.</p>
 <div class="tbl"><table><thead><tr><th>Case</th><th>TV</th><th>Router</th><th>Total</th></tr></thead><tbody>
 {tvs.map(t => <tr><td>{t.l}</td><td>{t.w} W</td><td>{ROUTER} W</td><td>{t.total} W</td></tr>)}
 </tbody></table></div>
@@ -37,7 +40,7 @@ const faq = [
 <div class="tbl"><table><thead><tr><th>Station (capacity)</th>{tvs.map(t => <th>{t.total} W</th>)}<th>Router only (15 W)</th></tr></thead><tbody>
 {st.map(b => <tr><td><ProductLink product={b.product} button={false} /> ({(b.capacity_kwh*1000).toLocaleString()} Wh)<br/><AffLink product={b.product} /></td>{tvs.map(t => <td>≈ {hrs(b,t.total).toFixed(1)} h</td>)}<td>≈ {hrs(b,ROUTER).toFixed(0)} h</td></tr>)}
 </tbody></table></div>
-<p class="src">Capacities from our <a href="/portable-power-stations/">power station table</a> (November 9, 2026). Example: {(j2.capacity_kwh*1000).toLocaleString()} Wh × 0.85 ÷ {mid.total} W = {hrs(j2,mid.total).toFixed(1)} hours.</p>
+<p class="src">Capacities from our <a href="/portable-power-stations/">power station table</a> (November 14, 2026). Example: {(j2.capacity_kwh*1000).toLocaleString()} Wh × 0.85 ÷ {mid.total} W = {hrs(j2,mid.total).toFixed(1)} hours.</p>
 
 <h2>Step 3: Stretch it</h2>
 <ul>
@@ -45,8 +48,20 @@ const faq = [
 <li><strong>Watch 3 hours a day</strong>: {mid.total} W × 3 h = {(mid.total*3/1000).toFixed(2)} kWh a day with the midpoint TV, so a 2 kWh station lasts about {(j2.capacity_kwh*0.85/(mid.total*3/1000+ROUTER*21/1000)).toFixed(1)} days (router running the other 21 hours).</li>
 <li><strong>Add solar</strong> to recharge: <a href="/how-many-solar-panels-to-recharge-a-2-kwh-power-station/">solar panels for a 2 kWh station</a>.</li>
 </ul>
-<p>The TV and router are small next to a fridge or furnace (<a href="/how-long-will-a-power-station-run-a-refrigerator/">fridge runtime</a>). For a full 3-day plan, see the <a href="/72-hour-power-outage-plan/">72-hour power outage plan</a>.</p>
+<p>The TV and router are small next to a fridge or furnace (<a href="/how-long-will-a-power-station-run-a-refrigerator/">fridge runtime</a>). Lights and a laptop charger are even smaller (<a href="/how-long-will-a-power-station-run-lights-and-phone-chargers/">lights and phone chargers</a>). For a full 3-day plan, see the <a href="/72-hour-power-outage-plan/">72-hour power outage plan</a>.</p>
 <p><a href="/calculator/">Add your TV, Wi-Fi and essentials in the calculator →</a> · <a href="/what-size-battery-generator/">Sizing guide</a></p>
+
+<h2>Larger stations, if the TV is not the only load</h2>
+<p>A TV plus router does not need a 3–5 kWh station. These four are the models we have press photos for. They make sense when the same battery is also covering a fridge or furnace, and the TV is just one more plug. Hours are continuous runtime at {mid.total} W (the midpoint TV plus the 15 W router). Ready.gov says a gas generator stays outdoors, at least 20 feet from the house (<a href="/generator-safety/">generator safety</a>). A battery can sit in the room with the TV, with no exhaust and no fuel.</p>
+<ProductPhotos products={shots} title="Stations with press photos" />
+{shot.map(b => <div class="card" style="margin-bottom:12px">
+<h3><ProductLink product={b.product} /></h3>
+<p>Continuous TV plus router: about <strong>{hrs(b,mid.total).toFixed(1)} hours</strong>. Router only, at 15 W: about <strong>{hrs(b,ROUTER).toFixed(0)} hours</strong> ({(hrs(b,ROUTER)/24).toFixed(1)} days) if nothing else is on.</p>
+{b.product==='BLUETTI Apex 300' && <p>2,764.8 Wh, 3,840 W output, 7,680 W lifting power. BLUETTI lists generator charging up to 11.5 kW at 120/240 V, and solar input up to 4,000 W that the page says requires a SolarX 4K. The page chrome says "Global Warranty" without a year count in the spec text we read. Sale price $1,499 ($1,699 list). The page says it is expected to ship in late January. For a TV, the reason to buy it is the other loads it can start, not the screen itself.</p>}
+{b.product==='EcoFlow DELTA Pro 3' && <p>4,096 Wh and 4,000 W (6,000 W with X-Boost), with 2,600 W of solar input. EcoFlow says solar, car, or outlet charging reaches 80% in 50 minutes, and lists AC input of 1,800 W at 100–120 V. Specs list a 5-year warranty. Sale price $2,799 ($3,299 regular); standalone was unavailable on 2026-11-14. It keeps a TV and router up for well over half a day even while you are not being careful, and it does that indoors.</p>}
+{b.product==='Anker SOLIX F3800 Plus' && <p>3,840 Wh, 6,000 W, 9,000 W surge. Anker lists 3,200 W solar input and a full recharge in under 2 hours in optimal sunlight, plus 240 V wall charging with no hour figure published. 5-year warranty. Page price $2,399.99 with code WSTD26BFC6 ($600 off $2,999.99); sold out on 2026-11-14. Quiet enough to watch TV next to, which a generator outside in the rain is not.</p>}
+{b.product==='Jackery Explorer 5000 Plus' && <p>5,040 Wh, 7,200 W, 14,400 W surge. Jackery says about 2 hours to recharge with up to 4,000 W solar input, and a 5-year warranty on Jackery.com purchases. Standalone $3,499 was unavailable, with pre-orders listed to ship Nov 28. The battery-pack bundle was $5,899 ($6,199 list) and in stock. At this size the TV is a rounding error next to a fridge and a furnace blower.</p>}
+</div>)}
 <h2>FAQ</h2>
 {faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
 <Newsletter />

@@ -2,9 +2,11 @@
 import Base from '../layouts/Base.astro';
 import Newsletter from '../components/Newsletter.astro';
 import ProductLink from '../components/ProductLink.astro';
+import ProductPhotos from '../components/ProductPhotos.astro';
 import solar from '../data/solar.json';
 import { batteries } from '../data/site.js';
 const A = solar.assumptions;
+const shots = ['BLUETTI Apex 300','EcoFlow DELTA Pro 3','Anker SOLIX F3800 Plus','Jackery Explorer 5000 Plus'];
 const j2 = batteries.find(b => b.product === 'Jackery Explorer 2000 v2');
 const wh = j2.capacity_kwh*1000;
 const sun = [3, A.peak_sun_hours, 5];
@@ -22,7 +24,7 @@ const faq = [
 ---
 <Base title="How Many Solar Panels to Recharge a 2 kWh Power Station?" description="About 680 W of panels refill a 2 kWh power station in one day at 4 sun hours. Recharge time for 200 W, 400 W and 800 W, with panel prices." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
 <h1>How many solar panels does it take to recharge a 2 kWh power station?</h1>
-<p class="lede"><strong>Short answer:</strong> about {need4.toFixed(0)} W of panels, such as 4 × 200 W or 2 × 400 W, to refill a 2,042 Wh station from empty in one sunny day. A single 200 W panel takes about {(wh/perDay(200,A.peak_sun_hours)).toFixed(1)} days. Based on our assumption of {A.peak_sun_hours} peak sun hours; panel prices as of 2026-11-09.</p>
+<p class="lede"><strong>Short answer:</strong> about {need4.toFixed(0)} W of panels, such as 4 × 200 W or 2 × 400 W, to refill a 2,042 Wh station from empty in one sunny day. A single 200 W panel takes about {(wh/perDay(200,A.peak_sun_hours)).toFixed(1)} days. Based on our assumption of {A.peak_sun_hours} peak sun hours; panel prices as of 2026-11-14.</p>
 <p class="note"><span class="badge est">Assumption</span> {A.peak_sun_hours} peak sun hours a day and {Math.round(A.derate*100)}% real-world panel output (angle, heat, dust, charging losses). Winter and clouds can be much lower. Get your address's value from NREL's <a href="https://pvwatts.nlr.gov/">PVWatts</a>.</p>
 
 <h2>Step 1: Energy per panel per day</h2>
@@ -36,7 +38,7 @@ const faq = [
 <div class="tbl"><table><thead><tr><th>Panel array</th>{sun.map(s => <th>{s} sun hours</th>)}</tr></thead><tbody>
 {watts.map(w => <tr><td>{w} W</td>{sun.map(s => <td>≈ {(wh/perDay(w,s)).toFixed(1)} days</td>)}</tr>)}
 </tbody></table></div>
-<p class="src">Example: {wh.toLocaleString()} ÷ (400 × {A.peak_sun_hours} × {A.derate}) = {wh.toLocaleString()} ÷ {perDay(400,A.peak_sun_hours)} = {(wh/perDay(400,A.peak_sun_hours)).toFixed(1)} days. Capacity from our power station table (November 9, 2026).</p>
+<p class="src">Example: {wh.toLocaleString()} ÷ (400 × {A.peak_sun_hours} × {A.derate}) = {wh.toLocaleString()} ÷ {perDay(400,A.peak_sun_hours)} = {(wh/perDay(400,A.peak_sun_hours)).toFixed(1)} days. Capacity from our power station table (November 14, 2026).</p>
 
 <h2>Step 3: Panels we track</h2>
 <div class="tbl"><table><thead><tr><th>Panel</th><th>Watts</th><th>Price</th><th>Fits</th><th>Wh/day at {A.peak_sun_hours} h</th></tr></thead><tbody>
@@ -51,6 +53,26 @@ const faq = [
 <li><strong>What you run:</strong> a TV and router are a small load (<a href="/how-long-will-a-power-station-run-a-tv-and-wifi/">TV and Wi-Fi runtime</a>); a furnace blower uses far more (<a href="/how-long-will-a-power-station-run-a-gas-furnace/">gas furnace runtime</a>).</li>
 </ul>
 <p>For bigger setups see <a href="/solar-backup/">solar backup</a> and <a href="/build-your-own-home-power-plant/">build your own home power plant</a>. <a href="/calculator/">Calculator →</a></p>
+
+<h2>Stations we can show, and the solar input the maker lists</h2>
+<p>The 2,042 Wh example above is a Jackery Explorer 2000 v2. We do not have a press photo of that model, and its series page did not state a solar-input watt limit on 2026-11-14, so the limit still has to come from the spec sheet before you buy panels. These four larger stations do have photos, and each maker states a solar figure. Days below use the same {A.peak_sun_hours} sun-hour and {Math.round(A.derate*100)}% assumptions, filling the station from empty with one of our tracked panels. A generator refills nothing unless you burn fuel; these stations refill from the sun while the battery stays indoors (<a href="/generator-safety/">generator safety</a>).</p>
+<ProductPhotos products={shots} title="Stations with press photos" />
+<div class="card" style="margin-bottom:12px">
+<h3><ProductLink product="BLUETTI Apex 300" /></h3>
+<p>{(2.7648*1000).toLocaleString()} Wh. BLUETTI lists solar input up to 4,000 W and says that figure requires a SolarX 4K. One tracked BLUETTI PV350 (350 W, $649, page says ships from 12.25) makes about {perDay(350,A.peak_sun_hours).toFixed(0)} Wh a day, so empty-to-full is about {(2.7648*1000/perDay(350,A.peak_sun_hours)).toFixed(1)} days. <a class="btn ghost buy" href="https://www.bluettipower.com/products/350w-solar-panel" target="_blank" rel="nofollow sponsored noopener" data-affiliate="placeholder" data-program="BLUETTI" data-product="BLUETTI PV350 Solar Panel">Check price at BLUETTI ↗</a> The page also lists generator charging up to 11.5 kW at 120/240 V. Page chrome says "Global Warranty" without a year count in the spec text. Sale price $1,499. Worth it when you want the smallest of these four and a panel that BLUETTI lists as compatible, instead of a generator you have to keep outside and refuel.</p>
+</div>
+<div class="card" style="margin-bottom:12px">
+<h3><ProductLink product="EcoFlow DELTA Pro 3" /></h3>
+<p>4,096 Wh and 2,600 W maximum solar input. EcoFlow's 400 W panel is $699 and was out of stock; one panel is about {perDay(400,A.peak_sun_hours).toFixed(0)} Wh a day, or about {(4096/perDay(400,A.peak_sun_hours)).toFixed(1)} days to refill. <a class="btn ghost buy" href="https://us.ecoflow.com/products/400w-portable-solar-panel" target="_blank" rel="nofollow sponsored noopener" data-affiliate="placeholder" data-program="EcoFlow" data-product="EcoFlow 400W Portable Solar Panel">Check price at EcoFlow ↗</a> EcoFlow says solar, car, or outlet charging reaches 80% in 50 minutes, and lists a 5-year warranty. Sale price $2,799; standalone was unavailable. Two 400 W panels stay under the 2,600 W input limit. That is the recharge path a gas generator does not have.</p>
+</div>
+<div class="card" style="margin-bottom:12px">
+<h3><ProductLink product="Anker SOLIX F3800 Plus" /></h3>
+<p>3,840 Wh and up to 3,200 W solar input. Anker says a full solar recharge takes under 2 hours in optimal sunlight. The PS400 panel is $599.99 with code WSTD26BFJ8 ($200 off $799.99) and was on preorder. <a class="btn ghost buy" href="https://www.ankersolix.com/products/ps400-bifacial-portable-solar-panel" target="_blank" rel="nofollow sponsored noopener" data-affiliate="placeholder" data-program="Anker SOLIX" data-product="Anker SOLIX PS400 Bifacial Portable Solar Panel">Check price at Anker SOLIX ↗</a> One 400 W panel is about {(3840/perDay(400,A.peak_sun_hours)).toFixed(1)} days at our assumption, which is slower than Anker's "under 2 hours" claim because that claim needs enough panels to hit the 3,200 W input, not a single 400 W panel. 5-year warranty. Station price $2,399.99 with code WSTD26BFC6; sold out on 2026-11-14.</p>
+</div>
+<div class="card" style="margin-bottom:12px">
+<h3><ProductLink product="Jackery Explorer 5000 Plus" /></h3>
+<p>5,040 Wh. Jackery says about 2 hours with up to 4,000 W solar input, and a 5-year warranty on Jackery.com purchases. A SolarSaga 200 W panel is $429. <a class="btn ghost buy" href="https://www.jackery.com/products/solarsaga-200w-solar-panel" target="_blank" rel="nofollow sponsored noopener" data-affiliate="placeholder" data-program="Jackery" data-product="Jackery SolarSaga 200W Solar Panel">Check price at Jackery ↗</a> One of them is about {perDay(200,A.peak_sun_hours).toFixed(0)} Wh a day, or about {(5040/perDay(200,A.peak_sun_hours)).toFixed(1)} days to refill this station. Four of them (800 W) take about {(5040/perDay(800,A.peak_sun_hours)).toFixed(1)} days, still under the 4,000 W input. Standalone $3,499 was unavailable, with pre-orders listed to ship Nov 28. Solar is how this station outlasts a tank of gas on a multi-day outage.</p>
+</div>
 <h2>FAQ</h2>
 {faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
 <Newsletter />

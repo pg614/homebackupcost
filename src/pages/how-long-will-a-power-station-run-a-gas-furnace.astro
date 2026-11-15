@@ -1,16 +1,19 @@
 ---
 import AffLink from '../components/AffLink.astro';
 import ProductLink from '../components/ProductLink.astro';
+import ProductPhotos from '../components/ProductPhotos.astro';
 import Base from '../layouts/Base.astro';
 import Newsletter from '../components/Newsletter.astro';
 import { batteries } from '../data/site.js';
 const pick = ['Anker SOLIX C1000X','Jackery Explorer 2000 v2','EcoFlow DELTA Pro 3','Anker SOLIX F3800 Plus'];
+const shots = ['BLUETTI Apex 300','EcoFlow DELTA Pro 3','Anker SOLIX F3800 Plus','Jackery Explorer 5000 Plus'];
 const st = pick.map(n => batteries.find(b => b.product === n)).filter(Boolean);
-// Champion Power Equipment wattage chart, furnace fan 1/2 HP: 300-800 W running, 1,600 W starting (checked 2026-11-09)
+// Champion Power Equipment wattage chart, furnace fan 1/2 HP: 300-800 W running, 1,600 W starting (checked 2026-11-14)
 const watts = [300, 550, 800];
 const hrs = (b,w) => b.capacity_kwh*1000*0.85/w;
 const j2 = st.find(b => b.product==='Jackery Explorer 2000 v2');
 const dp3 = st.find(b => b.product==='EcoFlow DELTA Pro 3');
+const shot = shots.map(n => batteries.find(b => b.product === n)).filter(Boolean);
 const day = 550*12/1000;
 const faq = [
 ["How long will a power station run a gas furnace?", `A 2,042 Wh station runs a typical 550 W furnace blower for about ${hrs(j2,550).toFixed(1)} hours of blower time. If the blower runs 12 hours a day, that is about ${day.toFixed(1)} kWh per day, so one 2 kWh station covers well under one day.`],
@@ -22,18 +25,18 @@ const faq = [
 ---
 <Base title="How Long Will a Power Station Run a Gas Furnace?" description="A gas furnace blower uses 300-800 W and up to 1,600 W to start. Runtime on a 2 kWh power station, daily kWh, and how to connect it safely." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
 <h1>How long will a power station run a gas furnace?</h1>
-<p class="lede"><strong>Short answer:</strong> about {hrs(j2,550).toFixed(0)} hours of blower time on a 2,000 Wh station, which is less than a day at 12 hours of blower run time. A gas furnace only needs the blower, controls, and igniter, about 550 W on average, but it still adds up to roughly {day.toFixed(1)} kWh a day. Figures as of 2026-11-09.</p>
+<p class="lede"><strong>Short answer:</strong> about {hrs(j2,550).toFixed(0)} hours of blower time on a 2,000 Wh station, which is less than a day at 12 hours of blower run time. A gas furnace only needs the blower, controls, and igniter, about 550 W on average, but it still adds up to roughly {day.toFixed(1)} kWh a day. Figures as of 2026-11-14.</p>
 <p class="note">Your furnace's label (watts, or amps × 120 V) beats any number below.</p>
 
 <h2>Step 1: Furnace watts</h2>
-<p>A gas furnace burns gas for heat, but the blower fan, control board, and igniter need electricity. The <a href="https://www.championpowerequipment.com/generator-wattage-chart/">Champion Power Equipment wattage chart</a> lists a 1/2 HP furnace fan at <strong>300–800 W running</strong> and <strong>1,600 W starting</strong> (checked 2026-11-09). We use 550 W, the midpoint, as the example.</p>
+<p>A gas furnace burns gas for heat, but the blower fan, control board, and igniter need electricity. The <a href="https://www.championpowerequipment.com/generator-wattage-chart/">Champion Power Equipment wattage chart</a> lists a 1/2 HP furnace fan at <strong>300–800 W running</strong> and <strong>1,600 W starting</strong> (checked 2026-11-14). We use 550 W, the midpoint, as the example.</p>
 
 <h2>Step 2: Runtime math</h2>
 <p><strong>Hours = battery Wh × 0.85 ÷ furnace watts.</strong> <span class="badge est">Assumption: 85% usable. Hours are blower-on hours, not clock hours</span></p>
 <div class="tbl"><table><thead><tr><th>Station (capacity, output, surge)</th>{watts.map(w => <th>{w} W blower</th>)}</tr></thead><tbody>
 {st.map(b => <tr><td><ProductLink product={b.product} button={false} /> ({(b.capacity_kwh*1000).toLocaleString()} Wh, {b.output_w.toLocaleString()} W, {b.surge_w.toLocaleString()} W surge)<br/><AffLink product={b.product} /></td>{watts.map(w => <td>≈ {hrs(b,w).toFixed(1)} h</td>)}</tr>)}
 </tbody></table></div>
-<p class="src">Capacities and ratings from our <a href="/portable-power-stations/">power station table</a> (November 9, 2026). Example: {(j2.capacity_kwh*1000).toLocaleString()} Wh × 0.85 ÷ 550 W = {hrs(j2,550).toFixed(1)} hours.</p>
+<p class="src">Capacities and ratings from our <a href="/portable-power-stations/">power station table</a> (November 14, 2026). Example: {(j2.capacity_kwh*1000).toLocaleString()} Wh × 0.85 ÷ 550 W = {hrs(j2,550).toFixed(1)} hours.</p>
 
 <h2>Step 3: A day and a night</h2>
 <p><span class="badge est">Estimate</span> If the blower runs 12 hours a day, 550 W × 12 h = <strong>{day.toFixed(1)} kWh per day</strong>. After the 0.85 usable factor that is {(day/0.85).toFixed(1)} kWh of battery per day. The {dp3.product} ({(dp3.capacity_kwh*1000).toLocaleString()} Wh) covers about {(dp3.capacity_kwh*0.85/day).toFixed(1)} days of that, a 2 kWh station about {(j2.capacity_kwh*0.85/day).toFixed(1)} days. Run the blower fewer hours, and it stretches.</p>
@@ -42,6 +45,18 @@ const faq = [
 <p>Most furnaces are hardwired. The safe options are a listed transfer switch or interlock kit installed by a licensed electrician, or a furnace circuit built for a plug-in. The station's output must also cover the 1,600 W start on the Champion chart: the 1,800 W C1000X is just above it, and larger units have more headroom. <a href="/transfer-switch-vs-interlock-kit/">Transfer switch vs interlock →</a></p>
 <p>For longer winter outages see <a href="/winter-storm-power-outage-heat/">keeping the heat on for 3 days</a>, solar recharging in <a href="/solar-backup/">solar backup</a>, or <a href="/power-station-vs-generator-cost/">power station vs generator cost</a>. A plug-in space heater is a worse use of stored energy (<a href="/how-long-will-a-power-station-run-a-space-heater/">space heater runtime</a>).</p>
 <p><a href="/calculator/">Add your furnace and essentials in the calculator →</a> · <a href="/what-size-battery-generator/">Sizing guide</a></p>
+
+<h2>Picks that can start the blower</h2>
+<p>These four stations are the ones we have press photos for. Each lists continuous output above the 800 W running high end and surge or lifting power above the 1,600 W start on the Champion chart. Hours below are blower-on time at 550 W, using 85% of rated watt-hours. A gas generator has to stay outdoors: Ready.gov says at least 20 feet from windows, doors, and attached garages (<a href="/generator-safety/">generator safety</a>). A battery makes no exhaust, so it can sit inside by the transfer equipment.</p>
+<ProductPhotos products={shots} title="Stations with press photos" />
+{shot.map(b => <div class="card" style="margin-bottom:12px">
+<h3><ProductLink product={b.product} /></h3>
+<p>At 550 W this is about <strong>{hrs(b,550).toFixed(1)} hours</strong> of blower time ({(b.capacity_kwh*1000).toLocaleString()} Wh × 0.85 ÷ 550). Output is {b.output_w.toLocaleString()} W{b.product==='EcoFlow DELTA Pro 3' ? ' (up to 6,000 W with X-Boost)' : b.product==='BLUETTI Apex 300' ? ', with 7,680 W lifting power' : `, ${b.surge_w.toLocaleString()} W surge`}.</p>
+{b.product==='BLUETTI Apex 300' && <p>BLUETTI lists generator charging up to 11.5 kW at 120/240 V. Solar input is listed up to 4,000 W, and the page says that figure requires a SolarX 4K. The page chrome says "Global Warranty"; the spec text we read on 2026-11-14 did not state a term in years. Sale price is $1,499 ($1,699 before the sale). The page says the unit is expected to ship in late January. It beats a gas generator here because the blower runs for hours inside the house, with no fuel cans and no exhaust to keep 20 feet from the windows.</p>}
+{b.product==='EcoFlow DELTA Pro 3' && <p>EcoFlow lists 2,600 W maximum solar input (two PV ports) and says solar, car, or outlet charging reaches 80% in 50 minutes. AC charging input is listed as 1,800 W at 100–120 V. The spec block lists a 5-year warranty (3-year standard plus a 2-year extended warranty when you register). Sale price is $2,799 ($3,299 regular); the standalone unit was unavailable on 2026-11-14. It also has 120/240 V output, so the same station can cover other 240 V loads the blower does not need. Indoors, with no engine, it avoids the carbon monoxide problem a generator brings to a winter outage.</p>}
+{b.product==='Anker SOLIX F3800 Plus' && <p>Anker lists up to 3,200 W solar input and says the station fully recharges in under 2 hours in optimal sunlight. The same page says 240 V AC wall outlets can recharge it faster, without a wall-charge hour count. It lists a 5-year warranty and a 10-year lifespan claim. The price on the page is $2,399.99 with code WSTD26BFC6 ($600 off $2,999.99). The unit was sold out on 2026-11-14. Six thousand watts of output leaves headroom if the blower starts while something else is on, which a small generator sized only for the fan does not.</p>}
+{b.product==='Jackery Explorer 5000 Plus' && <p>Jackery says it recharges in about 2 hours with up to 4,000 W of solar input. A footnote says a separate 1.7-hour charge time was measured through the Smart Transfer Switch, not a wall outlet. The page lists a 5-year warranty when you buy from Jackery.com, and says "11 years" is theoretical cell life from 4,000 cycles. Standalone price is $3,499 and was unavailable; the page says pre-orders ship Nov 28. The bundle with a battery pack was $5,899 ($6,199 list) and in stock. At 5,040 Wh it is the longest blower runtime of these four, still with no gasoline and no exhaust in the house.</p>}
+</div>)}
 <h2>FAQ</h2>
 {faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
 <Newsletter />

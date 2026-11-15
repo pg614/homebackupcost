@@ -1,0 +1,56 @@
+---
+import AffLink from '../components/AffLink.astro';
+import ProductLink from '../components/ProductLink.astro';
+import ProductPhotos from '../components/ProductPhotos.astro';
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { batteries } from '../data/site.js';
+const pick = ['Anker SOLIX C1000X','Bluetti Elite 200 v2','BLUETTI Apex 300','EcoFlow DELTA Pro 3'];
+const shots = ['BLUETTI Apex 300','EcoFlow DELTA Pro 3','Anker SOLIX F3800 Plus','Jackery Explorer 5000 Plus'];
+const st = pick.map(n => batteries.find(b => b.product === n)).filter(Boolean);
+const shot = shots.map(n => batteries.find(b => b.product === n)).filter(Boolean);
+// Champion wattage chart (checked 2026-11-14): washing machine 500-1,000 W running, 1,000-2,300 W starting.
+const watts = [500, 750, 1000];
+const hrs = (b,w) => b.capacity_kwh*1000*0.85/w;
+const c1 = st.find(b => b.product==='Anker SOLIX C1000X');
+const faq = [
+["How long will a power station run a washing machine?", `At 750 W, the midpoint of the Champion running range, a 1,056 Wh station lasts about ${hrs(c1,750).toFixed(1)} hours of motor-on time. A wash cycle is not an hour of full watts; the label or EnergyGuide is the better energy figure, and we do not have a sourced watt-hour total for one cycle.`],
+["How many watts does a washer need to start?", "The Champion chart lists 500–1,000 W running and 1,000–2,300 W to start. The station's surge or lifting rating has to cover the start, not just the running watts."],
+["Can I plug a washer into a power station?", "Only if the washer has a plug and the station's output covers the start. A hardwired laundry circuit needs a transfer switch or interlock installed by an electrician. Never backfeed through an outlet."],
+["Why not a gas generator for laundry day?", "A washer is an indoor motor load with a short surge. Ready.gov says a generator stays outdoors, at least 20 feet from the house. A battery has no exhaust and no fuel to haul to the laundry room."]
+];
+---
+<Base title="How Long Will a Power Station Run a Washer?" description="A washing machine uses 500-1,000 W running and up to 2,300 W to start. Runtime by station, with surge checked against the Champion chart." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>How long will a power station run a washing machine?</h1>
+<p class="lede"><strong>Short answer:</strong> about {hrs(c1,750).toFixed(1)} hours of motor-on time at 750 W on a 1,056 Wh station. The harder check is the start: Champion lists up to 2,300 W. Figures as of 2026-11-14.</p>
+<p class="note">We do not have a sourced watt-hour total for one wash cycle. The table is hours at the listed running watts, not "one load equals one hour."</p>
+
+<h2>Step 1: Washer watts</h2>
+<p>The <a href="https://www.championpowerequipment.com/generator-wattage-chart/">Champion Power Equipment wattage chart</a> lists a washing machine at <strong>500–1,000 W running</strong> and <strong>1,000–2,300 W starting</strong> (checked 2026-11-14). We use 750 W, the midpoint of the running range, as the example.</p>
+
+<h2>Step 2: Runtime math</h2>
+<p><strong>Hours = battery Wh × 0.85 ÷ running watts.</strong> <span class="badge est">Assumption: 85% usable. Hours are motor-on hours</span></p>
+<div class="tbl"><table><thead><tr><th>Station (capacity, output, surge)</th>{watts.map(w => <th>{w.toLocaleString()} W</th>)}</tr></thead><tbody>
+{st.map(b => <tr><td><ProductLink product={b.product} button={false} /> ({(b.capacity_kwh*1000).toLocaleString()} Wh, {b.output_w.toLocaleString()} W, {b.surge_w.toLocaleString()} W surge)<br/><AffLink product={b.product} /></td>{watts.map(w => <td>≈ {hrs(b,w).toFixed(1)} h</td>)}</tr>)}
+</tbody></table></div>
+<p class="src">Capacities from our <a href="/portable-power-stations/">power station table</a> (November 14, 2026). Example: {(c1.capacity_kwh*1000).toLocaleString()} Wh × 0.85 ÷ 750 W = {hrs(c1,750).toFixed(1)} hours. The C1000X lists 2,400 W SurgePad, just above the 2,300 W start. The Elite 200 V2 lists up to 3,900 W Power Lifting. The Apex 300 lists 7,680 W lifting power. The DELTA Pro 3 lists up to 6,000 W with X-Boost.</p>
+
+<h2>Step 3: Connect it</h2>
+<p>If the washer plugs into an outlet, the station's outlets have to match the plug and the start. A hardwired circuit needs a listed transfer switch or interlock. <a href="/transfer-switch-vs-interlock-kit/">Transfer switch vs interlock →</a> The same surge check shows up on a <a href="/how-long-will-a-power-station-run-a-well-pump/">well pump</a>.</p>
+
+<h2>Picks that cover the 2,300 W start</h2>
+<p>Press photos exist for these four. Each lists a surge, X-Boost, or lifting figure above 2,300 W, and continuous output above the 1,000 W running high end. A generator can start a washer too, but it has to live outside (<a href="/generator-safety/">generator safety</a>) and it burns fuel for a load that is only on for part of a cycle.</p>
+<ProductPhotos products={shots} title="Stations with press photos" />
+{shot.map(b => <div class="card" style="margin-bottom:12px">
+<h3><ProductLink product={b.product} /></h3>
+<p>About <strong>{hrs(b,750).toFixed(1)} hours</strong> of motor-on time at 750 W. Output {b.output_w.toLocaleString()} W.</p>
+{b.product==='BLUETTI Apex 300' && <p>2,764.8 Wh and 7,680 W lifting power, so the Champion start is inside the rating. Generator charging is listed up to 11.5 kW at 120/240 V. Solar input up to 4,000 W requires a SolarX 4K, per the page. "Global Warranty" is in the page chrome; no year count was in the spec text. $1,499 sale / $1,699 list, expected to ship in late January. It is the least expensive of these four that we could verify against a 2,300 W start.</p>}
+{b.product==='EcoFlow DELTA Pro 3' && <p>4,096 Wh, 4,000 W continuous, 6,000 W X-Boost, 120/240 V. Solar input 2,600 W. Reaches 80% in 50 minutes by solar, car, or outlet, per EcoFlow, with 1,800 W AC input at 100–120 V. 5-year warranty. $2,799 / $3,299; standalone unavailable on 2026-11-14. Extra hours matter if you wash more than one load before the power returns.</p>}
+{b.product==='Anker SOLIX F3800 Plus' && <p>3,840 Wh, 6,000 W, 9,000 W surge. Solar up to 3,200 W, full recharge in under 2 hours in optimal sunlight. 240 V wall recharge is mentioned without an hour count. 5-year warranty. $2,399.99 with code WSTD26BFC6; sold out on 2026-11-14. The surge margin is the reason to pick it over a station that only just clears 2,300 W.</p>}
+{b.product==='Jackery Explorer 5000 Plus' && <p>5,040 Wh, 7,200 W, 14,400 W surge. About 2 hours at up to 4,000 W solar. 5-year warranty from Jackery.com. Standalone $3,499 unavailable, pre-order ships Nov 28; battery-pack bundle $5,899 / $6,199 in stock. The washer is an easy load. The station earns its price on the rest of the house, without a gas can in the garage.</p>}
+</div>)}
+<p><a href="/calculator/">Add the washer and other essentials in the calculator →</a> · <a href="/how-long-will-a-power-station-run-a-microwave/">Microwave runtime</a></p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>

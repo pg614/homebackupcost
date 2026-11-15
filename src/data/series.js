@@ -18,4 +18,7 @@ export const SERIES = [
   { href:'/how-long-will-a-power-station-run-a-gas-furnace/', title:'How long will a station run a gas furnace?', blurb:'Blower watts, daily kWh, and how to connect it safely.', icon:'🔥' },
   { href:'/how-long-will-a-power-station-run-a-tv-and-wifi/', title:'How long will a station run a TV and Wi-Fi?', blurb:'TV and router watts with runtime on four stations.', icon:'📺' },
   { href:'/how-many-solar-panels-to-recharge-a-2-kwh-power-station/', title:'How many solar panels to recharge a 2 kWh station?', blurb:'Panel watts, sun hours, and days to fill 2,042 Wh.', icon:'☀️' },
+  { href:'/how-long-will-a-power-station-run-a-microwave/', title:'How long will a station run a microwave?', blurb:'600–1,200 W, no extra start watts, and how many 10-minute sessions fit.', icon:'🍲' },
+  { href:'/how-long-will-a-power-station-run-a-washing-machine/', title:'How long will a station run a washing machine?', blurb:'500–1,000 W running, up to 2,300 W to start, and which stations cover it.', icon:'👕' },
+  { href:'/how-long-will-a-power-station-run-lights-and-phone-chargers/', title:'How long will a station run lights and chargers?', blurb:'LED bulbs at 8–15 W and a phone or laptop charger at 20–100 W.', icon:'💡' },
 ];

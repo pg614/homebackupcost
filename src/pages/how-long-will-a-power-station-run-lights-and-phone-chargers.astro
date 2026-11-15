@@ -1,0 +1,65 @@
+---
+import AffLink from '../components/AffLink.astro';
+import ProductLink from '../components/ProductLink.astro';
+import ProductPhotos from '../components/ProductPhotos.astro';
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { batteries } from '../data/site.js';
+const pick = ['EcoFlow RIVER 2 Pro','Anker SOLIX C1000X','Jackery Explorer 2000 v2','BLUETTI Apex 300'];
+const shots = ['BLUETTI Apex 300','EcoFlow DELTA Pro 3','Anker SOLIX F3800 Plus','Jackery Explorer 5000 Plus'];
+const st = pick.map(n => batteries.find(b => b.product === n)).filter(Boolean);
+const shot = shots.map(n => batteries.find(b => b.product === n)).filter(Boolean);
+// Champion wattage chart (checked 2026-11-14): LED lights 8-15 W per bulb; phone/laptop charger 20-100 W. No extra starting watts.
+const cases = [
+  { w: 5*8, label: '5 bulbs at 8 W' },
+  { w: 5*15, label: '5 bulbs at 15 W' },
+  { w: 5*15+100, label: '5 bulbs at 15 W + 100 W charger' },
+];
+const hrs = (b,w) => b.capacity_kwh*1000*0.85/w;
+const r2 = st.find(b => b.product==='EcoFlow RIVER 2 Pro');
+const night = 5*10*8/1000;
+const faq = [
+["How long will a power station run LED lights?", `Five bulbs at the low end of the Champion range (8 W each, 40 W total) last about ${hrs(r2,40).toFixed(0)} hours on a 768 Wh station. Five bulbs at 15 W plus a 100 W laptop charger (175 W) last about ${hrs(r2,175).toFixed(1)} hours on that same station.`],
+["How many watts is an LED bulb?", "The Champion chart lists 8–15 W per bulb. The charger range on the same chart is 20–100 W for a phone or laptop. Count the bulbs you will actually leave on."],
+["What does one night of lights use?", `Five bulbs at 10 W, which is inside the 8–15 W range, for 8 hours is ${night.toFixed(2)} kWh. That is an example, not a measurement of your house.`],
+["Should I run a generator overnight just for lights?", "No. Ready.gov says generators stay outdoors, at least 20 feet from windows and doors, and CDC warns about carbon monoxide. A small battery covers lights indoors with no exhaust."]
+];
+---
+<Base title="How Long Will a Power Station Run Lights?" description="LED bulbs use 8-15 W each and a phone or laptop charger 20-100 W. Overnight runtime on a portable power station, with the math shown." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>How long will a power station run lights and phone chargers?</h1>
+<p class="lede"><strong>Short answer:</strong> a 768 Wh station runs five 8 W LED bulbs for about {hrs(r2,40).toFixed(0)} hours. Add a 100 W laptop charger to five 15 W bulbs and that same station lasts about {hrs(r2,175).toFixed(1)} hours. The bulbs are cheap. The charger is the load that moves the number. Figures as of 2026-11-14.</p>
+<p class="note">Count your bulbs. The Champion range is 8–15 W each, not a promise about a particular lamp.</p>
+
+<h2>Step 1: Watts</h2>
+<p>The <a href="https://www.championpowerequipment.com/generator-wattage-chart/">Champion Power Equipment wattage chart</a> lists <strong>LED lights at 8–15 W per bulb</strong> and a <strong>phone or laptop charger at 20–100 W</strong> (checked 2026-11-14). Both are in the group that does not need extra starting watts.</p>
+<div class="tbl"><table><thead><tr><th>Case</th><th>Total</th></tr></thead><tbody>
+{cases.map(c => <tr><td>{c.label}</td><td>{c.w} W</td></tr>)}
+</tbody></table></div>
+
+<h2>Step 2: Runtime math</h2>
+<p><strong>Hours = battery Wh × 0.85 ÷ total watts.</strong> <span class="badge est">Assumption: 85% usable</span></p>
+<div class="tbl"><table><thead><tr><th>Station (capacity)</th>{cases.map(c => <th>{c.w} W</th>)}</tr></thead><tbody>
+{st.map(b => <tr><td><ProductLink product={b.product} button={false} /> ({(b.capacity_kwh*1000).toLocaleString()} Wh)<br/><AffLink product={b.product} /></td>{cases.map(c => <td>≈ {hrs(b,c.w).toFixed(1)} h</td>)}</tr>)}
+</tbody></table></div>
+<p class="src">Capacities from our <a href="/portable-power-stations/">power station table</a> (November 14, 2026). Example: {(r2.capacity_kwh*1000).toLocaleString()} Wh × 0.85 ÷ 40 W = {hrs(r2,40).toFixed(1)} hours.</p>
+
+<h2>Step 3: One night</h2>
+<p><span class="badge est">Example</span> Five bulbs at 10 W (inside the 8–15 W range) for 8 hours is 5 × 10 × 8 = {(night*1000).toFixed(0)} Wh, or {night.toFixed(2)} kWh. The RIVER 2 Pro's usable energy is about {(r2.capacity_kwh*0.85).toFixed(2)} kWh, so that night fits with room left for a phone. A TV changes the picture (<a href="/how-long-will-a-power-station-run-a-tv-and-wifi/">TV and Wi-Fi runtime</a>). The <a href="/72-hour-power-outage-plan/">72-hour plan</a> adds the fridge.</p>
+<p>The cheapest station in this table is the RIVER 2 Pro at $369 sale / $529 regular. The C1000X is $479.99 with code WSTD26BFH4 ($120 off $599.99) if you also want 1,800 W for a larger charger or a small appliance.</p>
+
+<h2>If the lights ride along on a bigger station</h2>
+<p>These four have press photos. None of them is the right buy for lights alone. They are the right buy when lights and phones share a battery with a furnace blower or a fridge. At 175 W they last for days, and they do it in the room, not 20 feet out in the yard (<a href="/generator-safety/">generator safety</a>).</p>
+<ProductPhotos products={shots} title="Stations with press photos" />
+{shot.map(b => <div class="card" style="margin-bottom:12px">
+<h3><ProductLink product={b.product} /></h3>
+<p>Five 15 W bulbs plus a 100 W charger (175 W): about <strong>{hrs(b,175).toFixed(0)} hours</strong>. Five 8 W bulbs (40 W): about <strong>{hrs(b,40).toFixed(0)} hours</strong>.</p>
+{b.product==='BLUETTI Apex 300' && <p>2,764.8 Wh, 3,840 W, 7,680 W lifting power. Generator charging up to 11.5 kW at 120/240 V. Solar up to 4,000 W with a SolarX 4K required. "Global Warranty" on the page, no year count in the spec text. $1,499 sale. Expected to ship in late January. Lights are nearly free on a station this size. The purchase is for the motors.</p>}
+{b.product==='EcoFlow DELTA Pro 3' && <p>4,096 Wh, 4,000 W, 2,600 W solar, 80% in 50 minutes from solar, car, or outlet, 5-year warranty. $2,799 sale; standalone unavailable on 2026-11-14. Overnight lights do not move the needle. A day of furnace blower time does.</p>}
+{b.product==='Anker SOLIX F3800 Plus' && <p>3,840 Wh, 6,000 W, 9,000 W surge, 3,200 W solar, under 2 hours to full in optimal sunlight, 5-year warranty. $2,399.99 with code WSTD26BFC6; sold out on 2026-11-14. Same story: buy it for the house, and the lamps come along.</p>}
+{b.product==='Jackery Explorer 5000 Plus' && <p>5,040 Wh, 7,200 W, 14,400 W surge, about 2 hours at up to 4,000 W solar, 5-year warranty on Jackery.com. Standalone $3,499 unavailable, pre-order ships Nov 28. At 40 W this station's usable energy is measured in days, which is why people pair lights with a bigger outage plan instead of starting a generator at dusk.</p>}
+</div>)}
+<p><a href="/calculator/">Add your bulbs and chargers in the calculator →</a> · <a href="/what-size-battery-generator/">Sizing guide</a></p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>
