@@ -53,7 +53,7 @@ const stations = batteries.filter(b => !b.type.startsWith('installed') && b.capa
 <label class="mini" style="display:block;margin:6px 0">Power station <select id="station">{stations.map((b,i) => <option value={b.product} selected={b.product==='Jackery Explorer 2000 v2'}>{b.product} ({b.capacity_kwh} kWh)</option>)}</select></label>
 <label class="mini" style="display:block;margin:6px 0">400 W solar panels for recharge <input type="number" id="panels" min="0" max="12" value="0" /></label>
 <div id="lastOut"></div>
-<p class="src">Capacities: brand/retailer listings in our data (each links its source, as of Oct 2026). Solar uses our stated assumption of {solar.assumptions.peak_sun_hours} peak sun hours at {Math.round(solar.assumptions.derate*100)}% output; winter storms and hurricanes often bring clouds, so real recharge can be much lower. A station can't accept more solar than its input limit.</p>
+<p class="src">Capacities: brand/retailer listings in our data (each links its source, as of 2026-11-14). Solar uses our stated assumption of {solar.assumptions.peak_sun_hours} peak sun hours at {Math.round(solar.assumptions.derate*100)}% output; winter storms and hurricanes often bring clouds, so real recharge can be much lower. A station can't accept more solar than its input limit.</p>
 </div>
 <div id="results"></div>
 <EmailReport id="calcEmail" />
@@ -155,7 +155,7 @@ function run() {
     m.systems.forEach((s, i) => {
       html += `<tr><td>${i===0?'<span class="badge ok">Lowest cost</span><br>':''}<strong>${esc(s.base.product)}</strong> + ${s.n} × ${esc(s.exp.battery)}<br><span class="src">${fmt(s.base.output_w)} W out · max ${s.exp.max_per_base} add-ons · <a href="${s.exp.product_url}" target="_blank" rel="nofollow sponsored noopener" data-affiliate="placeholder" data-product="${esc(s.exp.battery)}">battery page ↗</a></span></td><td class="ok">${s.capacityKwh.toFixed(2)} kWh<br><span class="src">need ${r.kwh.toFixed(2)}</span></td><td><strong>${money(s.totalPrice)}</strong><br><span class="src">${money(s.base.price)} + ${s.n} × ${money(s.exp.price)} · <a href="${s.base.source_url}" target="_blank" rel="noopener">base</a> / <a href="${s.exp.source_url}" target="_blank" rel="noopener">battery</a> price as of ${esc(s.exp.as_of)}</span></td></tr>`;
     });
-    html += '</tbody></table></div><p class="src">*Sum of the listed prices, before tax, shipping, bundle discounts, and transfer hardware. Bundles are sometimes cheaper. Base and add-on battery prices were rechecked on 2026-11-07.</p>';
+    html += '</tbody></table></div><p class="src">*Sum of the listed prices, before tax, shipping, bundle discounts, and transfer hardware. Bundles are sometimes cheaper. Base and add-on battery prices were rechecked on 2026-11-14.</p>';
   }
   html += '<h3>Whole-home battery (installed)</h3>';
   for (const b of m.installed) html += `<p><strong>${b.units} × ${esc(b.product)}</strong> (${(b.units*b.capacity_kwh).toFixed(1)} kWh) <span class="badge est">Estimate</span> ≈ ${money(b.costLow)}–${money(b.costHigh)} installed${b.powerOk?'':' <span class="bad">(power may be short)</span>'}</p>`;

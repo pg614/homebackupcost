@@ -1,0 +1,57 @@
+---
+import AffLink from '../components/AffLink.astro';
+import ProductLink from '../components/ProductLink.astro';
+import ProductPhotos from '../components/ProductPhotos.astro';
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { batteries } from '../data/site.js';
+const pick = ['EcoFlow RIVER 2 Pro','Anker SOLIX C1000X','Jackery Explorer 2000 v2','BLUETTI Apex 300'];
+const shots = ['BLUETTI Apex 300','EcoFlow DELTA Pro 3','Anker SOLIX F3800 Plus','Jackery Explorer 5000 Plus'];
+const st = pick.map(n => batteries.find(b => b.product === n)).filter(Boolean);
+const shot = shots.map(n => batteries.find(b => b.product === n)).filter(Boolean);
+// Champion wattage chart (checked 2026-11-14): microwave 600-1,200 W, no extra starting watts.
+const watts = [600, 900, 1200];
+const hrs = (b,w) => b.capacity_kwh*1000*0.85/w;
+const runs = (b,w) => hrs(b,w) * 6;
+const mid = st.find(b => b.product==='Jackery Explorer 2000 v2');
+const faq = [
+["How long will a power station run a microwave?", `A 2,042 Wh station runs a 900 W microwave for about ${hrs(mid,900).toFixed(1)} hours of continuous use, or about ${runs(mid,900).toFixed(0)} separate 10-minute sessions. A microwave is usually on for minutes, not hours.`],
+["How many watts does a microwave use?", "The Champion wattage chart lists 600–1,200 W and says this appliance does not need extra starting watts. The label on the microwave is the number that matters."],
+["Can a small power station run a 1,200 W microwave?", "Only if its continuous output, or a listed boost mode, covers 1,200 W. The EcoFlow RIVER 2 Pro lists 800 W continuous and X-Boost to 1,600 W. The Anker SOLIX C1000X lists 1,800 W continuous."],
+["Is a battery better than a generator for a microwave?", "For a few minutes of cooking, yes. Ready.gov says a generator stays outdoors, at least 20 feet from the house. A battery can sit on the counter, makes no exhaust, and does not need gasoline for a 10-minute meal."]
+];
+---
+<Base title="How Long Will a Power Station Run a Microwave?" description="A microwave uses 600-1,200 W and no extra starting watts. Runtime and 10-minute sessions on portable power stations, with sourced specs." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>How long will a power station run a microwave?</h1>
+<p class="lede"><strong>Short answer:</strong> a long time if you count minutes, a short time if you leave it running. A 2,042 Wh station covers about {runs(mid,900).toFixed(0)} ten-minute sessions at 900 W, the midpoint of the Champion range. Figures as of 2026-11-14.</p>
+<p class="note">The label on your microwave beats any number below.</p>
+
+<h2>Step 1: Microwave watts</h2>
+<p>The <a href="https://www.championpowerequipment.com/generator-wattage-chart/">Champion Power Equipment wattage chart</a> lists a microwave at <strong>600–1,200 W</strong> and marks it as an appliance that does <strong>not need extra starting watts</strong> (checked 2026-11-14). We use 900 W, the midpoint, as the example.</p>
+
+<h2>Step 2: Runtime math</h2>
+<p><strong>Hours = battery Wh × 0.85 ÷ microwave watts.</strong> A 10-minute session uses watts × 10 ÷ 60 watt-hours. <span class="badge est">Assumption: 85% usable</span></p>
+<div class="tbl"><table><thead><tr><th>Station (capacity, output)</th>{watts.map(w => <th>{w.toLocaleString()} W</th>)}<th>10-min runs at 900 W</th></tr></thead><tbody>
+{st.map(b => <tr><td><ProductLink product={b.product} button={false} /> ({(b.capacity_kwh*1000).toLocaleString()} Wh, {b.output_w.toLocaleString()} W{b.product==='EcoFlow RIVER 2 Pro' ? ', X-Boost 1,600 W' : ''})<br/><AffLink product={b.product} /></td>{watts.map(w => <td>≈ {hrs(b,w).toFixed(1)} h</td>)}<td>≈ {runs(b,900).toFixed(0)}</td></tr>)}
+</tbody></table></div>
+<p class="src">Capacities from our <a href="/portable-power-stations/">power station table</a> (November 14, 2026). Example: {(mid.capacity_kwh*1000).toLocaleString()} Wh × 0.85 ÷ 900 W = {hrs(mid,900).toFixed(1)} hours, which is {runs(mid,900).toFixed(1)} sessions of 10 minutes. The RIVER 2 Pro's 800 W continuous rating is under 1,200 W; EcoFlow lists X-Boost to 1,600 W on that model.</p>
+
+<h2>Step 3: What a meal actually uses</h2>
+<p><span class="badge est">Example, not a lab test</span> Ten minutes at 900 W is {(900*10/60).toFixed(0)} Wh. Five of those meals is {(5*900*10/60).toFixed(0)} Wh, still a small slice of a 2 kWh station if you are not also running a <a href="/how-long-will-a-power-station-run-a-space-heater/">space heater</a> or a <a href="/how-long-will-a-power-station-run-a-refrigerator/">fridge</a>.</p>
+
+<h2>Picks that cover 1,200 W</h2>
+<p>These four have press photos and list continuous output above 1,200 W, so the high end of the Champion range does not depend on a boost mode. Each can sit indoors. A gas generator cannot: Ready.gov keeps it 20 feet outside (<a href="/generator-safety/">generator safety</a>), which is a lot of setup for reheating soup.</p>
+<ProductPhotos products={shots} title="Stations with press photos" />
+{shot.map(b => <div class="card" style="margin-bottom:12px">
+<h3><ProductLink product={b.product} /></h3>
+<p>About <strong>{runs(b,1200).toFixed(0)} ten-minute runs</strong> at 1,200 W, or {hrs(b,1200).toFixed(1)} hours if it never stopped. Output {b.output_w.toLocaleString()} W.</p>
+{b.product==='BLUETTI Apex 300' && <p>2,764.8 Wh, 3,840 W, 7,680 W lifting power. BLUETTI lists generator charging up to 11.5 kW at 120/240 V and solar input up to 4,000 W that requires a SolarX 4K. Page chrome says "Global Warranty" with no year count in the spec text we read. $1,499 sale / $1,699 list. The page says it is expected to ship in late January. You buy it for the whole kitchen, not for one microwave.</p>}
+{b.product==='EcoFlow DELTA Pro 3' && <p>4,096 Wh, 4,000 W, up to 6,000 W with X-Boost. Solar input 2,600 W. EcoFlow says solar, car, or outlet charging reaches 80% in 50 minutes, and lists a 5-year warranty. $2,799 sale / $3,299 regular; standalone was unavailable on 2026-11-14. A microwave is a short hit; the rest of the watt-hours stay for the fridge.</p>}
+{b.product==='Anker SOLIX F3800 Plus' && <p>3,840 Wh, 6,000 W, 9,000 W surge. Up to 3,200 W solar, full recharge in under 2 hours in optimal sunlight, and 240 V wall charging with no hour figure on the page. 5-year warranty. $2,399.99 with code WSTD26BFC6 ($600 off $2,999.99); sold out on 2026-11-14. No exhaust next to the microwave, which is the whole point versus a generator.</p>}
+{b.product==='Jackery Explorer 5000 Plus' && <p>5,040 Wh, 7,200 W, 14,400 W surge. About 2 hours with up to 4,000 W solar input. 5-year warranty on Jackery.com purchases. Standalone $3,499 was unavailable; the page says pre-orders ship Nov 28. The battery-pack bundle was $5,899 / $6,199 and in stock. Far more station than a microwave needs, and it still beats storing gasoline for a week of outages.</p>}
+</div>)}
+<p><a href="/calculator/">Add the microwave and the rest of the kitchen in the calculator →</a> · <a href="/how-long-will-a-power-station-run-a-washing-machine/">Washing machine runtime</a></p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>
