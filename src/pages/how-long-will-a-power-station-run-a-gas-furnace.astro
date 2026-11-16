@@ -36,7 +36,7 @@ const faq = [
 <div class="tbl"><table><thead><tr><th>Station (capacity, output, surge)</th>{watts.map(w => <th>{w} W blower</th>)}</tr></thead><tbody>
 {st.map(b => <tr><td><ProductLink product={b.product} button={false} /> ({(b.capacity_kwh*1000).toLocaleString()} Wh, {b.output_w.toLocaleString()} W, {b.surge_w.toLocaleString()} W surge)<br/><AffLink product={b.product} /></td>{watts.map(w => <td>≈ {hrs(b,w).toFixed(1)} h</td>)}</tr>)}
 </tbody></table></div>
-<p class="src">Capacities and ratings from our <a href="/portable-power-stations/">power station table</a> (November 14, 2026). Example: {(j2.capacity_kwh*1000).toLocaleString()} Wh × 0.85 ÷ 550 W = {hrs(j2,550).toFixed(1)} hours.</p>
+<p class="src">Capacities and ratings from our <a href="/portable-power-stations/">power station table</a> (November 16, 2026). Example: {(j2.capacity_kwh*1000).toLocaleString()} Wh × 0.85 ÷ 550 W = {hrs(j2,550).toFixed(1)} hours.</p>
 
 <h2>Step 3: A day and a night</h2>
 <p><span class="badge est">Estimate</span> If the blower runs 12 hours a day, 550 W × 12 h = <strong>{day.toFixed(1)} kWh per day</strong>. After the 0.85 usable factor that is {(day/0.85).toFixed(1)} kWh of battery per day. The {dp3.product} ({(dp3.capacity_kwh*1000).toLocaleString()} Wh) covers about {(dp3.capacity_kwh*0.85/day).toFixed(1)} days of that, a 2 kWh station about {(j2.capacity_kwh*0.85/day).toFixed(1)} days. Run the blower fewer hours, and it stretches.</p>

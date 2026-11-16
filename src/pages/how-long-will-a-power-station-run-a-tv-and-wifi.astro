@@ -40,7 +40,7 @@ const faq = [
 <div class="tbl"><table><thead><tr><th>Station (capacity)</th>{tvs.map(t => <th>{t.total} W</th>)}<th>Router only (15 W)</th></tr></thead><tbody>
 {st.map(b => <tr><td><ProductLink product={b.product} button={false} /> ({(b.capacity_kwh*1000).toLocaleString()} Wh)<br/><AffLink product={b.product} /></td>{tvs.map(t => <td>≈ {hrs(b,t.total).toFixed(1)} h</td>)}<td>≈ {hrs(b,ROUTER).toFixed(0)} h</td></tr>)}
 </tbody></table></div>
-<p class="src">Capacities from our <a href="/portable-power-stations/">power station table</a> (November 14, 2026). Example: {(j2.capacity_kwh*1000).toLocaleString()} Wh × 0.85 ÷ {mid.total} W = {hrs(j2,mid.total).toFixed(1)} hours.</p>
+<p class="src">Capacities from our <a href="/portable-power-stations/">power station table</a> (November 16, 2026). Example: {(j2.capacity_kwh*1000).toLocaleString()} Wh × 0.85 ÷ {mid.total} W = {hrs(j2,mid.total).toFixed(1)} hours.</p>
 
 <h2>Step 3: Stretch it</h2>
 <ul>

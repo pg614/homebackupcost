@@ -33,7 +33,7 @@ const faq = [
 <div class="tbl"><table><thead><tr><th>Station (capacity, output, surge)</th>{watts.map(w => <th>{w.toLocaleString()} W</th>)}</tr></thead><tbody>
 {st.map(b => <tr><td><ProductLink product={b.product} button={false} /> ({(b.capacity_kwh*1000).toLocaleString()} Wh, {b.output_w.toLocaleString()} W, {b.surge_w.toLocaleString()} W surge)<br/><AffLink product={b.product} /></td>{watts.map(w => <td>≈ {hrs(b,w).toFixed(1)} h</td>)}</tr>)}
 </tbody></table></div>
-<p class="src">Capacities from our <a href="/portable-power-stations/">power station table</a> (November 14, 2026). Example: {(c1.capacity_kwh*1000).toLocaleString()} Wh × 0.85 ÷ 750 W = {hrs(c1,750).toFixed(1)} hours. The C1000X lists 2,400 W SurgePad, just above the 2,300 W start. The Elite 200 V2 lists up to 3,900 W Power Lifting. The Apex 300 lists 7,680 W lifting power. The DELTA Pro 3 lists up to 6,000 W with X-Boost.</p>
+<p class="src">Capacities from our <a href="/portable-power-stations/">power station table</a> (November 16, 2026). Example: {(c1.capacity_kwh*1000).toLocaleString()} Wh × 0.85 ÷ 750 W = {hrs(c1,750).toFixed(1)} hours. The C1000X lists 2,400 W SurgePad, just above the 2,300 W start. The Elite 200 V2 lists up to 3,900 W Power Lifting. The Apex 300 lists 7,680 W lifting power. The DELTA Pro 3 lists up to 6,000 W with X-Boost.</p>
 
 <h2>Step 3: Connect it</h2>
 <p>If the washer plugs into an outlet, the station's outlets have to match the plug and the start. A hardwired circuit needs a listed transfer switch or interlock. <a href="/transfer-switch-vs-interlock-kit/">Transfer switch vs interlock →</a> The same surge check shows up on a <a href="/how-long-will-a-power-station-run-a-well-pump/">well pump</a>.</p>

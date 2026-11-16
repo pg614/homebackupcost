@@ -38,7 +38,7 @@ const faq = [
 <div class="tbl"><table><thead><tr><th>Panel array</th>{sun.map(s => <th>{s} sun hours</th>)}</tr></thead><tbody>
 {watts.map(w => <tr><td>{w} W</td>{sun.map(s => <td>≈ {(wh/perDay(w,s)).toFixed(1)} days</td>)}</tr>)}
 </tbody></table></div>
-<p class="src">Example: {wh.toLocaleString()} ÷ (400 × {A.peak_sun_hours} × {A.derate}) = {wh.toLocaleString()} ÷ {perDay(400,A.peak_sun_hours)} = {(wh/perDay(400,A.peak_sun_hours)).toFixed(1)} days. Capacity from our power station table (November 14, 2026).</p>
+<p class="src">Example: {wh.toLocaleString()} ÷ (400 × {A.peak_sun_hours} × {A.derate}) = {wh.toLocaleString()} ÷ {perDay(400,A.peak_sun_hours)} = {(wh/perDay(400,A.peak_sun_hours)).toFixed(1)} days. Capacity from our power station table (November 16, 2026).</p>
 
 <h2>Step 3: Panels we track</h2>
 <div class="tbl"><table><thead><tr><th>Panel</th><th>Watts</th><th>Price</th><th>Fits</th><th>Wh/day at {A.peak_sun_hours} h</th></tr></thead><tbody>

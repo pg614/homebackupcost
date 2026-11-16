@@ -41,7 +41,7 @@ const faq = [
 <div class="tbl"><table><thead><tr><th>Station (capacity)</th>{cases.map(c => <th>{c.w} W</th>)}</tr></thead><tbody>
 {st.map(b => <tr><td><ProductLink product={b.product} button={false} /> ({(b.capacity_kwh*1000).toLocaleString()} Wh)<br/><AffLink product={b.product} /></td>{cases.map(c => <td>≈ {hrs(b,c.w).toFixed(1)} h</td>)}</tr>)}
 </tbody></table></div>
-<p class="src">Capacities from our <a href="/portable-power-stations/">power station table</a> (November 14, 2026). Example: {(r2.capacity_kwh*1000).toLocaleString()} Wh × 0.85 ÷ 40 W = {hrs(r2,40).toFixed(1)} hours.</p>
+<p class="src">Capacities from our <a href="/portable-power-stations/">power station table</a> (November 16, 2026). Example: {(r2.capacity_kwh*1000).toLocaleString()} Wh × 0.85 ÷ 40 W = {hrs(r2,40).toFixed(1)} hours.</p>
 
 <h2>Step 3: One night</h2>
 <p><span class="badge est">Example</span> Five bulbs at 10 W (inside the 8–15 W range) for 8 hours is 5 × 10 × 8 = {(night*1000).toFixed(0)} Wh, or {night.toFixed(2)} kWh. The RIVER 2 Pro's usable energy is about {(r2.capacity_kwh*0.85).toFixed(2)} kWh, so that night fits with room left for a phone. A TV changes the picture (<a href="/how-long-will-a-power-station-run-a-tv-and-wifi/">TV and Wi-Fi runtime</a>). The <a href="/72-hour-power-outage-plan/">72-hour plan</a> adds the fridge.</p>
