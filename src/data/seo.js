@@ -1,5 +1,8 @@
 // Search titles (<60 chars) and meta descriptions (<155). Numbers here must match the sourced figures on each page.
 export const SEO = {
+ '/ecoflow-vs-anker-solix/': ['EcoFlow vs Anker SOLIX for Home Backup: Price per kWh','EcoFlow vs Anker SOLIX power stations side by side: capacity, output, surge, dated brand-site prices, cost per kWh, and runtime math.'],
+ '/jackery-vs-bluetti/': ['Jackery vs BLUETTI for Home Backup: Price per kWh','Jackery vs BLUETTI power stations side by side: capacity, output, surge, dated brand-site prices, cost per kWh, and runtime math.'],
+ '/michigan-home-battery-cost/': ['Home Battery Cost in Michigan (2026): $16,900 Average','A 13 kWh home battery averages $16,900 installed in Michigan ($1,300/kWh, EnergySage). Costs by size, rebate status, and EIA outage data.'],
  '/how-many-solar-panels-to-recharge-a-2-kwh-power-station/': ['How Many Solar Panels to Recharge a 2 kWh Power Station?','About 680 W of panels refill a 2 kWh power station in one day at 4 sun hours. Recharge time for 200 W, 400 W and 800 W, with panel prices.'],
  '/how-long-will-a-power-station-run-a-microwave/': ['How Long Will a Power Station Run a Microwave?','A microwave uses 600-1,200 W and no extra starting watts. Runtime and 10-minute sessions on portable power stations.'],
  '/how-long-will-a-power-station-run-a-washing-machine/': ['How Long Will a Power Station Run a Washer?','A washing machine uses 500-1,000 W running and up to 2,300 W to start. Runtime by station, with surge checked.'],

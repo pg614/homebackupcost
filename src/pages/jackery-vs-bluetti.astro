@@ -1,0 +1,58 @@
+---
+import ProductLink from '../components/ProductLink.astro';
+import Base from '../layouts/Base.astro';
+import ProductPhotos from '../components/ProductPhotos.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { batteries, USABLE, priceLow } from '../data/site.js';
+const rows = batteries.filter(b => /^(Jackery|BLUETTI|Bluetti)/.test(b.product)).map(b => { const p = priceLow(b.price); return { ...b, p, perkwh: p ? p / b.capacity_kwh : null }; }).sort((a,b) => a.capacity_kwh - b.capacity_kwh);
+const usd = n => '$' + Math.round(n).toLocaleString();
+const wh = b => Math.round(b.capacity_kwh*1000).toLocaleString();
+const e200 = rows.find(r => r.product === 'Bluetti Elite 200 v2');
+const j2 = rows.find(r => r.product === 'Jackery Explorer 2000 v2');
+const j1 = rows.find(r => r.product === 'Jackery Explorer 1000 v2');
+const apex = rows.find(r => r.product === 'BLUETTI Apex 300');
+const j5 = rows.find(r => r.product === 'Jackery Explorer 5000 Plus');
+const hrs = (b,w) => b.capacity_kwh*1000*USABLE/w;
+const faq = [
+["Is Jackery or BLUETTI better for home backup?", `It depends on size. Around 2 kWh, the ${e200.product} (${usd(e200.perkwh)}/kWh, ${e200.output_w.toLocaleString()} W) was cheaper per kWh and had more output than the ${j2.product} (${usd(j2.perkwh)}/kWh, ${j2.output_w.toLocaleString()} W) on ${j2.as_of}. For one big unit, the ${j5.product} has more capacity (${wh(j5)} Wh) and output (${j5.output_w.toLocaleString()} W) than the ${apex.product} (${wh(apex)} Wh, ${apex.output_w.toLocaleString()} W), but costs more per kWh.`],
+["Which is cheaper per kWh, Jackery or BLUETTI?", `In our ${j2.as_of} data: ${e200.product} ${usd(e200.perkwh)}/kWh, ${j2.product} ${usd(j2.perkwh)}/kWh, ${apex.product} ${usd(apex.perkwh)}/kWh, ${j1.product} ${usd(j1.perkwh)}/kWh, ${j5.product} ${usd(j5.perkwh)}/kWh. Prices come from the brands' own sites and change with sales.`],
+["Can I buy them today?", `On ${j2.as_of}, the ${e200.product} was a pre-order shipping from 11/26, the ${apex.product} was listed as available but expected to ship in late January, the ${j5.product} standalone was unavailable with pre-orders shipping Nov 28, the ${j1.product} was sold out, and the ${j2.product} $999 bundles were marked available.`],
+["How long will a 2 kWh Jackery or BLUETTI run a 500 W load?", `Using 85% of rated capacity as usable, the ${j2.product} runs about ${hrs(j2,500).toFixed(1)} hours at 500 W and the ${e200.product} about ${hrs(e200,500).toFixed(1)} hours.`]
+];
+---
+<Base updated="2026-11-16" title="Jackery vs BLUETTI for Home Backup | HomeBackupCost" description="Jackery vs BLUETTI power stations: capacity, output, surge, dated prices and cost per kWh." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>Jackery vs BLUETTI: which is better for home backup?</h1>
+<p class="lede"><strong>Short answer:</strong> at about 2 kWh, {e200.product} was cheaper per kWh ({usd(e200.perkwh)} vs {usd(j2.perkwh)}) and had more output ({e200.output_w.toLocaleString()} W vs {j2.output_w.toLocaleString()} W) than the {j2.product}. For the biggest single box, {j5.product} wins on capacity and output ({wh(j5)} Wh, {j5.output_w.toLocaleString()} W) but costs more per kWh ({usd(j5.perkwh)} vs {usd(apex.perkwh)} for the {apex.product}). Prices from the brands' own sites as of {j2.as_of}.</p>
+
+<ProductPhotos products={['Jackery Explorer 5000 Plus','BLUETTI Apex 300']} />
+<h2>Side by side</h2>
+<div class="tbl"><table><thead><tr><th>Model</th><th>Capacity</th><th>Output</th><th>Surge</th><th>Price listed</th><th>Price per kWh</th></tr></thead><tbody>
+{rows.map(r => <tr><td><ProductLink product={r.product} /></td><td>{wh(r)} Wh</td><td>{r.output_w.toLocaleString()} W</td><td>{r.surge_w ? r.surge_w.toLocaleString() + ' W' : '—'}</td><td>{r.price}<br/><a class="src" href={r.source_url}>source</a></td><td>{r.perkwh ? usd(r.perkwh) : '—'}</td></tr>)}
+</tbody></table></div>
+<p class="src">Price per kWh = first listed price ÷ capacity in kWh, e.g. {usd(e200.p)} ÷ {e200.capacity_kwh} kWh = {usd(e200.perkwh)}, and {usd(j2.p)} ÷ {j2.capacity_kwh} kWh = {usd(j2.perkwh)}. Sale prices where listed. As of {j2.as_of}, from each maker's product page. Check the maker's site for today's price.</p>
+
+<h2>Runtime math</h2>
+<p><strong>Hours = battery Wh × 0.85 ÷ watts</strong> <span class="badge est">Assumption: 85% usable</span> (inverter and conversion losses).</p>
+<div class="tbl"><table><thead><tr><th>Model</th><th>Usable Wh</th><th>Hours at 200 W</th><th>Hours at 500 W</th><th>Hours at 1,000 W</th></tr></thead><tbody>
+{rows.map(r => <tr><td>{r.product}</td><td>{Math.round(r.capacity_kwh*1000*USABLE).toLocaleString()}</td><td>{hrs(r,200).toFixed(1)}</td><td>{hrs(r,500).toFixed(1)}</td><td>{hrs(r,1000).toFixed(1)}</td></tr>)}
+</tbody></table></div>
+<p class="src">Example: {j2.product}: {wh(j2)} Wh × 0.85 ÷ 500 W = {hrs(j2,500).toFixed(1)} hours. Fridges, freezers and furnace blowers cycle, so they usually last longer than their running watts suggest. Use the <a href="/calculator/">calculator</a> for your own list.</p>
+
+<h2>Where each brand comes out ahead (our data)</h2>
+<ul>
+<li><strong>BLUETTI:</strong> lower price per kWh at the 2 kWh and 2.8 kWh sizes ({e200.product} {usd(e200.perkwh)}, {apex.product} {usd(apex.perkwh)}), and more running watts than the {j2.product}.</li>
+<li><strong>Jackery:</strong> the largest single unit ({j5.product}, {wh(j5)} Wh, {j5.output_w.toLocaleString()} W running, {j5.surge_w.toLocaleString()} W surge). Jackery's Smart Transfer Switch was $1,299 and unavailable at <a href="https://www.jackery.com/products/jackery-smart-transfer-switch">jackery.com</a> on Nov 16, 2026 (<a href="/ecoflow-vs-jackery/">details</a>).</li>
+<li><strong>Surge:</strong> the {j2.product} lists a higher surge ({j2.surge_w.toLocaleString()} W) than the {e200.product} ({e200.surge_w.toLocaleString()} W), which matters for motor starts like a <a href="/how-long-will-a-power-station-run-a-well-pump/">well pump</a> or <a href="/how-long-will-a-power-station-run-a-sump-pump/">sump pump</a>.</li>
+</ul>
+
+<h2>How to choose</h2>
+<ul>
+<li><strong>Size by kWh first</strong> in the <a href="/calculator/">calculator</a>, then check running and surge watts against your biggest load.</li>
+<li><strong>Check stock</strong> on the brand page. Several of these models were on pre-order or sold out on {j2.as_of}.</li>
+<li><strong>Compare other brands:</strong> <a href="/ecoflow-vs-jackery/">EcoFlow vs Jackery</a>, <a href="/ecoflow-vs-anker-solix/">EcoFlow vs Anker SOLIX</a>, and the full <a href="/portable-power-stations/">power station table</a>.</li>
+<li><strong>Need the whole house?</strong> See <a href="/whole-home-battery-cost/">installed battery costs</a>.</li>
+</ul>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>

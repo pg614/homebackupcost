@@ -1,0 +1,58 @@
+---
+import ProductLink from '../components/ProductLink.astro';
+import Base from '../layouts/Base.astro';
+import ProductPhotos from '../components/ProductPhotos.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { batteries, USABLE, priceLow } from '../data/site.js';
+const rows = batteries.filter(b => /^(EcoFlow|Anker)/.test(b.product)).map(b => { const p = priceLow(b.price); return { ...b, p, perkwh: p ? p / b.capacity_kwh : null }; }).sort((a,b) => a.capacity_kwh - b.capacity_kwh);
+const usd = n => '$' + Math.round(n).toLocaleString();
+const wh = b => Math.round(b.capacity_kwh*1000).toLocaleString();
+const f38 = rows.find(r => r.product === 'Anker SOLIX F3800 Plus');
+const dp3 = rows.find(r => r.product === 'EcoFlow DELTA Pro 3');
+const dpu = rows.find(r => r.product === 'EcoFlow DELTA Pro Ultra');
+const c1k = rows.find(r => r.product === 'Anker SOLIX C1000X');
+const r2p = rows.find(r => r.product === 'EcoFlow RIVER 2 Pro');
+const hrs = (b,w) => b.capacity_kwh*1000*USABLE/w;
+const faq = [
+["Is EcoFlow or Anker SOLIX better for home backup?", `Neither wins everywhere. In our ${dp3.as_of} price data, the ${f38.product} costs ${usd(f38.perkwh)} per kWh with a promo code and lists ${f38.output_w.toLocaleString()} W output, versus ${usd(dp3.perkwh)} per kWh and ${dp3.output_w.toLocaleString()} W for the ${dp3.product}. the ${dpu.product} has the most capacity in one unit (${wh(dpu)} Wh), with ${dpu.output_w.toLocaleString()} W output.`],
+["Which is cheaper per kWh, EcoFlow or Anker?", `At the large end, the ${f38.product} (${usd(f38.perkwh)}/kWh) beat the ${dp3.product} and ${dpu.product} (both ${usd(dp3.perkwh)}/kWh) on ${dp3.as_of}. At the small end, the ${c1k.product} was ${usd(c1k.perkwh)}/kWh and the ${r2p.product} ${usd(r2p.perkwh)}/kWh. Prices are sale or promo-code prices and change often.`],
+["Can I buy them today?", `Stock moves daily. On ${dp3.as_of} the ${f38.product}, ${dp3.product}, ${dpu.product} and ${r2p.product} were all shown sold out or unavailable on the brands' own sites; the ${c1k.product} was in stock. Check the brand page before you plan around one.`],
+["How long will each run a 500 W load?", `Using 85% of rated capacity as usable, the ${f38.product} runs about ${hrs(f38,500).toFixed(1)} hours at 500 W, the ${dp3.product} about ${hrs(dp3,500).toFixed(1)} hours, and the ${dpu.product} about ${hrs(dpu,500).toFixed(1)} hours.`]
+];
+---
+<Base updated="2026-11-16" title="EcoFlow vs Anker SOLIX for Home Backup | HomeBackupCost" description="EcoFlow vs Anker SOLIX power stations: capacity, output, surge, dated prices and cost per kWh." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>EcoFlow vs Anker SOLIX: which is better for home backup?</h1>
+<p class="lede"><strong>Short answer:</strong> for a big home-backup unit, {f38.product} was cheaper per kWh ({usd(f38.perkwh)}/kWh with a promo code) and has more output ({f38.output_w.toLocaleString()} W) than the {dp3.product} ({usd(dp3.perkwh)}/kWh, {dp3.output_w.toLocaleString()} W). {dpu.product} has the most capacity in one box ({wh(dpu)} Wh). For a small station, the {c1k.product} ({usd(c1k.perkwh)}/kWh) and {r2p.product} ({usd(r2p.perkwh)}/kWh) are close. Prices from the brands' own sites as of {dp3.as_of}; they change with sales.</p>
+
+<ProductPhotos products={['EcoFlow DELTA Pro 3','Anker SOLIX F3800 Plus']} />
+<h2>Side by side</h2>
+<div class="tbl"><table><thead><tr><th>Model</th><th>Capacity</th><th>Output</th><th>Surge</th><th>Price listed</th><th>Price per kWh</th></tr></thead><tbody>
+{rows.map(r => <tr><td><ProductLink product={r.product} /></td><td>{wh(r)} Wh</td><td>{r.output_w.toLocaleString()} W</td><td>{r.surge_w ? r.surge_w.toLocaleString() + ' W' : '—'}</td><td>{r.price}<br/><a class="src" href={r.source_url}>source</a></td><td>{r.perkwh ? usd(r.perkwh) : '—'}</td></tr>)}
+</tbody></table></div>
+<p class="src">Price per kWh = first listed price ÷ capacity in kWh, e.g. {usd(f38.p)} ÷ {f38.capacity_kwh} kWh = {usd(f38.perkwh)}, and {usd(dp3.p)} ÷ {dp3.capacity_kwh} kWh = {usd(dp3.perkwh)}. Sale or promo-code prices where listed. As of {dp3.as_of}, from each maker's product page. Check the maker's site for today's price.</p>
+
+<h2>Runtime math</h2>
+<p><strong>Hours = battery Wh × 0.85 ÷ watts</strong> <span class="badge est">Assumption: 85% usable</span> (inverter and conversion losses).</p>
+<div class="tbl"><table><thead><tr><th>Model</th><th>Usable Wh</th><th>Hours at 200 W</th><th>Hours at 500 W</th><th>Hours at 1,000 W</th></tr></thead><tbody>
+{rows.map(r => <tr><td>{r.product}</td><td>{Math.round(r.capacity_kwh*1000*USABLE).toLocaleString()}</td><td>{hrs(r,200).toFixed(1)}</td><td>{hrs(r,500).toFixed(1)}</td><td>{hrs(r,1000).toFixed(1)}</td></tr>)}
+</tbody></table></div>
+<p class="src">Example: {f38.product}: {wh(f38)} Wh × 0.85 ÷ 500 W = {hrs(f38,500).toFixed(1)} hours. Real loads cycle on and off, so a fridge or furnace blower usually lasts longer than its nameplate watts suggest. Use the <a href="/calculator/">calculator</a> for your own appliance list.</p>
+
+<h2>Where each brand comes out ahead (our data)</h2>
+<ul>
+<li><strong>Anker SOLIX:</strong> lower price per kWh at the large end ({f38.product}, {usd(f38.perkwh)}/kWh) and more output than the {dp3.product} ({f38.output_w.toLocaleString()} W vs {dp3.output_w.toLocaleString()} W). The promo price depends on a code Anker lists on the product page.</li>
+<li><strong>EcoFlow:</strong> the biggest single unit ({dpu.product}, {wh(dpu)} Wh, {dpu.output_w.toLocaleString()} W). EcoFlow says on its page that it expands to 90 kWh. EcoFlow's Smart Home Panel 2 was $1,499 and in stock at <a href="https://us.ecoflow.com/products/smart-home-panel-2">ecoflow.com</a> on Nov 16, 2026 (<a href="/ecoflow-vs-jackery/">details</a>).</li>
+<li><strong>Small stations:</strong> the {c1k.product} has more capacity and output ({wh(c1k)} Wh, {c1k.output_w.toLocaleString()} W) than the {r2p.product} ({wh(r2p)} Wh, {r2p.output_w.toLocaleString()} W).</li>
+</ul>
+
+<h2>How to choose</h2>
+<ul>
+<li><strong>Size by kWh first.</strong> Add up what you need to run and for how long in the <a href="/calculator/">calculator</a>.</li>
+<li><strong>Then check output and surge</strong> against your biggest motor load (<a href="/how-long-will-a-power-station-run-a-well-pump/">well pump</a>, <a href="/how-long-will-a-power-station-run-a-sump-pump/">sump pump</a>, <a href="/how-long-will-a-power-station-run-a-gas-furnace/">furnace blower</a>).</li>
+<li><strong>Compare other brands:</strong> <a href="/ecoflow-vs-jackery/">EcoFlow vs Jackery</a>, <a href="/jackery-vs-bluetti/">Jackery vs BLUETTI</a>, and the full <a href="/portable-power-stations/">power station table</a>.</li>
+<li><strong>Need the whole house?</strong> See <a href="/whole-home-battery-cost/">installed battery costs</a> and <a href="/transfer-switch-vs-interlock-kit/">transfer switch vs interlock</a>.</li>
+</ul>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>

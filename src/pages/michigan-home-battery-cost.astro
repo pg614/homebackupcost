@@ -1,0 +1,50 @@
+---
+import ProductLink from '../components/ProductLink.astro';
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+const faq = [
+["How much does a home battery cost in Michigan?", "EnergySage reports an average of $16,900 for a 13 kWh battery installed in Michigan before incentives, or about $1,300 per kWh, with a typical range of $14,365 to $19,435 (page updated November 8, 2026)."],
+["Are there battery rebates in Michigan?", "We haven't found one in our data as of November 16, 2026. Michigan's MiHER (HOMES/HEAR) rebates are live but cover heat pumps, heat pump water heaters, electric stoves, wiring, panels and whole-home efficiency, not batteries. DTE and Consumers Energy rebates we track are for heat pumps. The federal 25D battery tax credit ended for installs completed after 12/31/2025."],
+["How often does the power go out in Michigan?", "EIA reports the average Michigan customer was without power for 671.5 minutes (about 11.2 hours) in 2025 including major events, versus 262.6 minutes for the U.S. as a whole. Without major events it was 160.3 minutes, across about 1.4 interruptions a year."],
+["Is a Michigan home battery cheaper than in Ohio?", "No. EnergySage shows the same $1,300 per kWh and $16,900 average for 13 kWh in both states as of its latest updates (Michigan Nov 8, 2026; Ohio Oct 25, 2026)."]
+];
+---
+<Base updated="2026-11-16" title="Home Battery Cost in Michigan (2026): $16,900 Average | HomeBackupCost" description="A 13 kWh home battery averages $16,900 installed in Michigan ($1,300/kWh, EnergySage, Nov 2026). Costs by size, rebate status, outage data, and cheaper options." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>How much does a home battery cost in Michigan?</h1>
+<p class="lede"><strong>Short answer:</strong> about <strong>$16,900</strong> for a 13 kWh battery installed, before incentives, according to EnergySage marketplace data for Michigan. That's about $1,300 per kWh. Michigan customers also sat through about 11 hours of outages on average in 2025, more than 2.5 times the U.S. average. As of 2026-11-16.</p>
+<div class="grid">
+<div class="card"><div class="mute">Michigan average (13 kWh)</div><div style="font-size:2.2rem;font-weight:800;color:var(--volt)">$16,900</div><div class="src"><a href="https://www.energysage.com/local-data/energy-storage-cost/mi/">EnergySage</a> · updated 2026-11-08</div></div>
+<div class="card"><div class="mute">Michigan per kWh</div><div style="font-size:2.2rem;font-weight:800;color:var(--volt)">$1,300</div><div class="src">First half of 2026: $1,364/kWh (<a href="https://www.energysage.com/energy-storage/how-much-do-batteries-cost/">EnergySage cost guide</a>, updated 2026-07-13)</div></div>
+<div class="card"><div class="mute">Michigan battery rebate</div><div style="font-size:2.2rem;font-weight:800;color:var(--bad)">None found</div><div class="src"><a href="/rebates/mi/">Michigan rebate status</a></div></div>
+</div>
+
+<h2>Michigan cost by battery size</h2>
+<div class="tbl"><table><thead><tr><th>System size</th><th>Average installed cost</th></tr></thead><tbody>
+<tr><td>10 kWh</td><td>$13,000</td></tr><tr><td>13 kWh</td><td>$16,900</td></tr><tr><td>20 kWh</td><td>$26,000</td></tr><tr><td>26 kWh</td><td>$33,800</td></tr>
+</tbody></table></div>
+<p class="src">Source: <a href="https://www.energysage.com/local-data/energy-storage-cost/mi/">EnergySage, Storage cost in Michigan</a>, updated 2026-11-08, checked 2026-11-16. These are quotes on the EnergySage marketplace, before incentives. The math is size × $1,300/kWh: 13 × $1,300 = $16,900. EnergySage gives a 13 kWh range of $14,365–$19,435, and $21,550–$62,300 for solar plus storage. EnergySage's separate cost guide lists Michigan at $1,364/kWh for a typical 10 kWh system ($13,640) from first-half-2026 quotes; the local page above is the newer figure.</p>
+
+<h2>Incentives in Michigan</h2>
+<ul>
+<li><strong>Federal tax credit:</strong> ended for installs completed after 12/31/2025 (<a href="/federal-tax-credits-ended/">details</a>).</li>
+<li><strong>MiHER Home Energy Rebates (HOMES/HEAR):</strong> live, but for heat pumps, heat pump water heaters, electric stoves, wiring, panels and whole-home efficiency, not batteries. New income-qualified applications were temporarily unavailable for properties in EGLE's Detroit, Warren, Grand Rapids, Lansing and Kalamazoo districts (<a href="https://www.michigan.gov/egle/about/organization/materials-management/energy/rfps-loans/home-energy-rebate-programs">Michigan EGLE</a>, as of 2026-11-16).</li>
+<li><strong>DTE and Consumers Energy rebates:</strong> the 2026 programs we track pay for heat pumps and mini-splits, not batteries (<a href="https://michiganrebates.com/sites/default/files/2026-01/57562_DTE_HVAC_IncentiveChart_MichiganRebates.com_Electric_v2_Web_Release.pdf">DTE chart</a>, <a href="https://www.consumersenergy.com/-/media/CE/Documents/residential/save-money-and-energy/rebates/hvac/res-programs.pdf">Consumers Energy</a>).</li>
+</ul>
+
+<h2>How often Michigan loses power</h2>
+<div class="tbl"><table><thead><tr><th>Michigan, average customer</th><th>2025</th><th>2024</th></tr></thead><tbody>
+<tr><td>Minutes without power, all events</td><td>671.5</td><td>470.4</td></tr>
+<tr><td>Minutes without power, excluding major events</td><td>160.3</td><td>160.1</td></tr>
+<tr><td>Interruptions per year, all events</td><td>1.424</td><td>1.356</td></tr>
+<tr><td>U.S. total, minutes without power, all events</td><td>262.6</td><td>611.3</td></tr>
+</tbody></table></div>
+<p class="src">Source: <a href="https://www.eia.gov/electricity/annual/html/epa_11_03.html">EIA Electric Power Annual, Table 11.3</a> (SAIDI and SAIFI), checked 2026-11-16. 671.5 ÷ 60 = 11.2 hours; 671.5 ÷ 262.6 = 2.6 times the U.S. figure. Averages hide big storms, and most of Michigan's 2025 total came from major events.</p>
+
+<h2>Cheaper options</h2>
+<p>If you mainly need the fridge, furnace blower, sump pump, and Wi-Fi through a short outage, a large portable station with a transfer kit costs much less. For example, an <ProductLink product="EcoFlow DELTA Pro 3" bold={false} button={false} /> ($2,799 sale, standalone unavailable on Nov 16, 2026) plus a Smart Home Panel 2 ($1,499 at ecoflow.com, in stock on Nov 16, 2026) is $4,298 before electrician labor. See <a href="/ecoflow-vs-jackery/">EcoFlow vs Jackery</a>, <a href="/ecoflow-vs-anker-solix/">EcoFlow vs Anker SOLIX</a>, <a href="/portable-power-stations/">all power stations</a>, and <a href="/standby-generator-installation-cost/">standby generator cost</a>. Michigan winters: see <a href="/winter-storm-power-outage-heat/">keeping the heat on</a>.</p>
+<p><a class="btn" href="/calculator/?state=MI">Size your battery in the calculator</a></p>
+<p>Comparing quotes? Use <a href="/how-to-compare-backup-power-quotes/">how to compare quotes</a> and <a href="/questions-to-ask-backup-power-installer/">questions to ask an installer</a>. Neighbors to the south: <a href="/ohio-home-battery-cost/">home battery cost in Ohio</a>.</p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>
