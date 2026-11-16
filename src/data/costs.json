@@ -1,8 +1,8 @@
 [
  {
   "item": "Installed home battery (~13.5 kWh)",
-  "range": "~$15,647 typical; ~$1,130-$1,159/kWh",
-  "source": "https://www.energysage.com/energy-storage/how-much-do-batteries-cost/"
+  "range": "~$15,647 typical; $1,159/kWh",
+  "source": "https://www.energysage.com/energy-storage/"
  },
  {
   "item": "Tesla Powerwall 3 (13.5 kWh)",

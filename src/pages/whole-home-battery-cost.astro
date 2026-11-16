@@ -13,8 +13,8 @@ const schema = [{ '@context':'https://schema.org','@type':'FAQPage', mainEntity:
 <h1>Whole-home battery cost</h1>
 <p class="lede">An installed battery, like the Tesla Powerwall, is wired into your panel and switches on automatically when the grid goes down.</p>
 <div class="grid">
-<div class="card"><div class="mute">Typical installed (~13.5 kWh)</div><div style="font-size:2.2rem;font-weight:800;color:var(--volt)">~$15,647</div><div class="src"><a href="https://www.energysage.com/energy-storage/how-much-do-batteries-cost/">EnergySage</a> · as of 2026-10-25</div></div>
-<div class="card"><div class="mute">Per kWh installed</div><div style="font-size:2.2rem;font-weight:800;color:var(--volt)">$1,130–$1,159</div><div class="src"><a href="https://www.energysage.com/energy-storage/how-much-do-batteries-cost/">EnergySage</a> · as of 2026-10-25</div></div>
+<div class="card"><div class="mute">Typical installed (~13.5 kWh)</div><div style="font-size:2.2rem;font-weight:800;color:var(--volt)">~$15,647</div><div class="src"><a href="https://www.energysage.com/energy-storage/">EnergySage</a> · updated 2026-08-26</div></div>
+<div class="card"><div class="mute">Per kWh installed</div><div style="font-size:2.2rem;font-weight:800;color:var(--volt)">$1,159</div><div class="src"><a href="https://www.energysage.com/energy-storage/">EnergySage</a> · updated 2026-08-26</div></div>
 <div class="card"><div class="mute">Federal tax credit</div><div style="font-size:2.2rem;font-weight:800;color:var(--bad)">Ended</div><div class="src">For installs after 12/31/2025 · <a href="/federal-tax-credits-ended/">details</a></div></div>
 </div>
 <ProductPhotos />
@@ -26,7 +26,7 @@ const schema = [{ '@context':'https://schema.org','@type':'FAQPage', mainEntity:
 <div class="tbl"><table><thead><tr><th>Item</th><th>Cost</th><th>Source</th></tr></thead><tbody>
 {costs.map(c => <tr><td>{c.item}</td><td>{c.range}{/estimate/i.test(c.range) && <> <span class="badge est">Estimate</span></>}</td><td><a class="src" href={c.source}>{new URL(c.source).hostname}</a></td></tr>)}
 </tbody></table></div>
-<p class="src">As of 2026-10-25. Heat pump and panel costs are included because a battery project often comes with a panel upgrade.</p>
+<p class="src">Battery average rechecked 2026-11-16 (EnergySage guide updated 2026-08-26). Heat pump and panel costs are as of 2026-10-25 and are included because a battery project often comes with a panel upgrade.</p>
 <h2>Installed battery or a big portable?</h2>
 <p>A large portable station plus a transfer kit can back up selected circuits for less money. For example, an <ProductLink product="EcoFlow DELTA Pro 3" bold={false} button={false} /> ($2,799 sale) plus a Smart Home Panel 2 ($1,499 at ecoflow.com, in stock on Nov 16, 2026) comes to $4,298 before electrician labor, which we don't have sourced data for. An installed battery switches over automatically and runs more circuits. <a href="/portable-power-stations/">Compare portables →</a></p>
 <p class="note"><strong>Get quotes:</strong> an installer-quote button (EnergySage) will go here once a partnership is approved. <span data-affiliate="placeholder" data-affiliate-brand="EnergySage">Placeholder — not active.</span></p>

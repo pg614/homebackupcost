@@ -158,8 +158,8 @@ function run() {
     html += '</tbody></table></div><p class="src">*Sum of the listed prices, before tax, shipping, bundle discounts, and transfer hardware. Bundles are sometimes cheaper. Base and add-on battery prices were rechecked on 2026-11-14.</p>';
   }
   html += '<h3>Whole-home battery (installed)</h3>';
-  for (const b of m.installed) html += `<p><strong>${b.units} × ${esc(b.product)}</strong> (${(b.units*b.capacity_kwh).toFixed(1)} kWh) <span class="badge est">Estimate</span> ≈ ${money(b.costLow)}–${money(b.costHigh)} installed${b.powerOk?'':' <span class="bad">(power may be short)</span>'}</p>`;
-  html += `<p class="src">Installed cost = capacity × $1,130–$1,159 per kWh, the EnergySage average (<a href="https://www.energysage.com/energy-storage/how-much-do-batteries-cost/" target="_blank" rel="noopener">source</a>, as of 2026-10-25). Actual quotes vary by installer and home. <a href="/whole-home-battery-cost/">Cost guide →</a></p>`;
+  for (const b of m.installed) html += `<p><strong>${b.units} × ${esc(b.product)}</strong> (${(b.units*b.capacity_kwh).toFixed(1)} kWh) <span class="badge est">Estimate</span> ≈ ${b.costLow === b.costHigh ? money(b.costLow) : money(b.costLow)+'–'+money(b.costHigh)} installed${b.powerOk?'':' <span class="bad">(power may be short)</span>'}</p>`;
+  html += `<p class="src">Installed cost = capacity × $1,159 per kWh, the EnergySage average (<a href="https://www.energysage.com/energy-storage/" target="_blank" rel="noopener">source</a>, updated 2026-08-26). Actual quotes vary by installer and home. <a href="/whole-home-battery-cost/">Cost guide →</a></p>`;
   html += `<h3>Generator alternative</h3><p>Look for at least <strong>${fmt(m.generator.runningW)} running W</strong> and <strong>${fmt(m.generator.startingW)} starting W</strong> (rounded up to the next 500 W). <span class="src">We don't have verified generator prices yet, so none are shown.</span></p>`;
   const st = $('#state').value;
   if (st) {

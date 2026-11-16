@@ -14,7 +14,7 @@ export function calculate(items, durationHours, usable = 0.85) {
   const kwh = rawKwh / usable;
   return { runningW: runSum, peakW: runSum + maxDelta, surgeExtraW: maxDelta, dailyKwh: dailyWh / 1000, rawKwh, kwh };
 }
-export function matchBatteries(r, batteries, priceLow, expansions = [], perKwh = [1130, 1159]) {
+export function matchBatteries(r, batteries, priceLow, expansions = [], perKwh = [1159, 1159]) {
   const portable = [], installed = [];
   for (const b of batteries) {
     if (!b.capacity_kwh || !b.output_w) continue;
