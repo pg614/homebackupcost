@@ -7,7 +7,7 @@
   "surge_w": 10800,
   "price": "$4,199 sale / $5,799 list (us.ecoflow.com; sold out, page says Coming Back in January 2027); expands to 90 kWh",
   "source_url": "https://us.ecoflow.com/products/delta-pro-ultra",
-  "as_of": "2026-11-16"
+  "as_of": "2026-11-23"
  },
  {
   "product": "EcoFlow DELTA Pro 3",
@@ -17,7 +17,7 @@
   "surge_w": 6000,
   "price": "$2,799 sale / $3,299 regular (us.ecoflow.com; standalone unavailable 11/16; DELTA Pro 3 + Extra Battery $4,698 and Smart Generator bundle $3,689 also unavailable; the $3,399 two-panel option is listed but unavailable)",
   "source_url": "https://us.ecoflow.com/products/delta-pro-3-portable-power-station",
-  "as_of": "2026-11-16"
+  "as_of": "2026-11-23"
  },
  {
   "product": "Anker SOLIX F3800 Plus",
@@ -37,7 +37,7 @@
   "surge_w": 14400,
   "price": "$3,499 (jackery.com; standalone unavailable; page says sold out and pre-order ships Nov 28; Explorer 5000 Plus + Battery Pack bundle now $6,199 with no sale shown, was $5,899 sale on 11/14; in stock)",
   "source_url": "https://www.jackery.com/products/jackery-explorer-5000-plus",
-  "as_of": "2026-11-16"
+  "as_of": "2026-11-23"
  },
  {
   "product": "BLUETTI Apex 300",
@@ -45,9 +45,9 @@
   "capacity_kwh": 2.7648,
   "output_w": 3840,
   "surge_w": 7680,
-  "price": "$1,499 sale / $1,699 list (bluettipower.com; variant marked available; page says expected to ship in late January)",
+  "price": "$1,699 (bluettipower.com; no sale shown 11/23, was $1,499 sale on 11/16; variant marked unavailable; page says expected to ship in late January)",
   "source_url": "https://www.bluettipower.com/products/apex-300-home-battery-backup",
-  "as_of": "2026-11-16",
+  "as_of": "2026-11-23",
   "spec_note": "2,764.8 Wh / 3,840 W continuous / 7,680 W lifting power per BLUETTI product page, 2026-11-14"
  },
  {
@@ -58,7 +58,7 @@
   "surge_w": 4400,
   "price": "$999 (jackery.com; the $999 options are the 5m extension-cable and 12V car-charging-cable bundles, both marked available 11/16; the page description also says the product shown is not available for purchase)",
   "source_url": "https://www.jackery.com/products/explorer-2000-v2-series",
-  "as_of": "2026-11-16",
+  "as_of": "2026-11-23",
   "spec_note": "2,042 Wh and 2,200 W output are on the series page. A 4,400 W surge was not on that page on 2026-11-14; the earlier surge value is unchanged."
  },
  {
@@ -67,9 +67,9 @@
   "capacity_kwh": 2.0736,
   "output_w": 2600,
   "surge_w": 3900,
-  "price": "$899 (bluettipower.com; page now labels it Pre-order: ships from 11.26, was in stock 11/14)",
+  "price": "$899 (bluettipower.com; page now labels it Pre-order, listed as ships late November (variant marked available 11/23))",
   "source_url": "https://www.bluettipower.com/products/elite-200-v2-portable-power-station",
-  "as_of": "2026-11-16",
+  "as_of": "2026-11-23",
   "spec_note": "The product header still shows 2,073.6 Wh. A marketing line on the same page says 2,080 Wh. Capacity kept at 2.0736 kWh. Output 2,600 W and Power Lifting up to 3,900 W are on the page."
  },
  {
@@ -90,7 +90,7 @@
   "surge_w": 3000,
   "price": "$559–$589 (jackery.com; Dune White $589, Black $559, no sale shown; both colors sold out 11/16; page points buyers to HomePower 1000 Plus v2)",
   "source_url": "https://www.jackery.com/products/jackery-explorer-1000-v2",
-  "as_of": "2026-11-16",
+  "as_of": "2026-11-23",
   "spec_note": "The Explorer 1000 v2 spec block lists 1,024 Wh (20Ah/51.2V), 1,500 W rated, and 3,000 W surge. The same kits page also shows 1,070 Wh (30.4Ah/35.2V) in a different spec block that is not labeled Explorer 1000 v2."
  },
  {
@@ -101,7 +101,7 @@
   "surge_w": 3500,
   "price": "$1,124.89 sale / $1,499.95 list (goalzero.com; sold out / page tag says No Longer Available 11/16)",
   "source_url": "https://goalzero.com/products/goal-zero-yeti-1500x-portable-power-station",
-  "as_of": "2026-11-16"
+  "as_of": "2026-11-23"
  },
  {
   "product": "EcoFlow RIVER 2 Pro",
@@ -109,9 +109,9 @@
   "capacity_kwh": 0.768,
   "output_w": 800,
   "surge_w": 1600,
-  "price": "$369 sale / $529 regular (us.ecoflow.com; sold out 11/16; the base unit and all four bundles showed unavailable, was in stock 11/14)",
+  "price": "$349 sale / $529 regular (us.ecoflow.com; sold out 11/23; the base unit and all bundles showed unavailable)",
   "source_url": "https://us.ecoflow.com/products/river-2-pro-portable-power-station",
-  "as_of": "2026-11-16"
+  "as_of": "2026-11-23"
  },
  {
   "product": "Tesla Powerwall 3",
