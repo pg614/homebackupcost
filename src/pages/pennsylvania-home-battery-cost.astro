@@ -1,0 +1,54 @@
+---
+import ProductLink from '../components/ProductLink.astro';
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+const faq = [
+["How much does a home battery cost in Pennsylvania?", "EnergySage reports an average of $17,550 for a 13 kWh battery installed in Pennsylvania before incentives, or about $1,350 per kWh, with a typical range of $14,918 to $20,182 (page updated November 15, 2026)."],
+["Are there battery rebates in Pennsylvania?", "We haven't found one as of November 23, 2026. Pennsylvania's federally funded Penn Energy Savers rebates (HOMES and HEEHR, formerly HEAR) have not launched; the program site lists them as coming soon in spring 2027, and they are for efficient electric appliances and efficiency upgrades, not batteries. The federal 25D battery tax credit ended for installs completed after 12/31/2025."],
+["How often does the power go out in Pennsylvania?", "EIA reports the average Pennsylvania customer was without power for 458.1 minutes (about 7.6 hours) in 2025 including major events, versus 262.6 minutes for the U.S. as a whole. Without major events it was 132.8 minutes. Customers averaged about 1.4 interruptions."],
+["Is a home battery more expensive in Pennsylvania than in Ohio?", "Yes, slightly. EnergySage shows $1,350 per kWh in Pennsylvania (Nov 15, 2026) versus $1,300 in Ohio (Oct 25, 2026). For 13 kWh that's $17,550 versus $16,900, a $650 difference."],
+["What does it cost to recharge a home battery in Pennsylvania?", "About $2.83 to refill 13 kWh from the grid at Pennsylvania's August 2026 average residential price of 21.77 cents per kWh (EIA). 13 × $0.2177 = $2.83, before charging losses."]
+];
+---
+<Base updated="2026-11-23" title="Home Battery Cost in Pennsylvania (2026): $17,550 Average | HomeBackupCost" description="A 13 kWh home battery averages $17,550 installed in Pennsylvania ($1,350/kWh, EnergySage, Nov 2026). Costs by size, rebate status, outage data, and cheaper options." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>How much does a home battery cost in Pennsylvania?</h1>
+<p class="lede"><strong>Short answer:</strong> about <strong>$17,550</strong> for a 13 kWh battery installed, before incentives, according to EnergySage marketplace data for Pennsylvania. That's about $1,350 per kWh, above the $1,159/kWh national average. Pennsylvania has no battery rebate we can find, and its state rebate program isn't open yet. As of 2026-11-23.</p>
+<div class="grid">
+<div class="card"><div class="mute">Pennsylvania average (13 kWh)</div><div style="font-size:2.2rem;font-weight:800;color:var(--volt)">$17,550</div><div class="src"><a href="https://www.energysage.com/local-data/energy-storage-cost/pa/">EnergySage</a> · updated 2026-11-15</div></div>
+<div class="card"><div class="mute">Pennsylvania per kWh</div><div style="font-size:2.2rem;font-weight:800;color:var(--volt)">$1,350</div><div class="src">National: $1,159/kWh (<a href="https://www.energysage.com/energy-storage/">EnergySage</a> · updated 2026-08-26)</div></div>
+<div class="card"><div class="mute">Pennsylvania battery rebate</div><div style="font-size:2.2rem;font-weight:800;color:var(--bad)">None found</div><div class="src"><a href="https://www.pennenergysavers.com/">Penn Energy Savers</a>: coming soon, spring 2027 (checked 2026-11-23)</div></div>
+</div>
+
+<h2>Pennsylvania cost by battery size</h2>
+<div class="tbl"><table><thead><tr><th>System size</th><th>Average installed cost</th></tr></thead><tbody>
+<tr><td>10 kWh</td><td>$13,500</td></tr><tr><td>13 kWh</td><td>$17,550</td></tr><tr><td>20 kWh</td><td>$27,000</td></tr><tr><td>26 kWh</td><td>$35,100</td></tr>
+</tbody></table></div>
+<p class="src">Source: <a href="https://www.energysage.com/local-data/energy-storage-cost/pa/">EnergySage, Storage cost in Pennsylvania</a>, updated 2026-11-15, checked 2026-11-23. These are quotes on the EnergySage marketplace, before incentives. The math is size × $1,350/kWh: 13 × $1,350 = $17,550. EnergySage gives a 13 kWh range of $14,918–$20,182, and $21,270–$61,000 for solar plus storage. Top quoted models there: Enphase IQ Battery 10C and 5P, FranklinWH aPower2, and Tesla Powerwall 3. EnergySage's separate <a href="https://www.energysage.com/energy-storage/how-much-do-batteries-cost/">cost guide</a> (updated 2026-07-13) lists Pennsylvania at $1,246/kWh for a typical 10 kWh system ($12,460) from first-half-2026 quotes; the local page above is the newer figure.</p>
+
+<h2>Incentives in Pennsylvania</h2>
+<ul>
+<li><strong>Federal tax credit:</strong> ended for installs completed after 12/31/2025 (<a href="/federal-tax-credits-ended/">details</a>).</li>
+<li><strong>Penn Energy Savers (HOMES and HEEHR, formerly HEAR):</strong> not launched. The program site lists it as coming soon in spring 2027 and describes rebates for high-efficiency appliances and energy-efficiency upgrades for low- and middle-income households, not batteries (<a href="https://www.pennenergysavers.com/">pennenergysavers.com</a>). Pennsylvania DEP says that as of September 2026 it was awaiting final DOE approval to launch (<a href="https://www.pa.gov/agencies/dep/residents/saving-energy/inflation-reduction-act">PA DEP</a>, checked 2026-11-23).</li>
+<li><strong>NASEO tracker:</strong> lists Pennsylvania HEAR and HOMES as not launched (<a href="https://www.naseo.org/topics/home-energy-rebates">NASEO</a>, table updated 2026-09-30).</li>
+</ul>
+
+<h2>How often Pennsylvania loses power</h2>
+<div class="tbl"><table><thead><tr><th>Pennsylvania, average customer</th><th>2025</th><th>2024</th></tr></thead><tbody>
+<tr><td>Minutes without power, all events</td><td>458.1</td><td>336.1</td></tr>
+<tr><td>Minutes without power, excluding major events</td><td>132.8</td><td>131.0</td></tr>
+<tr><td>Interruptions per year, all events</td><td>1.408</td><td>1.353</td></tr>
+<tr><td>U.S. total, minutes without power, all events</td><td>262.6</td><td>611.3</td></tr>
+</tbody></table></div>
+<p class="src">Source: <a href="https://www.eia.gov/electricity/annual/html/epa_11_03.html">EIA Electric Power Annual, Table 11.3</a> (SAIDI and SAIFI), checked 2026-11-23. 458.1 ÷ 60 = 7.6 hours; 458.1 ÷ 262.6 = 1.7 times the U.S. figure. Most of Pennsylvania's 2025 total came from major events (458.1 − 132.8 = 325.3 minutes).</p>
+
+<h2>What it costs to recharge</h2>
+<p>Refilling a 13 kWh battery from the grid costs about <strong>$2.83</strong> at Pennsylvania's average residential price of 21.77¢/kWh in August 2026 (U.S. average 18.16¢). The math: 13 × $0.2177 = $2.83, before charging losses. Source: <a href="https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=epmt_5_6_a">EIA Electric Power Monthly, Table 5.6.A</a>, checked 2026-11-23.</p>
+
+<h2>Cheaper options</h2>
+<p>If you mainly need the fridge, furnace blower, sump pump, and Wi-Fi through a short outage, a large portable station with a transfer kit costs much less. For example, an <ProductLink product="EcoFlow DELTA Pro 3" bold={false} button={false} /> ($2,799 sale, standalone unavailable on Nov 16, 2026) plus a Smart Home Panel 2 ($1,499 at ecoflow.com, in stock on Nov 16, 2026) is $4,298 before electrician labor. See <a href="/ecoflow-vs-jackery/">EcoFlow vs Jackery</a>, <a href="/portable-power-stations/">all power stations</a>, <a href="/generac-vs-home-battery/">Generac vs a home battery</a>, and <a href="/standby-generator-installation-cost/">standby generator cost</a>. Pennsylvania winters: see <a href="/winter-storm-power-outage-heat/">keeping the heat on</a>.</p>
+<p><a class="btn" href="/calculator/">Size your battery in the calculator</a></p>
+<p>Comparing quotes? Use <a href="/how-to-compare-backup-power-quotes/">how to compare quotes</a> and <a href="/questions-to-ask-backup-power-installer/">questions to ask an installer</a>. Next door: <a href="/ohio-home-battery-cost/">home battery cost in Ohio</a>. More states: <a href="/michigan-home-battery-cost/">Michigan</a> · <a href="/indiana-home-battery-cost/">Indiana</a>.</p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>

@@ -34,6 +34,9 @@ Prices and figures on each page carry their own sources and "as of" dates; check
 - [Jackery vs BLUETTI for Home Backup: Price per kWh](https://homebackupcost.com/jackery-vs-bluetti/)
 - [Home Battery Cost in Ohio (2026)](https://homebackupcost.com/ohio-home-battery-cost/)
 - [Home Battery Cost in Michigan (2026)](https://homebackupcost.com/michigan-home-battery-cost/)
+- [Home Battery Cost in Pennsylvania (2026)](https://homebackupcost.com/pennsylvania-home-battery-cost/)
+- [Home Battery Cost in Indiana (2026)](https://homebackupcost.com/indiana-home-battery-cost/)
+- [Generac vs Home Battery: Cost and Runtime (2026)](https://homebackupcost.com/generac-vs-home-battery/)
 - [Build Your Own Home Power Plant: 30 & 90+ Day Setups](https://homebackupcost.com/build-your-own-home-power-plant/)
 
 ## Hiring an installer

@@ -1,0 +1,54 @@
+---
+import ProductLink from '../components/ProductLink.astro';
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+const faq = [
+["How much does a home battery cost in Indiana?", "EnergySage reports an average of $13,000 for a 13 kWh battery installed in Indiana before incentives, or about $1,000 per kWh, with a typical range of $11,050 to $14,950 (page updated November 15, 2026). EnergySage's separate first-half-2026 cost guide lists Indiana higher, at $1,333 per kWh, so get several quotes."],
+["Are there battery rebates in Indiana?", "We haven't found one as of November 23, 2026. Indiana's Energy Saver Program (HEAR) is open to households under 150% of area median income, but its eligible list is heat pumps, heat pump water heaters and dryers, electric stoves, electrical panels, wiring, and insulation, not batteries. The federal 25D battery tax credit ended for installs completed after 12/31/2025."],
+["How often does the power go out in Indiana?", "EIA reports the average Indiana customer was without power for 374 minutes (about 6.2 hours) in 2025 including major events, versus 262.6 minutes for the U.S. as a whole. Without major events it was 123.2 minutes, across about 1.4 interruptions a year."],
+["Is a home battery cheaper in Indiana than in Ohio?", "On EnergySage's local pages, yes: $1,000 per kWh in Indiana (Nov 15, 2026) versus $1,300 in Ohio (Oct 25, 2026). For 13 kWh that's $13,000 versus $16,900, or $3,900 less."],
+["What does it cost to recharge a home battery in Indiana?", "About $2.21 to refill 13 kWh from the grid at Indiana's August 2026 average residential price of 17.02 cents per kWh (EIA). 13 × $0.1702 = $2.21, before charging losses."]
+];
+---
+<Base updated="2026-11-23" title="Home Battery Cost in Indiana (2026): $13,000 Average | HomeBackupCost" description="A 13 kWh home battery averages $13,000 installed in Indiana ($1,000/kWh, EnergySage, Nov 2026). Costs by size, rebate status, outage data, and cheaper options." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>How much does a home battery cost in Indiana?</h1>
+<p class="lede"><strong>Short answer:</strong> about <strong>$13,000</strong> for a 13 kWh battery installed, before incentives, according to EnergySage marketplace data for Indiana. That's about $1,000 per kWh, below the $1,159/kWh national average. EnergySage's older first-half-2026 guide put Indiana higher ($1,333/kWh), so treat $13,000 as a fair-price target, not a guarantee. As of 2026-11-23.</p>
+<div class="grid">
+<div class="card"><div class="mute">Indiana average (13 kWh)</div><div style="font-size:2.2rem;font-weight:800;color:var(--volt)">$13,000</div><div class="src"><a href="https://www.energysage.com/local-data/energy-storage-cost/in/">EnergySage</a> · updated 2026-11-15</div></div>
+<div class="card"><div class="mute">Indiana per kWh</div><div style="font-size:2.2rem;font-weight:800;color:var(--volt)">$1,000</div><div class="src">National: $1,159/kWh (<a href="https://www.energysage.com/energy-storage/">EnergySage</a> · updated 2026-08-26)</div></div>
+<div class="card"><div class="mute">Indiana battery rebate</div><div style="font-size:2.2rem;font-weight:800;color:var(--bad)">None found</div><div class="src"><a href="https://indianaenergysaver.com/programs/home-appliance-rebate/">Indiana Energy Saver</a> list has no batteries (checked 2026-11-23)</div></div>
+</div>
+
+<h2>Indiana cost by battery size</h2>
+<div class="tbl"><table><thead><tr><th>System size</th><th>Average installed cost</th></tr></thead><tbody>
+<tr><td>10 kWh</td><td>$10,000</td></tr><tr><td>13 kWh</td><td>$13,000</td></tr><tr><td>20 kWh</td><td>$20,000</td></tr><tr><td>26 kWh</td><td>$26,000</td></tr>
+</tbody></table></div>
+<p class="src">Source: <a href="https://www.energysage.com/local-data/energy-storage-cost/in/">EnergySage, Storage cost in Indiana</a>, updated 2026-11-15, checked 2026-11-23. These are quotes on the EnergySage marketplace, before incentives. The math is size × $1,000/kWh: 13 × $1,000 = $13,000. EnergySage gives a 13 kWh range of $11,050–$14,950, and $17,740–$51,800 for solar plus storage. Top quoted models there: HomeGrid Stack'd Series 19.2 kWh, FranklinWH aPower S-10, Tesla Powerwall 3, and Enphase IQ Battery 5P. EnergySage's separate <a href="https://www.energysage.com/energy-storage/how-much-do-batteries-cost/">cost guide</a> (updated 2026-07-13) lists Indiana at $1,333/kWh for a typical 13.5 kWh system ($17,996) from first-half-2026 quotes. The two EnergySage figures are far apart; the local page is the newer one.</p>
+
+<h2>Incentives in Indiana</h2>
+<ul>
+<li><strong>Federal tax credit:</strong> ended for installs completed after 12/31/2025 (<a href="/federal-tax-credits-ended/">details</a>).</li>
+<li><strong>Indiana Energy Saver Program, Home Appliance Rebate (HEAR):</strong> open to households under 150% of area median income, up to $14,000 per household. Eligible items are heat pumps (up to $8,000), heat pump water heaters ($1,750), heat pump dryers ($840), electric stoves ($840), electrical panels ($4,000), wiring ($2,500), and insulation and air sealing ($1,600). Batteries are not on the list, and the rebates can't replace existing gas equipment (<a href="https://indianaenergysaver.com/programs/home-appliance-rebate/">Indiana Energy Saver</a>, checked 2026-11-23).</li>
+<li><strong>NASEO tracker:</strong> lists Indiana HEAR and HOMES as launched (<a href="https://www.naseo.org/topics/home-energy-rebates">NASEO</a>, table updated 2026-09-30).</li>
+</ul>
+
+<h2>How often Indiana loses power</h2>
+<div class="tbl"><table><thead><tr><th>Indiana, average customer</th><th>2025</th><th>2024</th></tr></thead><tbody>
+<tr><td>Minutes without power, all events</td><td>374.0</td><td>312.4</td></tr>
+<tr><td>Minutes without power, excluding major events</td><td>123.2</td><td>121.4</td></tr>
+<tr><td>Interruptions per year, all events</td><td>1.390</td><td>1.283</td></tr>
+<tr><td>U.S. total, minutes without power, all events</td><td>262.6</td><td>611.3</td></tr>
+</tbody></table></div>
+<p class="src">Source: <a href="https://www.eia.gov/electricity/annual/html/epa_11_03.html">EIA Electric Power Annual, Table 11.3</a> (SAIDI and SAIFI), checked 2026-11-23. 374 ÷ 60 = 6.2 hours; 374 ÷ 262.6 = 1.4 times the U.S. figure. Most of Indiana's 2025 total came from major events (374 − 123.2 = 250.8 minutes).</p>
+
+<h2>What it costs to recharge</h2>
+<p>Refilling a 13 kWh battery from the grid costs about <strong>$2.21</strong> at Indiana's average residential price of 17.02¢/kWh in August 2026 (U.S. average 18.16¢). The math: 13 × $0.1702 = $2.21, before charging losses. Source: <a href="https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=epmt_5_6_a">EIA Electric Power Monthly, Table 5.6.A</a>, checked 2026-11-23.</p>
+
+<h2>Cheaper options</h2>
+<p>If you mainly need the fridge, furnace blower, sump pump, and Wi-Fi through a short outage, a large portable station with a transfer kit costs much less. For example, an <ProductLink product="EcoFlow DELTA Pro 3" bold={false} button={false} /> ($2,799 sale, standalone unavailable on Nov 16, 2026) plus a Smart Home Panel 2 ($1,499 at ecoflow.com, in stock on Nov 16, 2026) is $4,298 before electrician labor. See <a href="/ecoflow-vs-jackery/">EcoFlow vs Jackery</a>, <a href="/portable-power-stations/">all power stations</a>, <a href="/generac-vs-home-battery/">Generac vs a home battery</a>, and <a href="/standby-generator-installation-cost/">standby generator cost</a>. Sump pump in the basement? See <a href="/how-long-will-a-power-station-run-a-sump-pump/">sump pump runtime</a>.</p>
+<p><a class="btn" href="/calculator/">Size your battery in the calculator</a></p>
+<p>Comparing quotes? Use <a href="/how-to-compare-backup-power-quotes/">how to compare quotes</a> and <a href="/questions-to-ask-backup-power-installer/">questions to ask an installer</a>. Neighbors: <a href="/ohio-home-battery-cost/">Ohio</a> · <a href="/michigan-home-battery-cost/">Michigan</a> · <a href="/pennsylvania-home-battery-cost/">Pennsylvania</a>.</p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>

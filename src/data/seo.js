@@ -1,5 +1,8 @@
 // Search titles (<60 chars) and meta descriptions (<155). Numbers here must match the sourced figures on each page.
 export const SEO = {
+ '/pennsylvania-home-battery-cost/': ['Home Battery Cost in Pennsylvania (2026): $17,550 Average','A 13 kWh home battery averages $17,550 installed in Pennsylvania ($1,350/kWh, EnergySage). Costs by size, rebate status, and EIA outage data.'],
+ '/indiana-home-battery-cost/': ['Home Battery Cost in Indiana (2026): $13,000 Average','A 13 kWh home battery averages $13,000 installed in Indiana ($1,000/kWh, EnergySage). Costs by size, rebate status, and EIA outage data.'],
+ '/generac-vs-home-battery/': ['Generac vs Home Battery: Cost and Runtime (2026)','Generac standby: $8,000-$16,000 installed and runs on fuel. A 13.5 kWh battery: $15,647 and about 30 hours at 450 W. Math and sources.'],
  '/ecoflow-vs-anker-solix/': ['EcoFlow vs Anker SOLIX for Home Backup: Price per kWh','EcoFlow vs Anker SOLIX power stations side by side: capacity, output, surge, dated brand-site prices, cost per kWh, and runtime math.'],
  '/jackery-vs-bluetti/': ['Jackery vs BLUETTI for Home Backup: Price per kWh','Jackery vs BLUETTI power stations side by side: capacity, output, surge, dated brand-site prices, cost per kWh, and runtime math.'],
  '/michigan-home-battery-cost/': ['Home Battery Cost in Michigan (2026): $16,900 Average','A 13 kWh home battery averages $16,900 installed in Michigan ($1,300/kWh, EnergySage). Costs by size, rebate status, and EIA outage data.'],

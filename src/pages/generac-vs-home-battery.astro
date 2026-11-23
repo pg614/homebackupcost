@@ -1,0 +1,67 @@
+---
+import ProductLink from '../components/ProductLink.astro';
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+const faq = [
+["Is a Generac generator cheaper than a home battery?", "Upfront, usually yes. Generac puts the average installed cost of a home standby generator at $8,000 to $16,000 including the generator (checked November 23, 2026). EnergySage reports $15,647 for a typical installed 13.5 kWh battery ($1,159 per kWh, updated August 26, 2026). A generator also burns fuel every hour it runs, and a battery does not."],
+["How long will a home battery run my house compared with a Generac?", "A Generac standby generator runs as long as its natural gas or propane supply lasts. One 13.5 kWh battery like a Tesla Powerwall 3 lasts about 13.5 kWh divided by your load: about 30 hours at 450 watts, 13.5 hours at 1,000 watts, or about 1.2 hours at 11,000 watts, before conversion losses. Without solar it can't recharge until the grid comes back."],
+["How much propane does a Generac 22 kW use per day?", "Generac lists 2.53 gallons per hour at half load and 3.9 gallons per hour at full load on propane. Running nonstop, that's about 60.7 to 93.6 gallons a day, or about $171 to $264 at EIA's U.S. residential propane price of $2.817 per gallon (week of November 16, 2026, excluding taxes)."],
+["How much natural gas does a Generac 22 kW use?", "Generac lists 228 cubic feet per hour at half load and 327 at full load on natural gas. At half load for 24 hours that's 5,472 cubic feet (5.472 Mcf), about $148 at EIA's U.S. residential average of $27.05 per Mcf for August 2026, or about $88 at March 2026's $16.16."],
+["How many batteries match a 22 kW generator?", "On power, two Powerwall 3 units list 23 kW of continuous output (2 × 11.5 kW). On energy, two hold 27 kWh, which is still about 1.2 hours at 22 kW. At EnergySage's $1,159 per kWh, 27 kWh comes to about $31,293 installed."],
+["Is there a tax credit for either one?", "Not for new installs. We have not found a federal tax credit for home standby generators, and the IRS says the 25D battery credit does not apply to installations completed after December 31, 2025."]
+];
+---
+<Base updated="2026-11-23" title="Generac vs Home Battery (2026): Cost and Runtime Compared | HomeBackupCost" description="Generac standby generator vs a home battery: $8,000–$16,000 installed vs $15,647 for 13.5 kWh, plus runtime by load and fuel cost per day, with sources." schema={[{ '@context':'https://schema.org','@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{ '@type':'Answer', text:a } })) }]}>
+<h1>Generac generator or home battery: which costs less and runs longer?</h1>
+<p class="lede"><strong>Short answer:</strong> a Generac standby generator usually costs less upfront (<strong>$8,000–$16,000</strong> installed, per Generac) than one 13.5 kWh battery (<strong>$15,647</strong>, per EnergySage), and it runs for days as long as it has gas or propane. A battery burns no fuel and is quiet, but one 13.5 kWh unit runs about 30 hours on a 450 W essentials load and about 1.2 hours at 11 kW. As of 2026-11-23.</p>
+<div class="grid">
+<div class="card"><div class="mute">Generac standby, installed</div><div style="font-size:2.2rem;font-weight:800;color:var(--volt)">$8,000–$16,000</div><div class="src"><a href="https://www.generac.com/resources/home-management/backup-generator-installation/">Generac</a> · checked 2026-11-23</div></div>
+<div class="card"><div class="mute">Home battery, 13.5 kWh installed</div><div style="font-size:2.2rem;font-weight:800;color:var(--volt)">$15,647</div><div class="src">$1,159/kWh (<a href="https://www.energysage.com/energy-storage/">EnergySage</a> · updated 2026-08-26, checked 2026-11-23)</div></div>
+<div class="card"><div class="mute">Generac 22 kW propane, half load</div><div style="font-size:2.2rem;font-weight:800;color:var(--volt)">~$171/day</div><div class="src">2.53 gal/h × 24 h × $2.817 (<a href="https://www.generac.com/residential-products/standby-generators/22kW-Standby-Generator-With-Whole-House-Switch-WiFi-Enabled-7043/">Generac</a>, <a href="https://www.eia.gov/petroleum/heatingoilpropane/">EIA</a>)</div></div>
+</div>
+
+<h2>Side by side</h2>
+<div class="tbl"><table><thead><tr><th></th><th>Generac 22 kW standby (G0070430)</th><th><ProductLink product="Tesla Powerwall 3" bold={false} button={false} /> (one unit)</th></tr></thead><tbody>
+<tr><td>Continuous power</td><td>22,000 W on propane; 19,500 W on natural gas</td><td>11,500 W</td></tr>
+<tr><td>Stored energy</td><td>None; runs while fuel lasts</td><td>13.5 kWh</td></tr>
+<tr><td>Equipment price</td><td>$6,979 MSRP (unit with 200-amp transfer switch)</td><td>$9,300 equipment (comparison-site listing)</td></tr>
+<tr><td>Typical installed cost</td><td>$8,000–$16,000 (Generac average)</td><td>~$15,647 for 13.5 kWh (EnergySage average)</td></tr>
+<tr><td>Fuel use</td><td>Propane 2.53 gal/h (half load), 3.9 gal/h (full); natural gas 228 / 327 ft³/h</td><td>None during the outage; recharges from the grid or solar</td></tr>
+<tr><td>Warranty listed</td><td>5-year limited</td><td>Check your installer's quote</td></tr>
+</tbody></table></div>
+<p class="src">Sources: <a href="https://www.generac.com/residential-products/standby-generators/22kW-Standby-Generator-With-Whole-House-Switch-WiFi-Enabled-7043/">Generac 22 kW product page</a> (MSRP, output, fuel use, warranty), checked 2026-11-23; Powerwall 3 capacity, output and $9,300 equipment price from <a href="https://homegridhq.com/compare/">homegridhq.com</a>, checked 2026-11-23 (tesla.com returned HTTP 403 to our checker, so we could not read a Tesla price); installed costs as in the cards above.</p>
+
+<h2>Runtime: battery hours by load</h2>
+<div class="tbl"><table><thead><tr><th>Average load</th><th>One 13.5 kWh battery</th><th>Generac 22 kW</th></tr></thead><tbody>
+<tr><td>450 W (fridge, furnace fan, lights, Wi-Fi)</td><td>≈30 hours</td><td>As long as fuel lasts</td></tr>
+<tr><td>1,000 W</td><td>≈13.5 hours</td><td>As long as fuel lasts</td></tr>
+<tr><td>2,000 W</td><td>≈6.8 hours</td><td>As long as fuel lasts</td></tr>
+<tr><td>5,000 W</td><td>≈2.7 hours</td><td>As long as fuel lasts</td></tr>
+<tr><td>11,000 W (half the generator's propane rating)</td><td>≈1.2 hours</td><td>2.53 gal/h propane</td></tr>
+</tbody></table></div>
+<p class="src">Math: hours = 13.5 kWh ÷ load in kW, e.g. 13.5 ÷ 0.45 = 30 and 13.5 ÷ 11 = 1.2. <span class="badge est">Estimate</span> These are ideal figures; inverter losses and appliances cycling on and off change real runtime. Our <a href="/calculator/">calculator</a> plans for 85% usable energy, which turns 30 hours into about 25.5 (13.5 × 0.85 ÷ 0.45). 450 W is the example essentials load our <a href="/power-station-vs-generator-cost/">power station vs generator calculator</a> starts with. Generac's spec only lists fuel use at half and full load, so we don't estimate gallons at small loads. With solar, a battery can recharge during a multi-day outage (<a href="https://www.energysage.com/energy-storage/">EnergySage</a>); without it, the battery waits for the grid.</p>
+
+<h2>Fuel cost per day of outage</h2>
+<div class="tbl"><table><thead><tr><th>Generac 22 kW, running 24 hours</th><th>Fuel per day</th><th>Cost per day</th></tr></thead><tbody>
+<tr><td>Propane, half load</td><td>2.53 × 24 = 60.7 gal</td><td>60.7 × $2.817 = $171</td></tr>
+<tr><td>Propane, full load</td><td>3.9 × 24 = 93.6 gal</td><td>93.6 × $2.817 = $264</td></tr>
+<tr><td>Natural gas, half load</td><td>228 × 24 = 5,472 ft³ (5.472 Mcf)</td><td>5.472 × $27.05 = $148 (Aug 2026 price); $88 at Mar 2026's $16.16</td></tr>
+<tr><td>Natural gas, full load</td><td>327 × 24 = 7,848 ft³ (7.848 Mcf)</td><td>7.848 × $27.05 = $212</td></tr>
+<tr><td>Battery: refill 13.5 kWh from the grid afterward</td><td>13.5 kWh</td><td>13.5 × $0.1816 = $2.45</td></tr>
+</tbody></table></div>
+<p class="src">Fuel prices: EIA U.S. residential propane $2.817/gal excluding taxes, week of 11/16/2026 (<a href="https://www.eia.gov/petroleum/heatingoilpropane/">EIA</a>); EIA U.S. residential natural gas $27.05 per thousand cubic feet for August 2026 and $16.16 for March 2026, released 10/30/2026 (<a href="https://www.eia.gov/dnav/ng/ng_pri_sum_dcu_nus_m.htm">EIA natural gas prices</a>; summer prices run higher than winter); EIA U.S. average residential electricity 18.16¢/kWh for August 2026 (<a href="https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=epmt_5_6_a">EIA Table 5.6.A</a>). All checked 2026-11-23. Enter your own fuel price in the <a href="/power-station-vs-generator-cost/">outage cost calculator</a>.</p>
+
+<h2>Which fits your house?</h2>
+<ul>
+<li><strong>Long outages, big loads (central AC, electric heat, well pump):</strong> a standby generator covers more power for less money upfront. See <a href="/standby-generator-installation-cost/">standby generator installation cost</a>.</li>
+<li><strong>Short outages, essentials, or you have solar:</strong> a battery is quiet, has no exhaust, and needs no fuel delivery. See <a href="/whole-home-battery-cost/">whole-home battery cost</a> and <a href="/powerwall-installation-cost/">Powerwall installation cost</a>.</li>
+<li><strong>Tight budget:</strong> a portable power station or a portable generator with an inlet costs far less. See <a href="/power-station-vs-generator-cost/">power station vs generator cost</a> and <a href="/transfer-switch-vs-interlock-kit/">transfer switch vs interlock kit</a>.</li>
+<li><strong>Safety:</strong> any fuel-burning generator makes carbon monoxide. Read <a href="/generator-safety/">generator safety</a>.</li>
+</ul>
+<p>State prices for batteries: <a href="/ohio-home-battery-cost/">Ohio</a> · <a href="/michigan-home-battery-cost/">Michigan</a> · <a href="/pennsylvania-home-battery-cost/">Pennsylvania</a> · <a href="/indiana-home-battery-cost/">Indiana</a>.</p>
+<p><a class="btn" href="/calculator/">Find your load in the calculator</a></p>
+<p>Comparing quotes? Use <a href="/how-to-compare-backup-power-quotes/">how to compare quotes</a> and <a href="/questions-to-ask-backup-power-installer/">questions to ask an installer</a>.</p>
+<h2>FAQ</h2>
+{faq.map(([q,a]) => <details class="card" style="margin-bottom:10px"><summary>{q}</summary><p>{a}</p></details>)}
+<Newsletter />
+</Base>
